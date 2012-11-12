@@ -1,0 +1,1 @@
+To jest strona główna <a href="<? echo  $this->createUrl('Sites/view', array('id' => '1')); ?>">link</a>

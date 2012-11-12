@@ -1,0 +1,10 @@
+*.7z
+*.log
+
+.buildpath
+.project
+
+Thumbs.db
+assets/
+.settings/
+materialy/
