@@ -5,6 +5,6 @@
 .project
 
 Thumbs.db
-assets/
-.settings/
-materialy/
+#assets/
+#.settings/
+#materialy/
