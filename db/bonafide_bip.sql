@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Czas wygenerowania: 13 Lis 2012, 21:55
+-- Czas wygenerowania: 13 Lis 2012, 22:19
 -- Wersja serwera: 5.1.53
 -- Wersja PHP: 5.3.4
 
@@ -91,6 +91,32 @@ INSERT INTO `authitemchild` (`parent`, `child`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla  `fil`
+--
+
+CREATE TABLE IF NOT EXISTS `fil` (
+  `FIL_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `FIL_NAME` varchar(256) COLLATE utf8_bin NOT NULL,
+  `FIL_PATH` varchar(256) COLLATE utf8_bin NOT NULL,
+  `FIL_CAT` int(11) DEFAULT NULL,
+  `FIL_CREATE_DATE` datetime DEFAULT NULL,
+  `FIL_CREATE_BY` datetime DEFAULT NULL,
+  `FIL_MODIFY_DATE` datetime DEFAULT NULL,
+  `FIL_MODIFY_BY` datetime DEFAULT NULL,
+  PRIMARY KEY (`FIL_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+
+--
+-- Zrzut danych tabeli `fil`
+--
+
+INSERT INTO `fil` (`FIL_ID`, `FIL_NAME`, `FIL_PATH`, `FIL_CAT`, `FIL_CREATE_DATE`, `FIL_CREATE_BY`, `FIL_MODIFY_DATE`, `FIL_MODIFY_BY`) VALUES
+(1, 'Jakiś faaajny pliczek', 'C://@work/plik.pdf', 1, NULL, NULL, NULL, NULL),
+(2, 'Jeszcze lepszy!', 'C://@work/plik2.pdf', 1, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla  `inf`
 --
 
@@ -143,7 +169,7 @@ INSERT INTO `inf` (`INF_ID`, `INF_NAME`, `INF_CONTENT`, `INF_OBLIGATORY`, `INF_S
 (24, 'Realizowane projekty ', '<p>On a recent Yii-based project, managing one of the Models required a whole slew of checkboxes to indicate that yes, the quality does apply, or no, it does not. In this case, the value being stored in the database for each attribute was a single letter: Y/N. However Yii, when showing the form to update an item, needs the checkbox value to be a Boolean, in order to properly pre-check the box. Changing the database wasn&rsquo;t an option in this case, so I had to figure out a good conversion process. In this post, I&rsquo;ll tell you exactly how I solved this issue.As I said, for the item in question, the database table had multiple columns, each of which only stored either&nbsp;Y&nbsp;or&nbsp;N. As an example, think of a users table with multiple opt-in options: newsletters, offers, etc. When the user creates and updates their account, presenting these as checkboxes is appropriate. But for the administrator, it&rsquo;d probably be best to view user preferences by just seeing Y/N for each option (although the code I&rsquo;m going to present wouldn&rsquo;t be significantly different if you stored 1/0).</p>\r\n<p>The&nbsp;protected/views/modelName/_form.php&nbsp;file defines the form that&rsquo;s used to both create and update an individual record. In it, checkboxes are created using:</p>', b'1', b'1', b'1', 7, 2, NULL, 1, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2012-11-13 17:43:53', '0000-00-00 00:00:00'),
 (25, 'Zrealizowane projekty ', '<p>Windows is reinvented with an all-new touch interface, Windows Store, and dev platform that lets you sell apps across the globe.</p>\r\n<p>To jest drugi akapit!</p>', b'1', b'1', b'1', 7, 2, NULL, 2, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2012-11-13 17:54:29', '0000-00-00 00:00:00'),
 (26, 'Sprawozdania ze zrealizowanych projektów dla grantodawców ', 'Windows is reinvented with an all-new touch interface, Windows Store, and dev platform that lets you sell apps across the globe.', b'0', b'1', b'1', 7, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(27, 'Sprawozdania - pliki do ściągnięcia', 'Windows is reinvented with an all-new touch interface, Windows Store, and dev platform that lets you sell apps across the globe.', b'1', b'1', b'1', 8, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 'Sprawozdania - pliki do ściągnięcia', 'Windows is reinvented with an all-new touch interface, Windows Store, and dev platform that lets you sell apps across the globe.', b'1', b'1', b'1', 8, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL),
 (28, 'Zbiórki publiczne ', 'Windows is reinvented with an all-new touch interface, Windows Store, and dev platform that lets you sell apps across the globe.', b'1', b'1', b'1', 9, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (29, 'Sprawozdania ze zbiórek publicznych ', 'Windows is reinvented with an all-new touch interface, Windows Store, and dev platform that lets you sell apps across the globe.', b'1', b'1', b'1', 9, 1, 28, NULL, NULL, NULL, NULL, NULL, NULL),
 (30, 'Środki publiczne', 'Windows is reinvented with an all-new touch interface, Windows Store, and dev platform that lets you sell apps across the globe.', b'1', b'1', b'1', 9, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
