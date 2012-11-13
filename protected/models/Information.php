@@ -51,7 +51,7 @@ class Information extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('INF_NAME, INF_CONTENT, INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_INF_ID', 'required'),
+			array('INF_NAME, INF_CONTENT, INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID', 'required'),
 			array('INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID', 'numerical', 'integerOnly'=>true),
 			array('INF_NAME', 'length', 'max'=>256),
 			array('INF_CREATE_DATE, INF_CREATE_BY, INF_MODIFY_DATE, INF_MODIFY_BY', 'safe'),
@@ -81,7 +81,6 @@ class Information extends CActiveRecord
 		{
 			$criteria = new CDbCriteria;
 			$criteria->condition='INF_INF_ID='.$this->INF_ID;
-			//$criteria->params=array(':INF_SIT_ID'=>$this->SIT_ID);
 			return Information::model()->findAll($criteria);
 		}
 		
@@ -96,9 +95,9 @@ class Information extends CActiveRecord
 		return array(
 			'INF_ID' => 'Inf',
 			'INF_NAME' => 'Inf Name',
-			'INF_CONTENT' => 'Inf Content',
+			'INF_CONTENT' => 'Treść',
 			'INF_OBLIGATORY' => 'Inf Obligatory',
-			'INF_SHOW' => 'Inf Show',
+			'INF_SHOW' => 'Pokazuj tą informację',
 			'INF_BIP' => 'Inf Bip',
 			'INF_SIT_ID' => 'Inf Sit',
 			'INF_TYPE' => 'Inf Type',

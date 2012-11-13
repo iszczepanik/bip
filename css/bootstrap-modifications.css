@@ -45,3 +45,7 @@ footer
 {
 	padding-right: 5px;
 }
+a.edit
+{
+	display: block;
+}

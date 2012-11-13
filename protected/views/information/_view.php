@@ -9,6 +9,10 @@
 		
 		<? echo "<h".$headerLevel.">".$information['INF_NAME']."</h".$headerLevel.">"; ?>
 		<? echo $information['INF_CONTENT']; ?>
+		<? if (Yii::app()->user->checkAccess('admin')): ?>
+			<?php $this->renderPartial('//information/_edit_link', array('id'=>$information->INF_ID)); ?>
+		<? endif; ?>
+		
 		
 		<? if (count($inf_model->Informations) > 0) : ?>
 		
