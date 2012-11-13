@@ -13,14 +13,14 @@
  * @property integer $INF_SIT_ID
  * @property integer $INF_TYPE
  * @property integer $INF_INF_ID
+ * @property integer $INF_SHOW_PRJ_CAT
+ * @property integer $INF_SHOW_FILE_CAT
  * @property string $INF_CREATE_DATE
  * @property string $INF_CREATE_BY
  * @property string $INF_MODIFY_DATE
  * @property string $INF_MODIFY_BY
  *
  * The followings are the available model relations:
- * @property Information $iNFINF
- * @property Information[] $infs
  * @property Sit $iNFSIT
  */
 class Information extends CActiveRecord
@@ -51,13 +51,13 @@ class Information extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('INF_NAME, INF_CONTENT, INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID', 'required'),
-			array('INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID', 'numerical', 'integerOnly'=>true),
+			array('INF_NAME, INF_CONTENT, INF_SIT_ID', 'required'),
+			array('INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT', 'numerical', 'integerOnly'=>true),
 			array('INF_NAME', 'length', 'max'=>256),
 			array('INF_CREATE_DATE, INF_CREATE_BY, INF_MODIFY_DATE, INF_MODIFY_BY', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('INF_ID, INF_NAME, INF_CONTENT, INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_CREATE_DATE, INF_CREATE_BY, INF_MODIFY_DATE, INF_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('INF_ID, INF_NAME, INF_CONTENT, INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_CREATE_DATE, INF_CREATE_BY, INF_MODIFY_DATE, INF_MODIFY_BY', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,7 +74,7 @@ class Information extends CActiveRecord
 			'Site' => array(self::BELONGS_TO, 'Site', 'INF_SIT_ID'),
 		);
 	}
-
+	
 	public function GetInformationsLevel0()
 	{
 		if(count($this->Informations) > 0)
@@ -86,7 +86,7 @@ class Information extends CActiveRecord
 		
 		return array();
 	}
-	
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -102,6 +102,8 @@ class Information extends CActiveRecord
 			'INF_SIT_ID' => 'Inf Sit',
 			'INF_TYPE' => 'Inf Type',
 			'INF_INF_ID' => 'Inf Inf',
+			'INF_SHOW_PRJ_CAT' => 'Inf Show Prj Cat',
+			'INF_SHOW_FILE_CAT' => 'Inf Show File Cat',
 			'INF_CREATE_DATE' => 'Inf Create Date',
 			'INF_CREATE_BY' => 'Inf Create By',
 			'INF_MODIFY_DATE' => 'Inf Modify Date',
@@ -129,6 +131,8 @@ class Information extends CActiveRecord
 		$criteria->compare('INF_SIT_ID',$this->INF_SIT_ID);
 		$criteria->compare('INF_TYPE',$this->INF_TYPE);
 		$criteria->compare('INF_INF_ID',$this->INF_INF_ID);
+		$criteria->compare('INF_SHOW_PRJ_CAT',$this->INF_SHOW_PRJ_CAT);
+		$criteria->compare('INF_SHOW_FILE_CAT',$this->INF_SHOW_FILE_CAT);
 		$criteria->compare('INF_CREATE_DATE',$this->INF_CREATE_DATE,true);
 		$criteria->compare('INF_CREATE_BY',$this->INF_CREATE_BY,true);
 		$criteria->compare('INF_MODIFY_DATE',$this->INF_MODIFY_DATE,true);

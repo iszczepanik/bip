@@ -5,7 +5,7 @@
 <? endif; ?>
 
 <? if (Yii::app()->user->checkAccess('admin')) : ?>
-<li><a href="<? echo  $this->createUrl('user/admin'); ?>">użytkownicy</a></li>
+<li><a href="<? echo  $this->createUrl('projectAdmin/admin'); ?>">Projekty</a></li>
 <? endif; ?>
 
 </ul>
