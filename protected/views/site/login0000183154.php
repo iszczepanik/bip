@@ -1,13 +1,7 @@
 <?php
 $this->pageTitle=Yii::app()->name . ' - Login';
 ?>
-<ul class="nav nav-tabs">
-	<li class="active"><a href="#" >
-	<h2>Logowanie</h2></a>
-	</li>
-	<li></li>
-</ul>
-
+<h2>Logowanie</h2>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm', array(
 	'id'=>'login-form',
