@@ -86,6 +86,18 @@ class Information extends CActiveRecord
 		
 		return array();
 	}
+	
+	public function GetProjects()
+	{
+		if ($this->INF_SHOW_PRJ_CAT != '')
+		{
+			$criteria = new CDbCriteria;
+			$criteria->condition='PRJ_CAT='.$this->INF_SHOW_PRJ_CAT;
+			return Project::model()->findAll($criteria);
+		}
+		
+		return array();
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)

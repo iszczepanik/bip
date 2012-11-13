@@ -1,4 +1,4 @@
 <a class="edit" href="<?php echo $this->createUrl('/InformationAdmin/update',array('id'=>$id)); ?>">
-	<i class="icon-pencil"></i>Edytuj
+	<i class="icon-pencil"></i>Edytuj treść
 </a>
 		

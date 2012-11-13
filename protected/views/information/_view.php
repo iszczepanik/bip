@@ -12,7 +12,11 @@
 		<? if (Yii::app()->user->checkAccess('admin')): ?>
 			<?php $this->renderPartial('//information/_edit_link', array('id'=>$information->INF_ID)); ?>
 		<? endif; ?>
-		
+
+		<?
+		if (count($information->Projects) > 0)
+			$this->renderPartial('//project/_view', array('data'=>$information->Projects));
+		?>
 		
 		<? if (count($inf_model->Informations) > 0) : ?>
 		

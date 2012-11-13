@@ -26,6 +26,10 @@ footer
 	margin-top: 100px;
 	text-align: center;
 }
+.projects
+{
+	margin: 20px 0 10px 0;
+}
 .side_menu
 {
 	max-width: 340px;
