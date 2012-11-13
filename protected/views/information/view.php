@@ -12,6 +12,10 @@
 	if (count($viewed->Projects) > 0)
 		$this->renderPartial('//project/_view', array('data'=>$viewed->Projects));
 	?>
+	<?
+	if (count($viewed->Files) > 0)
+		$this->renderPartial('//file/_view', array('data'=>$viewed->Files));
+	?>
 	
 	<?php $this->renderPartial('_view', array('data'=>$viewed->InformationsLevel0, 'level'=>0))?>
 

@@ -18,6 +18,11 @@
 			$this->renderPartial('//project/_view', array('data'=>$information->Projects));
 		?>
 		
+		<?
+		if (count($information->Files) > 0)
+			$this->renderPartial('//file/_view', array('data'=>$information->Files));
+		?>
+		
 		<? if (count($inf_model->Informations) > 0) : ?>
 		
 			<? //var_dump($inf_model->Informations); ?>

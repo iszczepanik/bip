@@ -98,6 +98,18 @@ class Information extends CActiveRecord
 		
 		return array();
 	}
+	
+	public function GetFiles()
+	{
+		if ($this->INF_SHOW_FILE_CAT != '')
+		{
+			$criteria = new CDbCriteria;
+			$criteria->condition='FIL_CAT='.$this->INF_SHOW_FILE_CAT;
+			return File::model()->findAll($criteria);
+		}
+		
+		return array();
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
