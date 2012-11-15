@@ -5,17 +5,18 @@ body
 h1, h2, h3, h4, h5, h6
 {
 	font-weight: normal;
-	font-family: "Lucida Grande", "Lucida Sans Unicode", Tahoma, Arial, san-serif
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Tahoma, Arial, san-serif;
+	margin-top: 20px;
 }
 h1
 {
 	font-size: 42pt;
 	line-height: 44pt;
 }
-h2
+h3
 {
-	/*font-size: 36pt;
-	line-height: 40pt;*/
+	font-size: 24px;
+	line-height: 30px;
 }
 header
 {
@@ -52,4 +53,8 @@ footer
 a.block
 {
 	display: block;
+}
+.display-none
+{
+	display: none;
 }

@@ -8,8 +8,18 @@ if (count($item->InformationsExternal) > 0)
 {	
 	foreach ($item->InformationsExternal as $subitem) : ?>
 	
-		<li class="subitem" >
-			<a href="<? echo  $this->createUrl('Information/view', array('id' => $subitem->INF_ID)); ?>">
+		<?
+		//var_dump($subitem->INF_SHOW);
+		$class = '';
+		if ($subitem->INF_SHOW == 0)
+			if (Yii::app()->user->checkAccess('admin'))
+				$class = 'muted';
+			else
+				$class = 'display-none';
+		?>
+	
+		<li class="subitem <? echo $class; ?>" >
+			<a class="<? echo $class; ?>" href="<? echo  $this->createUrl('Information/view', array('id' => $subitem->INF_ID)); ?>">
 				<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/arrow.png" />
 				<? echo $subitem->INF_NAME; ?>
 			</a>
