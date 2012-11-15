@@ -6,10 +6,6 @@
  * The followings are the available columns in table 'sit':
  * @property integer $SIT_ID
  * @property string $SIT_NAME
- * @property integer $SIT_BIP
- *
- * The followings are the available model relations:
- * @property Inf[] $infs
  */
 class Site extends CActiveRecord
 {
@@ -40,11 +36,10 @@ class Site extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('SIT_NAME', 'required'),
-			array('SIT_BIP', 'numerical', 'integerOnly'=>true),
 			array('SIT_NAME', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('SIT_ID, SIT_NAME, SIT_BIP', 'safe', 'on'=>'search'),
+			array('SIT_ID, SIT_NAME', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -94,7 +89,6 @@ class Site extends CActiveRecord
 		return array(
 			'SIT_ID' => 'Sit',
 			'SIT_NAME' => 'Sit Name',
-			'SIT_BIP' => 'Sit Bip',
 		);
 	}
 
@@ -111,7 +105,6 @@ class Site extends CActiveRecord
 
 		$criteria->compare('SIT_ID',$this->SIT_ID);
 		$criteria->compare('SIT_NAME',$this->SIT_NAME,true);
-		$criteria->compare('SIT_BIP',$this->SIT_BIP);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

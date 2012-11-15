@@ -9,7 +9,6 @@ if (count($item->InformationsExternal) > 0)
 	foreach ($item->InformationsExternal as $subitem) : ?>
 	
 		<?
-		//var_dump($subitem->INF_SHOW);
 		$class = '';
 		if ($subitem->INF_SHOW == 0)
 			if (Yii::app()->user->checkAccess('admin'))
