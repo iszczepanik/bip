@@ -33,7 +33,11 @@ array('label'=>'Wyszukiwanie zaawansowane', 'icon'=>'search', 'url'=>'#', 'linkO
 	'attributes'=>array(
 		'FIL_ID',
 		'FIL_NAME',
-		'FIL_CAT',
+		//'FIL_CAT',
+		array(
+			'name'=>'FIL_CAT',
+			'value'=>$model->CategoryDescription,
+		),
 		/*'FIL_CONTENT',
 		'FIL_CREATE_DATE',
 		'FIL_CREATE_BY',

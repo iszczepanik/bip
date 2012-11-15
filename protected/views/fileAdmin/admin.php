@@ -39,6 +39,10 @@ array('label'=>'Wyszukiwanie zaawansowane', 'icon'=>'search', 'url'=>'#', 'linkO
 </div>
 </div>
 
+<!--<style>
+.grid-view .button-column { width: 70px; }
+</style>-->
+
 <?php $this->widget('bootstrap.widgets.BootGridView',array(
 	'type'=>'striped bordered condensed',
 	'id'=>'file-grid',
@@ -47,7 +51,11 @@ array('label'=>'Wyszukiwanie zaawansowane', 'icon'=>'search', 'url'=>'#', 'linkO
 	'columns'=>array(
 		'FIL_ID',
 		'FIL_NAME',
-		'FIL_CAT',
+		//'FIL_CAT',
+		array(
+			'name'=>'FIL_CAT',
+			'value'=>'$data->CategoryDescription',
+		),
 		/*'FIL_CONTENT',
 		'FIL_CREATE_DATE',
 		'FIL_CREATE_BY',
@@ -56,6 +64,15 @@ array('label'=>'Wyszukiwanie zaawansowane', 'icon'=>'search', 'url'=>'#', 'linkO
 		*/
 		array(
 			'class'=>'bootstrap.widgets.BootButtonColumn',
+			/*'template'=>'{upload} {update} {view} {delete} ',
+			'buttons'=>array
+			(
+				'upload' => array
+				(
+					'url'=>'Yii::app()->createUrl("fileAdmin/upload", array("id"=>$data->FIL_ID))',
+
+				),
+			),*/
 		),
 	),
 )); ?>

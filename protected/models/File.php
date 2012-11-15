@@ -43,7 +43,7 @@ class File extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('uploadedFile', 'file', 'types'=>'pdf'),
+			//array('uploadedFile', 'file', 'types'=>'pdf'),
 		
 			//array('FIL_NAME', 'required'),//, FIL_CONTENT
 			array('FIL_CAT', 'numerical', 'integerOnly'=>true),
@@ -53,6 +53,11 @@ class File extends CActiveRecord
 			// Please remove those attributes that should not be searched.
 			array('FIL_ID, FIL_NAME, FIL_CAT, FIL_CONTENT, FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY', 'safe', 'on'=>'search'),
 		);
+	}
+	
+	public function GetCategoryDescription()
+	{
+		return FileCategory::GetDescription($this->FIL_CAT);
 	}
 	
 	public function beforeSave()
@@ -94,6 +99,7 @@ class File extends CActiveRecord
 			'FIL_CREATE_BY' => 'Fil Create By',
 			'FIL_MODIFY_DATE' => 'Fil Modify Date',
 			'FIL_MODIFY_BY' => 'Fil Modify By',
+			'uploadedFile' => 'Plik'
 		);
 	}
 

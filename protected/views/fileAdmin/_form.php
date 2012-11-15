@@ -19,7 +19,9 @@
 	<div class='control-group<?php echo (CHtml::error($model,'FIL_CAT') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'FIL_CAT',array('class'=>'control-label')); ?>
 		<div class="controls">
-		<?php echo $form->textField($model,'FIL_CAT'); ?>
+		<?php echo $form->dropDownList($model, 'FIL_CAT', 
+			FileCategory::GetFileCategoryArray()
+			); ?>
 		<?php echo $form->error($model,'FIL_CAT',array('class'=>'help-inline')); ?>
 		</div>
 	</div>

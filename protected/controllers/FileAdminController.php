@@ -79,6 +79,7 @@ class FileAdminController extends Controller
 			'model'=>$model,
 		));
 	}
+
 	
 	/*
 	public function actionCreate()
