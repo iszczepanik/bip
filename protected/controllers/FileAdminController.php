@@ -1,6 +1,6 @@
 <?php
 
-class FileController extends Controller
+class FileAdminController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -27,7 +27,7 @@ class FileController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','download'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -44,22 +44,19 @@ class FileController extends Controller
 		);
 	}
 
+
+	
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-
-	function actionView($id)
+	public function actionView($id)
 	{
-		$model = $this->loadModel($id);
-		$filecontent = $model->FIL_CONTENT;//file_get_contents('path_to_file'.$name);
-		header("Content-Type: application/pdf");
-		header("Content-disposition: inline; filename=plik.pdf");
-		header("Pragma: no-cache");
-		echo $filecontent;
-		exit;
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
 	}
-	
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -82,6 +79,25 @@ class FileController extends Controller
 			'model'=>$model,
 		));
 	}
+	
+	/*
+	public function actionCreate()
+    {
+        $model=new Item;
+        if(isset($_POST['Item']))
+        {
+            $model->attributes=$_POST['Item'];
+            $model->image=CUploadedFile::getInstance($model,'image');
+            if($model->save())
+            {
+                $model->image->saveAs('path/to/localFile');
+                // redirect to success page
+            }
+        }
+        $this->render('create', array('model'=>$model));
+    }
+
+	*/
 
 	/**
 	 * Updates a particular model.

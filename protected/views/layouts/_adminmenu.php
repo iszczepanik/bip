@@ -8,4 +8,8 @@
 <li><a href="<? echo  $this->createUrl('projectAdmin/admin'); ?>">Projekty</a></li>
 <? endif; ?>
 
+<? if (Yii::app()->user->checkAccess('admin')) : ?>
+<li><a href="<? echo  $this->createUrl('fileAdmin/admin'); ?>">Dokumenty</a></li>
+<? endif; ?>
+
 </ul>

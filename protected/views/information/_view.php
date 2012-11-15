@@ -20,7 +20,7 @@
 		
 		<?
 		if (count($information->Files) > 0)
-			$this->renderPartial('//file/_view', array('data'=>$information->Files));
+			$this->renderPartial('//file/_view_link', array('data'=>$information->Files));
 		?>
 		
 		<? if (count($inf_model->Informations) > 0) : ?>

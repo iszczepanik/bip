@@ -6,8 +6,8 @@
  * The followings are the available columns in table 'fil':
  * @property integer $FIL_ID
  * @property string $FIL_NAME
- * @property string $FIL_PATH
  * @property integer $FIL_CAT
+ * @property string $FIL_CONTENT
  * @property string $FIL_CREATE_DATE
  * @property string $FIL_CREATE_BY
  * @property string $FIL_MODIFY_DATE
@@ -33,6 +33,8 @@ class File extends CActiveRecord
 		return 'fil';
 	}
 
+	public $uploadedFile;
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -41,14 +43,30 @@ class File extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('FIL_NAME, FIL_PATH', 'required'),
+			array('uploadedFile', 'file', 'types'=>'pdf'),
+		
+			//array('FIL_NAME', 'required'),//, FIL_CONTENT
 			array('FIL_CAT', 'numerical', 'integerOnly'=>true),
-			array('FIL_NAME, FIL_PATH', 'length', 'max'=>256),
+			array('FIL_NAME', 'length', 'max'=>256),
 			array('FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('FIL_ID, FIL_NAME, FIL_PATH, FIL_CAT, FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('FIL_ID, FIL_NAME, FIL_CAT, FIL_CONTENT, FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY', 'safe', 'on'=>'search'),
 		);
+	}
+	
+	public function beforeSave()
+	{
+		if($file=CUploadedFile::getInstance($this,'uploadedFile'))
+		{
+			$this->FIL_NAME = $file->name;
+			$this->FIL_CONTENT = $file->name;
+			$this->FIL_CONTENT = $file->type;
+			$this->FIL_CONTENT = $file->size;
+			$this->FIL_CONTENT = file_get_contents($file->tempName);
+		}
+
+		return parent::beforeSave();
 	}
 
 	/**
@@ -68,10 +86,10 @@ class File extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'FIL_ID' => 'Fil',
-			'FIL_NAME' => 'Fil Name',
-			'FIL_PATH' => 'Fil Path',
-			'FIL_CAT' => 'Fil Cat',
+			'FIL_ID' => '#',
+			'FIL_NAME' => 'Plik',
+			'FIL_CAT' => 'Kategoria',
+			'FIL_CONTENT' => 'Fil Content',
 			'FIL_CREATE_DATE' => 'Fil Create Date',
 			'FIL_CREATE_BY' => 'Fil Create By',
 			'FIL_MODIFY_DATE' => 'Fil Modify Date',
@@ -92,8 +110,8 @@ class File extends CActiveRecord
 
 		$criteria->compare('FIL_ID',$this->FIL_ID);
 		$criteria->compare('FIL_NAME',$this->FIL_NAME,true);
-		$criteria->compare('FIL_PATH',$this->FIL_PATH,true);
 		$criteria->compare('FIL_CAT',$this->FIL_CAT);
+		$criteria->compare('FIL_CONTENT',$this->FIL_CONTENT,true);
 		$criteria->compare('FIL_CREATE_DATE',$this->FIL_CREATE_DATE,true);
 		$criteria->compare('FIL_CREATE_BY',$this->FIL_CREATE_BY,true);
 		$criteria->compare('FIL_MODIFY_DATE',$this->FIL_MODIFY_DATE,true);

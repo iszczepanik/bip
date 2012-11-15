@@ -14,7 +14,7 @@
 	?>
 	<?
 	if (count($viewed->Files) > 0)
-		$this->renderPartial('//file/_view', array('data'=>$viewed->Files));
+		$this->renderPartial('//file/_view_link', array('data'=>$viewed->Files));
 	?>
 	
 	<?php $this->renderPartial('_view', array('data'=>$viewed->InformationsLevel0, 'level'=>0))?>
