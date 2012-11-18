@@ -19,7 +19,7 @@
 
 <ul class="nav nav-pills pull-right">
 	<li><a href="<?php echo $this->createUrl('/site/contrast'); ?>">
-		<? if ($contrast == 'high'): ?>Widok Podstawowy<? else: ?><i class="icon-eye-open" ></i> Duży kontrast<? endif; ?>
+		<? if ($contrast == 'high'): ?><i class="icon-eye-open" ></i> Widok Podstawowy<? else: ?><i class="icon-eye-open" ></i> Duży kontrast<? endif; ?>
 	</a></li>
 	<? if (!Yii::app()->user->isGuest) : ?>
 	<li><a href="<?php echo $this->createUrl('/site/logout'); ?>">

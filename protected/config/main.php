@@ -45,7 +45,7 @@ return array(
 		
         'request' => array(
             'baseUrl' => 'http://localhost/bip',
-			//'baseUrl' => 'http://monitoringradnych.pl/',
+			//'baseUrl' => 'http://isabel.drl.pl/bip/',
         ),
 		
 		/*'file'=>array(
@@ -70,18 +70,20 @@ return array(
 		),*/
 		// uncomment the following to use a MySQL database
 		/* localhost */
+		
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=bonafide_bip',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => '',
 			'charset' => 'utf8',
-		),/*
+		),
+		/*
 		'db'=>array(
-					'connectionString' => 'mysql:host=localhost;dbname=bonafide_radni',
+					'connectionString' => 'mysql:host=localhost;dbname=isabel_bip',
 					'emulatePrepare' => true,
-					'username' => 'bonafide_rdn',
-					'password' => 'tr@mw@j',
+					'username' => 'isabel_bip',
+					'password' => 'k@lafio4',
 					'charset' => 'utf8',
 		),*/
 		'authManager'=>array(
