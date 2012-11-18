@@ -27,7 +27,8 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$this->render('index',array());
+		//$this->render('index',array());
+		$this->redirect(array('/Sites/view', 'id'=>'1'));
 	}
 
 	/**

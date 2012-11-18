@@ -11,9 +11,12 @@
 <body data-offset="50" data-target=".subnav" data-spy="scroll">
 <div class="container" id="page">
 <header>
+<a class="pull-right" href="<?php echo $this->createUrl('/site/contrast'); ?>">Du¿y kontrast</a>
+
 <? if (!Yii::app()->user->isGuest) : ?>
 	<a class="pull-right" href="<?php echo $this->createUrl('/site/logout'); ?>">Wyloguj (<? echo Yii::app()->user->name; ?>)</a>
 <? endif; ?>
+
 <h1><?php echo CHtml::encode(Yii::app()->name); ?></h1>
 </header>
 
