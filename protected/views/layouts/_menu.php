@@ -23,7 +23,9 @@ if (count($item->InformationsExternal) > 0)
 	
 		<li class="subitem <? echo $class; ?>" >
 			<a class="<? echo $class; ?>" href="<? echo  $this->createUrl('Information/view', array('id' => $subitem->INF_ID)); ?>">
+				<? if ($contrast != 'high'): ?>
 				<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/arrow.png" />
+				<? endif; ?>
 				<? echo $subitem->INF_NAME; ?>
 			</a>
 		</li>

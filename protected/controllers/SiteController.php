@@ -30,6 +30,18 @@ class SiteController extends Controller
 		//$this->render('index',array());
 		$this->redirect(array('/Sites/view', 'id'=>'1'));
 	}
+	
+	public function actionContrast()
+	{
+		//$this->render('index',array());
+		$value = isset(Yii::app()->request->cookies['contrast']) ? Yii::app()->request->cookies['contrast']->value : '';
+		if ($value == 'high')
+			unset(Yii::app()->request->cookies['contrast']);
+		else
+			Yii::app()->request->cookies['contrast'] = new CHttpCookie('contrast', 'high', $options);
+		
+		$this->redirect(array('/Sites/view', 'id'=>'1'));
+	}
 
 	/**
 	 * This is the action to handle external exceptions.

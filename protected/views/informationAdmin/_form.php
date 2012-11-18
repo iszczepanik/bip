@@ -15,11 +15,13 @@
 	<?php echo $form->hiddenField($model,'INF_CREATE_DATE'); ?>
 	<?php echo $form->hiddenField($model,'INF_CREATE_BY'); ?>
 
+	<? if ($model->INF_OBLIGATORY == 0) :?>
 	<div class='control-group<?php //echo (CHtml::error($model,'INF_SHOW') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'INF_SHOW'); ?>
 		<?php echo $form->checkBox($model,'INF_SHOW', array('value'=>1, 'uncheckValue'=>0)); ?>
 		<?php echo $form->error($model,'INF_SHOW',array('class'=>'help-inline')); ?>
 	</div>
+	<? endif; ?>
 	<div class='control-group<?php echo (CHtml::error($model,'INF_CONTENT') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'INF_CONTENT'); ?>
 		<?php //echo $form->textArea($model,'INF_CONTENT',array('rows'=>6, 'cols'=>50)); ?>
