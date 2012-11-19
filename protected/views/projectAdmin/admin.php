@@ -46,7 +46,7 @@ array('label'=>'Wyszukiwanie zaawansowane', 'icon'=>'search', 'url'=>'#', 'linkO
 	'filter'=>$model,
 	'columns'=>array(
 		'PRJ_ID',
-		'PRJ_DESCRIPTION',
+		'PRJ_NAME',
 		'PRJ_AMOUNT_DONATION',
 		'PRJ_AMOUNT_PUBLIC',
 		'PRJ_SOURCES',

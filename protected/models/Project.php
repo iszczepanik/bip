@@ -38,14 +38,16 @@ class Project extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
+		//ALTER TABLE  `prj` ADD  `PRJ_NAME` VARCHAR( 256 ) NOT NULL DEFAULT  ' ' AFTER  `PRJ_ID`
 		return array(
-			array('PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT', 'required'),
+			array('PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT, PRJ_NAME', 'required'),
 			array('PRJ_CAT', 'numerical', 'integerOnly'=>true),
 			array('PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC', 'numerical'),
 			array('PRJ_DESCRIPTION, PRJ_SOURCES', 'length', 'max'=>512),
+			array('PRJ_SHORT_DESCRIPTION, PRJ_NAME', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('PRJ_ID, PRJ_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT', 'safe', 'on'=>'search'),
+			array('PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_SHORT_DESCRIPTION', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,7 +69,9 @@ class Project extends CActiveRecord
 	{
 		return array(
 			'PRJ_ID' => '#',
+			'PRJ_NAME' => 'Tytuł projektu',
 			'PRJ_DESCRIPTION' => 'Opis',
+			'PRJ_SHORT_DESCRIPTION' => 'Krótki opis',
 			'PRJ_AMOUNT_DONATION' => 'Kwota darowizny',
 			'PRJ_AMOUNT_PUBLIC' => 'Kwota środków publicznych',
 			'PRJ_SOURCES' => 'Źródła',
@@ -92,7 +96,9 @@ class Project extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('PRJ_ID',$this->PRJ_ID);
+		$criteria->compare('PRJ_NAME',$this->PRJ_ID);
 		$criteria->compare('PRJ_DESCRIPTION',$this->PRJ_DESCRIPTION,true);
+		$criteria->compare('PRJ_SHORT_DESCRIPTION',$this->PRJ_SHORT_DESCRIPTION,true);
 		$criteria->compare('PRJ_AMOUNT_DONATION',$this->PRJ_AMOUNT_DONATION);
 		$criteria->compare('PRJ_AMOUNT_PUBLIC',$this->PRJ_AMOUNT_PUBLIC);
 		$criteria->compare('PRJ_SOURCES',$this->PRJ_SOURCES,true);

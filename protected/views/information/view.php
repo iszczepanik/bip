@@ -23,7 +23,7 @@
 	
 	<? 
 	if (count($viewed->Projects) > 0)
-		$this->renderPartial('//project/_view', array('data'=>$viewed->Projects));
+		$this->renderPartial('//project/index', array('data'=>$viewed->Projects));
 	
 	if (count($viewed->Files) > 0)
 		$this->renderPartial('//file/_view_link', array('data'=>$viewed->Files));

@@ -20,7 +20,7 @@
 			$this->renderPartial('//information/_edit_link', array('id'=>$information->INF_ID)); 
 		
 		if (count($information->Projects) > 0)
-			$this->renderPartial('//project/_view', array('data'=>$information->Projects));
+			$this->renderPartial('//project/index', array('data'=>$information->Projects));
 
 		if (count($information->Files) > 0)
 			$this->renderPartial('//file/_view_link', array('data'=>$information->Files));

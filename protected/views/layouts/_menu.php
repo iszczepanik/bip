@@ -1,10 +1,14 @@
+<br />
 <ul class="nav nav-list">
-<li class="nav-header">BIP - Informacje</li>
 <? foreach ($data as $item) : ?>
 <? if ($item->SIT_ID == 2) : ?>
 <li><a href="<? echo  $this->createUrl('News/index'); ?>"><?  echo $item->SIT_NAME; ?></a></li>
 <? else : ?>
-<li><a href="<? echo  $this->createUrl('Sites/view', array('id' => $item->SIT_ID)); ?>"><?  echo $item->SIT_NAME; ?></a></li>
+	<? if (count($item->InformationsExternal) > 0) : ?>
+		<li class="disabled" ><a href="#"  ><?  echo $item->SIT_NAME; ?></a></li>
+	<? else : ?>
+		<li><a href="<? echo $this->createUrl('Sites/view', array('id' => $item->SIT_ID)); ?>"><?  echo $item->SIT_NAME; ?></a></li>
+	<? endif; ?>
 <? endif; ?>
 
 <? 

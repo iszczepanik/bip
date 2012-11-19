@@ -6,7 +6,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Bip',
+	'name'=>'Biuletyn Informacji Publicznej',
 	'sourceLanguage'=>'pl',
 	'language'=>'pl',
 	//'debug'=>true,
@@ -126,6 +126,7 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
 		'debug'=>false,
+		'organization'=>'Stowarzyszenie Wzajemnej Pomocy Bona Fides',
 		'version'=>'0.9.0',
 	),
 );

@@ -32,7 +32,9 @@ array('label'=>'Wyszukiwanie zaawansowane', 'icon'=>'search', 'url'=>'#', 'linkO
 	'data'=>$model,
 	'attributes'=>array(
 		'PRJ_ID',
+		'PRJ_NAME',
 		'PRJ_DESCRIPTION',
+		'PRJ_SHORT_DESCRIPTION',
 		'PRJ_AMOUNT_DONATION',
 		'PRJ_AMOUNT_PUBLIC',
 		'PRJ_SOURCES',

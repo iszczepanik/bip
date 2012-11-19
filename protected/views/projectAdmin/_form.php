@@ -7,12 +7,28 @@
 
 	<?php echo $form->errorSummary($model,null,null,array('class'=>'alert alert-error')); ?>
 	
+	<div class='control-group<?php echo (CHtml::error($model,'PRJ_NAME') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'PRJ_NAME',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->textField($model,'PRJ_NAME',array('size'=>60,'maxlength'=>256)); ?>
+		<?php echo $form->error($model,'PRJ_NAME',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
+	
 	<div class='control-group<?php echo (CHtml::error($model,'PRJ_DESCRIPTION') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'PRJ_DESCRIPTION',array('class'=>'control-label')); ?>
 		<?php $this->widget('application.extensions.tinymce.ETinyMce', array('model'=>$model, 'attribute'=>'PRJ_DESCRIPTION', 'id'=>'PRJ_DESCRIPTION', )); ?>
 		<?php echo $form->error($model,'PRJ_DESCRIPTION',array('class'=>'help-inline')); ?>
 	</div>
 
+	<div class='control-group<?php echo (CHtml::error($model,'PRJ_SHORT_DESCRIPTION') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'PRJ_SHORT_DESCRIPTION',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->textArea($model,'PRJ_SHORT_DESCRIPTION',array('size'=>60,'maxlength'=>256)); ?>
+		<?php echo $form->error($model,'PRJ_SHORT_DESCRIPTION',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
+	
 	<div class='control-group<?php echo (CHtml::error($model,'PRJ_AMOUNT_DONATION') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'PRJ_AMOUNT_DONATION',array('class'=>'control-label')); ?>
 		<div class="controls">

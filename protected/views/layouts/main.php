@@ -27,18 +27,19 @@
 	</li>
 	<? endif; ?>
 </ul>
-
-<h1><?php echo CHtml::encode(Yii::app()->name); ?></h1>
+<!--<div class="page-header">-->
+<h1><? echo Yii::app()->params['organization']; ?><br /><small><?php echo CHtml::encode(Yii::app()->name); ?></small></h1>
+<!--</div>--->
 <span class="label label-info">Beta</span>
 </header>
 
 <div class="row" >
 	<div class="span3" >
 		<div class="side_menu">
+			<?php $this->renderPartial('//layouts/_menu', array('data'=>Site::model()->findAll(), 'contrast'=>$contrast))?>
 			<? if (Yii::app()->user->checkAccess('admin')): ?>
 				<?php $this->renderPartial('//layouts/_adminmenu'); ?>
 			<? endif; ?>
-			<?php $this->renderPartial('//layouts/_menu', array('data'=>Site::model()->findAll(), 'contrast'=>$contrast))?>
 		</div>
 	</div>
 	<div class="span9">
