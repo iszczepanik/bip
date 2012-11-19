@@ -4,15 +4,15 @@
 	<? $contrast = isset(Yii::app()->request->cookies['contrast']) ? Yii::app()->request->cookies['contrast']->value : ''; ?>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/datepicker.css"  />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/datepicker.css?v=<? echo Yii::app()->params['version']; ?>"  />
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <? if ($contrast == 'high'): ?>
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-modifications-high.css"  />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-modifications-high.css?v=<? echo Yii::app()->params['version']; ?>"  />
 <? else: ?>
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-modifications.css"  />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-modifications.css?v=<? echo Yii::app()->params['version']; ?>"  />
 <? endif; ?>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-datepicker.js?v=<? echo Yii::app()->params['version']; ?>"></script>
 <body data-offset="50" data-target=".subnav" data-spy="scroll">
 <div class="container" id="page">
 <header>

@@ -127,6 +127,6 @@ return array(
 		'adminEmail'=>'webmaster@example.com',
 		'debug'=>false,
 		'organization'=>'Stowarzyszenie Wzajemnej Pomocy Bona Fides',
-		'version'=>'0.9.0',
+		'version'=>'0.9.1',
 	),
 );
