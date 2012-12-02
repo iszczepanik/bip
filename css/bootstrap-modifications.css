@@ -29,6 +29,14 @@ footer
 	margin-top: 100px;
 	text-align: center;
 }
+footer > div > img
+{
+	margin-right: 45px;
+}
+footer > div > img.last
+{
+	margin-right: 0;
+}
 .projects
 {
 	margin: 20px 0 10px 0;

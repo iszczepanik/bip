@@ -126,7 +126,7 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
 		'debug'=>false,
-		'organization'=>'Stowarzyszenie Wzajemnej Pomocy Bona Fides',
-		'version'=>'0.9.1',
+		'organization'=>'Bona Fides',
+		'version'=>'0.9.2',
 	),
 );

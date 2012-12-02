@@ -17,20 +17,25 @@
 <div class="container" id="page">
 <header>
 
-<ul class="nav nav-pills pull-right">
-	<li><a href="<?php echo $this->createUrl('/site/contrast'); ?>">
-		<? if ($contrast == 'high'): ?><i class="icon-eye-open" ></i> Widok Podstawowy<? else: ?><i class="icon-eye-open" ></i> Duży kontrast<? endif; ?>
-	</a></li>
-	<? if (!Yii::app()->user->isGuest) : ?>
-	<li><a href="<?php echo $this->createUrl('/site/logout'); ?>">
-		<i class="icon-off" ></i> Wyloguj (<? echo Yii::app()->user->name; ?>)</a>
-	</li>
-	<? endif; ?>
-</ul>
-<!--<div class="page-header">-->
-<h1><? echo Yii::app()->params['organization']; ?><br /><small><?php echo CHtml::encode(Yii::app()->name); ?></small></h1>
-<!--</div>--->
-<span class="label label-info">Beta</span>
+<div class="row" >
+	<div class="span3" >
+		<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/BIPnij.png" alt="BIPnij" />
+	</div>
+	<div class="span9">
+		<ul class="nav nav-pills pull-right">
+			<li><a href="<?php echo $this->createUrl('/site/contrast'); ?>">
+				<? if ($contrast == 'high'): ?><i class="icon-eye-open" ></i> Widok Podstawowy<? else: ?><i class="icon-eye-open" ></i> Duży kontrast<? endif; ?>
+			</a></li>
+			<? if (!Yii::app()->user->isGuest) : ?>
+			<li><a href="<?php echo $this->createUrl('/site/logout'); ?>">
+				<i class="icon-off" ></i> Wyloguj (<? echo Yii::app()->user->name; ?>)</a>
+			</li>
+			<? endif; ?>
+		</ul>
+		<h1><? echo Yii::app()->params['organization']; ?><small><br /><?php echo CHtml::encode(Yii::app()->name); ?></small> <span class="label label-info">Beta</span></h1>
+	</div>
+</div>
+
 </header>
 
 <div class="row" >
@@ -49,6 +54,11 @@
 
 <footer class="footer" id="footer">	
 	<div>
+			<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/kapital_ludzki.jpg" alt="Kapitał Ludzki" />
+			<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/most.jpg" alt="Stowarzyszenie Most" />
+			<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/bonafides.png" alt="Stowarzyszenie Bona Fides" />
+			<img class="last" src="<?php echo Yii::app()->request->baseUrl; ?>/img/fundusz_spoleczny.jpg" alt="Europejski Fundusz Spłeczny" />
+		<p style="margin-top: 25px;">Projekt współfinansowany ze środków Unii Europejskiej w ramach Europejskiego Funduszu Społecznego</p>
 		<small class="muted" >
 			<?php echo CHtml::encode(Yii::app()->name); ?> - Wersja <? echo Yii::app()->params['version']; ?>
 		</small>
