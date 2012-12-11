@@ -52,6 +52,14 @@
 	</div>
 </div>
 
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-body">
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Zamknij</button>
+	</div>
+</div>
+
 <footer class="footer" id="footer">	
 	<div>
 			<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/kapital_ludzki.jpg" alt="Kapitał Ludzki" />
@@ -73,7 +81,24 @@
 		$('#dp_do').datepicker();
 		$('#dp_od').datepicker();
 		
+		$('[data-toggle="modal"]').click(function(e) {
+			e.preventDefault();
+			var url = $(this).attr('href');
+			if (url.indexOf('#') == 0) {
+				$(url).modal('open');
+			} else {
+				$.get(url, function(data) {
+					$('.modal-body').empty();
+					$('.modal-body').append(data);
+					$('#myModal').modal("show");
+				});
+			}
+		});
 		
+		$('.rejestr-zmian').click(function(e) {
+			e.preventDefault();
+			$("#"+this.id+"-grid").toggle();
+		});
     });
 
 </script>

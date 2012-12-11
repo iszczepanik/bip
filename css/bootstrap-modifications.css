@@ -72,3 +72,20 @@ a.block
 {
 	display: none;
 }
+#information-history-grid  .table .button-column
+{
+	width: 150px;
+}
+#information-history-grid
+{
+	padding-top: 0;
+}
+.muted a
+{
+	cursor: default;
+	color: #999;
+}
+.muted a:hover
+{
+	text-decoration: none;
+}

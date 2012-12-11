@@ -16,6 +16,8 @@
 		echo "<h".$headerLevel.">".$information['INF_NAME']."</h".$headerLevel.">"; 
 		
 		echo $information['INF_CONTENT'];
+		//var_dump($information->History);
+		$this->renderPartial('//information/_history_link', array('data'=>$information));
 		if (Yii::app()->user->checkAccess('admin'))
 			$this->renderPartial('//information/_edit_link', array('id'=>$information->INF_ID)); 
 		

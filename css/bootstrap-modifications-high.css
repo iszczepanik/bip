@@ -111,3 +111,13 @@ a.block
 {
 	background-color: Transparent;
 }
+.modal
+{
+	background-color: #202020;
+}
+.modal-footer
+{
+	background-color: #202020;
+	border-top: 0;
+	box-shadow: none;
+}

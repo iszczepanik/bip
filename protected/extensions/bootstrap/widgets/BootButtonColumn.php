@@ -42,6 +42,8 @@ class BootButtonColumn extends CButtonColumn
             $this->buttons['update']['icon'] = $this->updateButtonIcon;
         if ($this->deleteButtonIcon !== false && !isset($this->buttons['delete']['icon']))
             $this->buttons['delete']['icon'] = $this->deleteButtonIcon;
+		
+		//$this->buttons['history']['icon'] = $this->viewButtonIcon;
 	}
 
 	/**
@@ -56,6 +58,8 @@ class BootButtonColumn extends CButtonColumn
 		if (isset($button['visible']) && !$this->evaluateExpression($button['visible'], array('row'=>$row, 'data'=>$data)))
 			return;
 
+		$class = isset($button['class']) ? $button['class'] : null;
+		$data_toggle = isset($button['data-toggle']) ? $button['data-toggle'] : null;
 		$label = isset($button['label']) ? $button['label'] : $id;
 		$url = isset($button['url']) ? $this->evaluateExpression($button['url'], array('data'=>$data, 'row'=>$row)) : '#';
 		$options = isset($button['options']) ? $button['options'] : array();
@@ -65,6 +69,12 @@ class BootButtonColumn extends CButtonColumn
 
 		if (!isset($options['rel']))
 			$options['rel'] = 'tooltip';
+			
+		if (!isset($options['class']))
+			$options['class'] = $class;
+		
+		if (!isset($options['data-toggle']))
+			$options['data-toggle'] = $data_toggle;
 
 		if (isset($button['icon']))
 		{

@@ -48,7 +48,7 @@ class InformationAdminController extends Controller
 			
 			$date = new DateTime(); 
 			$model->INF_MODIFY_DATE = $date->format('Y-m-d H:i:s');
-			$model->INF_MODIFY_BY = Yii::app()->user->name;
+			$model->INF_MODIFY_BY = Yii::app()->user->id;
 			
 			if($model->save())
 				$this->redirect(array('Information/view','id'=>$model->INF_ID));
