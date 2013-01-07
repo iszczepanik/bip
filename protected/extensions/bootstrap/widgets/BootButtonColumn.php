@@ -60,6 +60,7 @@ class BootButtonColumn extends CButtonColumn
 
 		$class = isset($button['class']) ? $button['class'] : null;
 		$data_toggle = isset($button['data-toggle']) ? $button['data-toggle'] : null;
+		$target = isset($button['target']) ? $button['target'] : null;
 		$label = isset($button['label']) ? $button['label'] : $id;
 		$url = isset($button['url']) ? $this->evaluateExpression($button['url'], array('data'=>$data, 'row'=>$row)) : '#';
 		$options = isset($button['options']) ? $button['options'] : array();
@@ -75,6 +76,9 @@ class BootButtonColumn extends CButtonColumn
 		
 		if (!isset($options['data-toggle']))
 			$options['data-toggle'] = $data_toggle;
+			
+		if (!isset($options['target']))
+			$options['target'] = $target;
 
 		if (isset($button['icon']))
 		{

@@ -9,12 +9,9 @@
  * @property integer $FIL_CAT
  * @property string $FIL_CONTENT
  * @property string $FIL_CREATE_DATE
- * @property integer $FIL_CREATE_BY
+ * @property string $FIL_CREATE_BY
  * @property string $FIL_MODIFY_DATE
- * @property integer $FIL_MODIFY_BY
- *
- * The followings are the available model relations:
- * @property FilHist[] $filHists
+ * @property string $FIL_MODIFY_BY
  */
 class File extends CActiveRecord
 {
@@ -36,6 +33,8 @@ class File extends CActiveRecord
 		return 'fil';
 	}
 
+	public $uploadedFile;
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -44,25 +43,15 @@ class File extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('FIL_NAME, FIL_CONTENT, FIL_CREATE_BY', 'required'),
-			array('FIL_CAT, FIL_CREATE_BY, FIL_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			//array('uploadedFile', 'file', 'types'=>'pdf'),
+		
+			//array('FIL_NAME', 'required'),//, FIL_CONTENT
+			array('FIL_CAT', 'numerical', 'integerOnly'=>true),
 			array('FIL_NAME', 'length', 'max'=>256),
-			array('FIL_CREATE_DATE, FIL_MODIFY_DATE', 'safe'),
+			array('FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('FIL_ID, FIL_NAME, FIL_CAT, FIL_CONTENT, FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY', 'safe', 'on'=>'search'),
-		);
-	}
-
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'History' => array(self::HAS_MANY, 'FileHistory', 'FIL_HIST_FIL_ID'),
 		);
 	}
 	
@@ -84,22 +73,16 @@ class File extends CActiveRecord
 
 		return parent::beforeSave();
 	}
-	
-	public function GetHistoryProvider()
+
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
 	{
-		$params[':FIL_HIST_FIL_ID'] = $this->FIL_ID;
-		$condition = "FIL_HIST_FIL_ID = :FIL_HIST_FIL_ID";
-		
-		$criteria = new CDbCriteria(array(
-			'condition'=>$condition,
-			'params'=>$params
-		));
-	
-		$dataProvider = new CActiveDataProvider('FileHistory', array(
-			'criteria'=>$criteria,
-		));
-			
-		return $dataProvider;
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+		);
 	}
 
 	/**
@@ -136,9 +119,9 @@ class File extends CActiveRecord
 		$criteria->compare('FIL_CAT',$this->FIL_CAT);
 		$criteria->compare('FIL_CONTENT',$this->FIL_CONTENT,true);
 		$criteria->compare('FIL_CREATE_DATE',$this->FIL_CREATE_DATE,true);
-		$criteria->compare('FIL_CREATE_BY',$this->FIL_CREATE_BY);
+		$criteria->compare('FIL_CREATE_BY',$this->FIL_CREATE_BY,true);
 		$criteria->compare('FIL_MODIFY_DATE',$this->FIL_MODIFY_DATE,true);
-		$criteria->compare('FIL_MODIFY_BY',$this->FIL_MODIFY_BY);
+		$criteria->compare('FIL_MODIFY_BY',$this->FIL_MODIFY_BY,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -72,7 +72,7 @@ a.block
 {
 	display: none;
 }
-#information-history-grid  .table .button-column
+#information-history-grid  .table .button-column , #file-history-grid .table .button-column
 {
 	width: 150px;
 }
