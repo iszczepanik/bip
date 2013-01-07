@@ -23,6 +23,9 @@
 		
 		if (count($information->Projects) > 0)
 			$this->renderPartial('//project/index', array('data'=>$information->Projects));
+		
+		if (count($information->Finances) > 0)
+			$this->renderPartial('//finance/index', array('data'=>$information->Finances));
 
 		if (count($information->Files) > 0)
 			$this->renderPartial('//file/_view_link', array('data'=>$information->Files));

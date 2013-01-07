@@ -1,24 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "inf_hist".
+ * This is the model class for table "fin_hist".
  *
- * The followings are the available columns in table 'inf_hist':
- * @property integer $INF_ID
- * @property string $INF_CONTENT
- * @property string $INF_MODIFY_DATE
- * @property integer $INF_MODIFY_BY
+ * The followings are the available columns in table 'fin_hist':
+ * @property integer $FIN_HIST_ID
+ * @property integer $FIN_ID
+ * @property double $FIN_AMOUNT
  *
  * The followings are the available model relations:
- * @property Usr $iNFMODIFYBY
- * @property Inf $iNF
+ * @property Fin $fIN
  */
-class InformationHistory extends CActiveRecord
+class FinanaceHistory extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return InformationHistory the static model class
+	 * @return FinanaceHistory the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -30,7 +28,7 @@ class InformationHistory extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'inf_hist';
+		return 'fin_hist';
 	}
 
 	/**
@@ -41,11 +39,12 @@ class InformationHistory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('INF_ID, INF_CONTENT, INF_MODIFY_DATE, INF_MODIFY_BY', 'required'),
-			array('INF_ID, INF_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('FIN_ID, FIN_AMOUNT', 'required'),
+			array('FIN_ID', 'numerical', 'integerOnly'=>true),
+			array('FIN_AMOUNT', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('INF_ID, INF_CONTENT, INF_MODIFY_DATE, INF_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('FIN_HIST_ID, FIN_ID, FIN_AMOUNT', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,8 +56,7 @@ class InformationHistory extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'ModifyBy' => array(self::BELONGS_TO, 'User', 'INF_MODIFY_BY'),
-			'Information' => array(self::BELONGS_TO, 'Information', 'INF_ID'),
+			'fIN' => array(self::BELONGS_TO, 'Fin', 'FIN_ID'),
 		);
 	}
 
@@ -68,10 +66,9 @@ class InformationHistory extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'INF_ID' => '#',
-			'INF_CONTENT' => 'Treść',
-			'INF_MODIFY_DATE' => 'Zmodyfikowano',
-			'INF_MODIFY_BY' => 'Zmodyfikował',
+			'FIN_HIST_ID' => 'Fin Hist',
+			'FIN_ID' => 'Fin',
+			'FIN_AMOUNT' => 'Fin Amount',
 		);
 	}
 
@@ -86,10 +83,9 @@ class InformationHistory extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('INF_ID',$this->INF_ID);
-		$criteria->compare('INF_CONTENT',$this->INF_CONTENT,true);
-		$criteria->compare('INF_MODIFY_DATE',$this->INF_MODIFY_DATE,true);
-		$criteria->compare('INF_MODIFY_BY',$this->INF_MODIFY_BY);
+		$criteria->compare('FIN_HIST_ID',$this->FIN_HIST_ID);
+		$criteria->compare('FIN_ID',$this->FIN_ID);
+		$criteria->compare('FIN_AMOUNT',$this->FIN_AMOUNT);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

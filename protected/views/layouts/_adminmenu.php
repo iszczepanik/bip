@@ -9,6 +9,10 @@
 <? endif; ?>
 
 <? if (Yii::app()->user->checkAccess('admin')) : ?>
+<li><a href="<? echo  $this->createUrl('finance/admin'); ?>">Finansowanie</a></li>
+<? endif; ?>
+
+<? if (Yii::app()->user->checkAccess('admin')) : ?>
 <li><a href="<? echo  $this->createUrl('fileAdmin/admin'); ?>">Dokumenty</a></li>
 <? endif; ?>
 

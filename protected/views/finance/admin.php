@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Projects'=>array('index'),
+	'Finances'=>array('index'),
 	'Manage',
 );
 
@@ -10,7 +10,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('project-grid', {
+	$.fn.yiiGridView.update('finance-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -29,24 +29,34 @@ array('label'=>'Nowy', 'icon'=>'plus-sign', 'url'=>array('create')),
 array('label'=>'Wyszukiwanie zaawansowane', 'icon'=>'search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
 ),
 ));
-?><h2>Projekty</h2>
+?><h2>Finansowanie - Lista</h2>
 </div>
 </div>
 
 <?php $this->widget('bootstrap.widgets.BootGridView',array(
 	'type'=>'striped bordered condensed',
-	'id'=>'project-grid',
+	'id'=>'finance-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'PRJ_ID',
-		'PRJ_NAME',
-		'PRJ_AMOUNT_DONATION',
-		'PRJ_AMOUNT_PUBLIC',
-		'PRJ_SOURCES',
+		'FIN_ID',
+		//'FIN_TYPE',
 		array(
-			'name'=>'PRJ_CAT',
+			'name'=>'FIN_TYPE',
 			'value'=>'$data->typeDescription',
+		),
+		array(
+			'name'=>'FIN_SOURCE',
+			'value'=>'$data->sourceDescription',
+		),
+		//'FIN_SOURCE',
+		'FIN_YEAR',
+		'FIN_AMOUNT',
+		'FIN_FROM',
+		//'FIN_PRJ_ID',
+		array(
+			'name'=>'FIN_PRJ_ID',
+			'value'=>'$data->Project->PRJ_NAME',
 		),
 		array(
 			'class'=>'bootstrap.widgets.BootButtonColumn',
