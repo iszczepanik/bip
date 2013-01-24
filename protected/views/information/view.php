@@ -1,6 +1,6 @@
 <? if (isset($viewed)) : ?>
 	<? if ($viewed->INF_BIP == 1): ?> 
-		<img class="pull-right" alt="BIP" src="<?php echo Yii::app()->request->baseUrl; ?>/img/bip.png" />
+		<? $this->renderPartial('//sites/_bip'); ?>
 	<? endif; ?>
 	<?
 	$class = '';

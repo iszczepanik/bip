@@ -60,6 +60,9 @@ class FileAdminController extends Controller
 		if(isset($_POST['File']))
 		{
 			$model->attributes=$_POST['File'];
+			$date = new DateTime(); 
+			$model->FIL_CREATE_DATE = $date->format('Y-m-d H:i:s');
+			$model->FIL_CREATE_BY = Yii::app()->user->id;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->FIL_ID));
 		}
@@ -104,6 +107,9 @@ class FileAdminController extends Controller
 		if(isset($_POST['File']))
 		{
 			$model->attributes=$_POST['File'];
+			$date = new DateTime(); 
+			$model->INF_MODIFY_DATE = $date->format('Y-m-d H:i:s');
+			$model->INF_MODIFY_BY = Yii::app()->user->id;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->FIL_ID));
 		}

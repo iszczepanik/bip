@@ -44,7 +44,8 @@ class File extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('FIL_NAME, FIL_CONTENT, FIL_CREATE_BY', 'required'),
+			//array('FIL_CONTENT', 'required'),
+			array('FIL_CREATE_DATE, FIL_CREATE_BY', 'required'),
 			array('FIL_CAT, FIL_CREATE_BY, FIL_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('FIL_NAME', 'length', 'max'=>256),
 			array('FIL_CREATE_DATE, FIL_MODIFY_DATE', 'safe'),
