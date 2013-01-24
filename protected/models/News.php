@@ -28,6 +28,11 @@ class News extends CActiveRecord
 	{
 		return 'nws';
 	}
+	
+	public function GetNewsCount()
+	{
+		return Yii::app()->db->createCommand('SELECT count(*) FROM `nws`')->queryScalar();
+	}
 
 	/**
 	 * @return array validation rules for model attributes.

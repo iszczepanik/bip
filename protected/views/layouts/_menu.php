@@ -1,8 +1,11 @@
 <br />
 <ul class="nav nav-list">
 <? foreach ($data as $item) : ?>
-<? if ($item->SIT_ID == 2) : ?>
-<li><a href="<? echo  $this->createUrl('News/index'); ?>"><?  echo $item->SIT_NAME; ?></a></li>
+<? //echo var_dump($item); ?>
+<? if ($item->SIT_NAME == "Aktualności") : ?>
+	<? if (News::GetNewsCount() > 0): ?>
+		<li><a href="<? echo  $this->createUrl('News/index'); ?>"><?  echo $item->SIT_NAME; ?></a></li>
+	<? endif; ?>
 <? else : ?>
 	<? if (count($item->InformationsExternal) > 0) : ?>
 		<li class="disabled" ><a href="#"  ><?  echo $item->SIT_NAME; ?></a></li>
