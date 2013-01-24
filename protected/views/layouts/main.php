@@ -32,7 +32,7 @@
 			</li>
 			<? endif; ?>
 		</ul>
-		<h1><? echo Yii::app()->params['organization']; ?><small><br /><?php echo CHtml::encode(Yii::app()->name); ?></small> <span class="label label-info">Beta</span></h1>
+		<h1><? echo strip_tags(Information::FindByName('Pełna nazwa organizacji')); ?><small><br /><?php echo CHtml::encode(Yii::app()->name); ?></small> <span class="label label-info">Beta</span></h1>
 	</div>
 </div>
 

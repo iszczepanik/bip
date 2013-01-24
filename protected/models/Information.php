@@ -172,6 +172,30 @@ class Information extends CActiveRecord
 			'INF_MODIFY_BY' => 'Inf Modify By',
 		);
 	}
+	
+	public function FindByName($name)
+	{
+		/*
+		
+		if (isset($searchParams['Name']) && $searchParams['Name'] != "")
+		{
+			$condition .= " and UCH_NAME like :UCH_NAME ";
+			$params[':UCH_NAME'] = '%'.$searchParams['Name'].'%';
+		}
+		
+		$condition .= " and UCH_TYPE = ".UchwalaType::Uchwala;
+		
+		$criteria = new CDbCriteria(array(
+				'condition'=>$condition,
+				'params'=>$params
+			));
+		*/
+	
+		$found=Information::model()->find('INF_NAME=:INF_NAME', array(':INF_NAME'=>'Pełna nazwa organizacji'));
+	
+		
+		return $found->INF_CONTENT;
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
