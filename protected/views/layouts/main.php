@@ -45,6 +45,11 @@
 			<? if (Yii::app()->user->checkAccess('admin')): ?>
 				<?php $this->renderPartial('//layouts/_adminmenu'); ?>
 			<? endif; ?>
+			<br />
+			<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/pl/" rel="tooltip" title="Licencja CC BY-NC-SA 3.0 PL"  >
+				<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/by-nc-sa.png" 
+				alt="Licencja CC BY-NC-SA 3.0 PL" />
+			</a>
 		</div>
 	</div>
 	<div class="span9">
