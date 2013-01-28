@@ -15,11 +15,36 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-datepicker.js?v=<? echo Yii::app()->params['version']; ?>"></script>
 <body data-offset="50" data-target=".subnav" data-spy="scroll">
 <div class="container" id="page">
-<header>
 
 <div class="row" >
 	<div class="span3" >
+		<?
+		$logo = Image::GetLogo();
+		if ($logo != "none") :
+		?>
+			<img src="<?php echo Yii::app()->request->baseUrl; ?>/<? echo $logo; ?>"
+			alt="<? echo strip_tags(Information::FindByName('Pełna nazwa organizacji')); ?>" />
+			<br />
+			<? if (Yii::app()->user->checkAccess('admin')): ?>
+				<a class="pull-right" href="<?php echo $this->createUrl('/imageAdmin/upload'); ?>">Zaimportuj</a><br />
+			<? endif; ?>
+			<br />
+		<? endif; ?>
+		
 		<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/BIPnij.png" alt="BIPnij" />
+		
+		<div class="side_menu">
+			<?php $this->renderPartial('//layouts/_menu', array('data'=>Site::model()->findAll(), 'contrast'=>$contrast))?>
+			<? if (Yii::app()->user->checkAccess('admin')): ?>
+				<?php $this->renderPartial('//layouts/_adminmenu'); ?>
+			<? endif; ?>
+			<br />
+			<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/pl/" rel="tooltip" title="Licencja CC BY-NC-SA 3.0 PL"  >
+				<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/by-nc-sa.png" 
+				alt="Licencja CC BY-NC-SA 3.0 PL" />
+			</a>
+		</div>
+		
 	</div>
 	<div class="span9">
 		<ul class="nav nav-pills pull-right">
@@ -33,27 +58,9 @@
 			<? endif; ?>
 		</ul>
 		<h1><? echo strip_tags(Information::FindByName('Pełna nazwa organizacji')); ?><small><br /><?php echo CHtml::encode(Yii::app()->name); ?></small> <span class="label label-info">Beta</span></h1>
-	</div>
-</div>
-
-</header>
-
-<div class="row" >
-	<div class="span3" >
-		<div class="side_menu">
-			<?php $this->renderPartial('//layouts/_menu', array('data'=>Site::model()->findAll(), 'contrast'=>$contrast))?>
-			<? if (Yii::app()->user->checkAccess('admin')): ?>
-				<?php $this->renderPartial('//layouts/_adminmenu'); ?>
-			<? endif; ?>
-			<br />
-			<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/pl/" rel="tooltip" title="Licencja CC BY-NC-SA 3.0 PL"  >
-				<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/by-nc-sa.png" 
-				alt="Licencja CC BY-NC-SA 3.0 PL" />
-			</a>
-		</div>
-	</div>
-	<div class="span9">
+		
 		<?php echo $content; ?>
+		
 	</div>
 </div>
 
