@@ -127,6 +127,6 @@ return array(
 		'adminEmail'=>'webmaster@example.com',
 		'debug'=>false,
 		'organization'=>'Bona Fides',
-		'version'=>'0.9.3',
+		'version'=>'0.9.4',
 	),
 );
