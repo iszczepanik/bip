@@ -1,3 +1,4 @@
+<div class="view">
 
 <h3><? echo $data->PRJ_NAME; ?></h3>
 <p><? echo $data->PRJ_DESCRIPTION; ?></p>
@@ -8,6 +9,5 @@
 <? if ($data->PRJ_AMOUNT_PUBLIC != null) : ?>
 <p><strong>Wysokość dotacji:</strong> <? echo $data->PRJ_AMOUNT_PUBLIC; ?> PLN</p>
 <? endif; ?>
-<?
-$this->renderPartial('//project/_history_link', array('data'=>$data));
-?>
+	
+</div>

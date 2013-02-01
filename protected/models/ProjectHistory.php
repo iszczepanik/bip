@@ -1,10 +1,11 @@
 <?php
 
 /**
- * This is the model class for table "prj".
+ * This is the model class for table "prj_hist".
  *
- * The followings are the available columns in table 'prj':
- * @property integer $PRJ_ID
+ * The followings are the available columns in table 'prj_hist':
+ * @property integer $PRJ_HIST_ID
+ * @property integer $PRJ_HIST_PRJ_ID
  * @property string $PRJ_NAME
  * @property string $PRJ_DESCRIPTION
  * @property string $PRJ_SHORT_DESCRIPTION
@@ -12,23 +13,19 @@
  * @property double $PRJ_AMOUNT_PUBLIC
  * @property string $PRJ_SOURCES
  * @property integer $PRJ_CAT
- * @property string $PRJ_CREATE_DATE
- * @property integer $PRJ_CREATE_BY
  * @property string $PRJ_MODIFY_DATE
  * @property integer $PRJ_MODIFY_BY
  *
  * The followings are the available model relations:
- * @property Fin[] $fins
  * @property Usr $pRJMODIFYBY
- * @property Usr $pRJCREATEBY
- * @property PrjHist[] $prjHists
+ * @property Prj $pRJHISTPRJ
  */
-class Project extends CActiveRecord
+class ProjectHistory extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Project the static model class
+	 * @return ProjectHistory the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -40,7 +37,7 @@ class Project extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'prj';
+		return 'prj_hist';
 	}
 
 	/**
@@ -51,15 +48,15 @@ class Project extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT, PRJ_CREATE_DATE, PRJ_CREATE_BY', 'required'),
-			array('PRJ_CAT, PRJ_CREATE_BY, PRJ_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('PRJ_HIST_PRJ_ID, PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT', 'required'),
+			array('PRJ_HIST_PRJ_ID, PRJ_CAT, PRJ_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC', 'numerical'),
 			array('PRJ_NAME, PRJ_SHORT_DESCRIPTION', 'length', 'max'=>256),
 			array('PRJ_DESCRIPTION, PRJ_SOURCES', 'length', 'max'=>512),
 			array('PRJ_MODIFY_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_CREATE_DATE, PRJ_CREATE_BY, PRJ_MODIFY_DATE, PRJ_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('PRJ_HIST_ID, PRJ_HIST_PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_MODIFY_DATE, PRJ_MODIFY_BY', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,28 +68,9 @@ class Project extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'fins' => array(self::HAS_MANY, 'Fin', 'FIN_PRJ_ID'),
-			'pRJMODIFYBY' => array(self::BELONGS_TO, 'Usr', 'PRJ_MODIFY_BY'),
-			'pRJCREATEBY' => array(self::BELONGS_TO, 'Usr', 'PRJ_CREATE_BY'),
-			'History' => array(self::HAS_MANY, 'ProjectHistory', 'PRJ_HIST_PRJ_ID'),
+			'ModifyBy' => array(self::BELONGS_TO, 'User', 'PRJ_MODIFY_BY'),
+			'Project' => array(self::BELONGS_TO, 'Project', 'PRJ_HIST_PRJ_ID'),
 		);
-	}
-	
-	public function GetHistoryProvider()
-	{
-		$params[':PRJ_HIST_PRJ_ID'] = $this->PRJ_ID;
-		$condition = "PRJ_HIST_PRJ_ID = :PRJ_HIST_PRJ_ID";
-		
-		$criteria = new CDbCriteria(array(
-			'condition'=>$condition,
-			'params'=>$params
-		));
-	
-		$dataProvider = new CActiveDataProvider('ProjectHistory', array(
-			'criteria'=>$criteria,
-		));
-			
-		return $dataProvider;
 	}
 
 	/**
@@ -101,26 +79,20 @@ class Project extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'PRJ_ID' => '#',
-			'PRJ_NAME' => 'Tytuł projektu',
-			'PRJ_DESCRIPTION' => 'Opis',
-			'PRJ_SHORT_DESCRIPTION' => 'Krótki opis',
-			'PRJ_AMOUNT_DONATION' => 'Kwota darowizny',
-			'PRJ_AMOUNT_PUBLIC' => 'Kwota środków publicznych',
-			'PRJ_SOURCES' => 'Źródła',
-			'PRJ_CAT' => 'Kategoria',
-			'PRJ_CREATE_DATE' => 'Prj Create Date',
-			'PRJ_CREATE_BY' => 'Prj Create By',
-			'PRJ_MODIFY_DATE' => 'Prj Modify Date',
-			'PRJ_MODIFY_BY' => 'Prj Modify By',
+			'PRJ_HIST_ID' => 'Prj Hist',
+			'PRJ_HIST_PRJ_ID' => 'Prj Hist Prj',
+			'PRJ_NAME' => 'Prj Name',
+			'PRJ_DESCRIPTION' => 'Prj Description',
+			'PRJ_SHORT_DESCRIPTION' => 'Prj Short Description',
+			'PRJ_AMOUNT_DONATION' => 'Prj Amount Donation',
+			'PRJ_AMOUNT_PUBLIC' => 'Prj Amount Public',
+			'PRJ_SOURCES' => 'Prj Sources',
+			'PRJ_CAT' => 'Prj Cat',
+			'PRJ_MODIFY_DATE' => 'Data modyfikacji',
+			'PRJ_MODIFY_BY' => 'Zmodyfikował',
 		);
 	}
 
-	public function GetTypeDescription()
-	{
-		return ProjectType::GetDescription($this->PRJ_CAT);
-	}
-	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -132,7 +104,8 @@ class Project extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('PRJ_ID',$this->PRJ_ID);
+		$criteria->compare('PRJ_HIST_ID',$this->PRJ_HIST_ID);
+		$criteria->compare('PRJ_HIST_PRJ_ID',$this->PRJ_HIST_PRJ_ID);
 		$criteria->compare('PRJ_NAME',$this->PRJ_NAME,true);
 		$criteria->compare('PRJ_DESCRIPTION',$this->PRJ_DESCRIPTION,true);
 		$criteria->compare('PRJ_SHORT_DESCRIPTION',$this->PRJ_SHORT_DESCRIPTION,true);
@@ -140,8 +113,6 @@ class Project extends CActiveRecord
 		$criteria->compare('PRJ_AMOUNT_PUBLIC',$this->PRJ_AMOUNT_PUBLIC);
 		$criteria->compare('PRJ_SOURCES',$this->PRJ_SOURCES,true);
 		$criteria->compare('PRJ_CAT',$this->PRJ_CAT);
-		$criteria->compare('PRJ_CREATE_DATE',$this->PRJ_CREATE_DATE,true);
-		$criteria->compare('PRJ_CREATE_BY',$this->PRJ_CREATE_BY);
 		$criteria->compare('PRJ_MODIFY_DATE',$this->PRJ_MODIFY_DATE,true);
 		$criteria->compare('PRJ_MODIFY_BY',$this->PRJ_MODIFY_BY);
 

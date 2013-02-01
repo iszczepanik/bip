@@ -1,6 +1,6 @@
 <?php
 
-class ProjectAdminController extends Controller
+class ProjectHistoryController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -27,8 +27,19 @@ class ProjectAdminController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','create','update','admin','delete'),
-				'roles'=>array('admin'),
+				'actions'=>array('index','view', '_view', 'viewInModal'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
 			),
 		);
 	}
@@ -43,6 +54,11 @@ class ProjectAdminController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
+	
+	public function actionViewInModal($id)
+	{
+		$this->renderPartial('_view', array('data'=>$this->loadModel($id)));
+	}
 
 	/**
 	 * Creates a new model.
@@ -50,21 +66,16 @@ class ProjectAdminController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Project;
+		$model=new ProjectHistory;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Project']))
+		if(isset($_POST['ProjectHistory']))
 		{
-			$model->attributes=$_POST['Project'];
-			
-			$date = new DateTime(); 
-			$model->PRJ_CREATE_DATE = $date->format('Y-m-d H:i:s');
-			$model->PRJ_CREATE_BY = Yii::app()->user->id;
-			
+			$model->attributes=$_POST['ProjectHistory'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->PRJ_ID));
+				$this->redirect(array('view','id'=>$model->PRJ_HIST_ID));
 		}
 
 		$this->render('create',array(
@@ -84,16 +95,11 @@ class ProjectAdminController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Project']))
+		if(isset($_POST['ProjectHistory']))
 		{
-			$model->attributes=$_POST['Project'];
-			
-			$date = new DateTime(); 
-			$model->PRJ_MODIFY_DATE = $date->format('Y-m-d H:i:s');
-			$model->PRJ_MODIFY_BY = Yii::app()->user->id;
-			
+			$model->attributes=$_POST['ProjectHistory'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->PRJ_ID));
+				$this->redirect(array('view','id'=>$model->PRJ_HIST_ID));
 		}
 
 		$this->render('update',array(
@@ -126,7 +132,7 @@ class ProjectAdminController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Project');
+		$dataProvider=new CActiveDataProvider('ProjectHistory');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -137,10 +143,10 @@ class ProjectAdminController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Project('search');
+		$model=new ProjectHistory('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Project']))
-			$model->attributes=$_GET['Project'];
+		if(isset($_GET['ProjectHistory']))
+			$model->attributes=$_GET['ProjectHistory'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -154,7 +160,7 @@ class ProjectAdminController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Project::model()->findByPk($id);
+		$model=ProjectHistory::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -166,7 +172,7 @@ class ProjectAdminController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='project-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='project-history-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
