@@ -68,6 +68,22 @@
 	</div>
 	-->
 	
+	<div class='control-group<?php echo (CHtml::error($model,'FIL_INFO_CREATEDATE') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'FIL_INFO_CREATEDATE',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->textField($model,'FIL_INFO_CREATEDATE'); ?>
+		<?php echo $form->error($model,'FIL_INFO_CREATEDATE',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
+
+	<div class='control-group<?php echo (CHtml::error($model,'FIL_INFO_CREATED_BY') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'FIL_INFO_CREATED_BY',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->textField($model,'FIL_INFO_CREATED_BY'); ?>
+		<?php echo $form->error($model,'FIL_INFO_CREATED_BY',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
+	
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.BootButton', array(
 			'buttonType'=>'submit',

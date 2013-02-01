@@ -12,6 +12,8 @@
  * @property integer $FIL_CREATE_BY
  * @property string $FIL_MODIFY_DATE
  * @property integer $FIL_MODIFY_BY
+ * @property string $FIL_INFO_CREATED_BY
+ * @property string $FIL_INFO_CREATEDATE
  *
  * The followings are the available model relations:
  * @property FilHist[] $filHists
@@ -44,14 +46,13 @@ class File extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			//array('FIL_CONTENT', 'required'),
 			array('FIL_CREATE_DATE, FIL_CREATE_BY', 'required'),
 			array('FIL_CAT, FIL_CREATE_BY, FIL_MODIFY_BY', 'numerical', 'integerOnly'=>true),
-			array('FIL_NAME', 'length', 'max'=>256),
-			array('FIL_CREATE_DATE, FIL_MODIFY_DATE', 'safe'),
+			array('FIL_NAME, FIL_INFO_CREATED_BY', 'length', 'max'=>256),
+			array('FIL_CONTENT, FIL_MODIFY_DATE, FIL_INFO_CREATEDATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('FIL_ID, FIL_NAME, FIL_CAT, FIL_CONTENT, FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('FIL_ID, FIL_NAME, FIL_CAT, FIL_CONTENT, FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY, FIL_INFO_CREATED_BY, FIL_INFO_CREATEDATE', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,12 +65,19 @@ class File extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'History' => array(self::HAS_MANY, 'FileHistory', 'FIL_HIST_FIL_ID'),
+			'ModifyBy' => array(self::BELONGS_TO, 'User', 'FIL_MODIFY_BY'),
+			'CreateBy' => array(self::BELONGS_TO, 'User', 'FIL_CREATE_BY'),
 		);
 	}
 	
 	public function GetCategoryDescription()
 	{
 		return FileCategory::GetDescription($this->FIL_CAT);
+	}
+	
+	public function GetPodmiot()
+	{
+		return strip_tags(Information::FindByName('Pełna nazwa organizacji'));
 	}
 	
 	public function beforeSave()
@@ -113,11 +121,14 @@ class File extends CActiveRecord
 			'FIL_NAME' => 'Plik',
 			'FIL_CAT' => 'Kategoria',
 			'FIL_CONTENT' => 'Fil Content',
-			'FIL_CREATE_DATE' => 'Fil Create Date',
-			'FIL_CREATE_BY' => 'Fil Create By',
+			'FIL_CREATE_DATE' => 'Data udostępnienia iformacji w BIP',
+			'FIL_CREATE_BY' => 'Informację wprowadził do BIP',
 			'FIL_MODIFY_DATE' => 'Fil Modify Date',
 			'FIL_MODIFY_BY' => 'Fil Modify By',
-			'uploadedFile' => 'Plik'
+			'uploadedFile' => 'Plik',
+			'FIL_INFO_CREATED_BY' => 'Informację wytworzył lub odpowiada za treść',
+			'FIL_INFO_CREATEDATE' => 'Data wytworzenia informacji',
+			'Podmiot'=>'Podmiot udostępniający informację'
 		);
 	}
 
@@ -140,6 +151,8 @@ class File extends CActiveRecord
 		$criteria->compare('FIL_CREATE_BY',$this->FIL_CREATE_BY);
 		$criteria->compare('FIL_MODIFY_DATE',$this->FIL_MODIFY_DATE,true);
 		$criteria->compare('FIL_MODIFY_BY',$this->FIL_MODIFY_BY);
+		$criteria->compare('FIL_INFO_CREATED_BY',$this->FIL_INFO_CREATED_BY,true);
+		$criteria->compare('FIL_INFO_CREATEDATE',$this->FIL_INFO_CREATEDATE,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

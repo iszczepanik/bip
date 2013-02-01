@@ -1,6 +1,6 @@
 <div id="rejestr-zmian-file-<? echo $data->FIL_ID; ?>-grid" style="display: none;" >
 
-
+<? $this->renderPartial('//file/_metryczka', array('data'=>$data)); ?>
 
 <?php $this->widget('bootstrap.widgets.BootGridView',array(
 	'type'=>'striped bordered condensed',

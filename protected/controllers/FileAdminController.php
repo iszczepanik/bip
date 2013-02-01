@@ -108,8 +108,8 @@ class FileAdminController extends Controller
 		{
 			$model->attributes=$_POST['File'];
 			$date = new DateTime(); 
-			$model->INF_MODIFY_DATE = $date->format('Y-m-d H:i:s');
-			$model->INF_MODIFY_BY = Yii::app()->user->id;
+			$model->FIL_MODIFY_DATE = $date->format('Y-m-d H:i:s');
+			$model->FIL_MODIFY_BY = Yii::app()->user->id;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->FIL_ID));
 		}
