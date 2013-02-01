@@ -1,6 +1,6 @@
 <?php
 
-class FinanceController extends Controller
+class FinanceHistoryController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -59,26 +59,18 @@ class FinanceController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($type, $source)
+	public function actionCreate()
 	{
-		$model=new Finance;
-		$model->FIN_TYPE = $type;
-		$model->FIN_SOURCE = $source;
-		
-		$date = new DateTime(); 
-		$model->FIN_YEAR = $date->format('Y');
+		$model=new FinanceHistory;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Finance']))
+		if(isset($_POST['FinanceHistory']))
 		{
-			$model->attributes=$_POST['Finance'];
-			$model->FIN_CREATE_DATE = $date->format('Y-m-d H:i:s');
-			$model->FIN_CREATE_BY = Yii::app()->user->id;
-			
+			$model->attributes=$_POST['FinanceHistory'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->FIN_ID));
+				$this->redirect(array('view','id'=>$model->FIN_HIST_ID));
 		}
 
 		$this->render('create',array(
@@ -98,16 +90,11 @@ class FinanceController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Finance']))
+		if(isset($_POST['FinanceHistory']))
 		{
-			$model->attributes=$_POST['Finance'];
-			
-			$date = new DateTime(); 
-			$model->FIN_MODIFY_DATE = $date->format('Y-m-d H:i:s');
-			$model->FIN_MODIFY_BY = Yii::app()->user->id;
-			
+			$model->attributes=$_POST['FinanceHistory'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->FIN_ID));
+				$this->redirect(array('view','id'=>$model->FIN_HIST_ID));
 		}
 
 		$this->render('update',array(
@@ -140,7 +127,7 @@ class FinanceController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Finance');
+		$dataProvider=new CActiveDataProvider('FinanceHistory');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -151,10 +138,10 @@ class FinanceController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Finance('search');
+		$model=new FinanceHistory('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Finance']))
-			$model->attributes=$_GET['Finance'];
+		if(isset($_GET['FinanceHistory']))
+			$model->attributes=$_GET['FinanceHistory'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -168,7 +155,7 @@ class FinanceController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Finance::model()->findByPk($id);
+		$model=FinanceHistory::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -180,7 +167,7 @@ class FinanceController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='finance-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='finance-history-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

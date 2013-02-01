@@ -11,7 +11,7 @@
 		<?php echo $form->labelEx($model,'FIN_TYPE',array('class'=>'control-label')); ?>
 		<div class="controls">
 		<?php echo $form->dropDownList($model, 'FIN_TYPE', 
-			FinanceType::GetFinanceTypeArray()
+			FinanceType::GetFinanceTypeArray(),array("disabled"=>"disabled")
 			); ?>
 		<?php echo $form->error($model,'FIN_TYPE',array('class'=>'help-inline')); ?>
 		</div>
@@ -21,7 +21,7 @@
 		<?php echo $form->labelEx($model,'FIN_SOURCE',array('class'=>'control-label')); ?>
 		<div class="controls">
 		<?php echo $form->dropDownList($model, 'FIN_SOURCE', 
-			FinanceSource::GetFinanceSourceArray()
+			FinanceSource::GetFinanceSourceArray(),array("disabled"=>"disabled")
 			); ?>
 		<?php echo $form->error($model,'FIN_SOURCE',array('class'=>'help-inline')); ?>
 		</div>
@@ -43,6 +43,8 @@
 		</div>
 	</div>
 
+	<? if ($model->FIN_SOURCE == FinanceSource::Project) : ?>
+	
 	<div class='control-group<?php echo (CHtml::error($model,'FIN_FROM') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'FIN_FROM',array('class'=>'control-label')); ?>
 		<div class="controls">
@@ -61,6 +63,10 @@
 		<?php echo $form->error($model,'FIN_PRJ_ID',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
+	
+	<? else: ?>
+		<?php //echo $form->hiddenField($model,'FIN_FROM',array('size'=>60,'maxlength'=>256)); ?>
+	<? endif; ?>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.BootButton', array(
