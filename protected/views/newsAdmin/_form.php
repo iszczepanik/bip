@@ -7,6 +7,14 @@
 
 	<?php echo $form->errorSummary($model,null,null,array('class'=>'alert alert-error')); ?>
 
+	<div class='control-group'>
+		<?php echo $form->labelEx($model,'NWS_BIP',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->checkBox($model,'NWS_BIP', array('value'=>1, 'uncheckValue'=>0)); ?>
+		<?php echo $form->error($model,'NWS_BIP',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
+	
 	<div class='control-group<?php echo (CHtml::error($model,'NWS_TITLE') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'NWS_TITLE',array('class'=>'control-label')); ?>
 		<div class="controls">

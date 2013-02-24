@@ -127,7 +127,10 @@ class NewsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('News');
+		$dataProvider=new CActiveDataProvider('News', array(
+			'criteria'=>array(
+				'order'=>'NWS_DATE DESC',
+			)));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

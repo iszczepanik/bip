@@ -8,6 +8,7 @@
  * @property string $NWS_DATE
  * @property string $NWS_TITLE
  * @property string $NWS_CONTENT
+ * @property integer $NWS_BIP
  */
 class News extends CActiveRecord
 {
@@ -28,11 +29,6 @@ class News extends CActiveRecord
 	{
 		return 'nws';
 	}
-	
-	public function GetNewsCount()
-	{
-		return Yii::app()->db->createCommand('SELECT count(*) FROM `nws`')->queryScalar();
-	}
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -43,12 +39,26 @@ class News extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('NWS_DATE, NWS_TITLE, NWS_CONTENT', 'required'),
+			array('NWS_BIP', 'numerical', 'integerOnly'=>true),
 			array('NWS_TITLE', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('NWS_ID, NWS_DATE, NWS_TITLE, NWS_CONTENT', 'safe', 'on'=>'search'),
+			array('NWS_ID, NWS_DATE, NWS_TITLE, NWS_CONTENT, NWS_BIP', 'safe', 'on'=>'search'),
 		);
 	}
+	
+	public function GetNewsCount()
+	{
+		return Yii::app()->db->createCommand('SELECT count(*) FROM `nws`')->queryScalar();
+	}
+	
+	public function GetBrief()
+	{
+		$pagebreak = "<!-- pagebreak -->";
+		$pieces = explode($pagebreak, $this->NWS_CONTENT);
+		return strip_tags($pieces[0]);
+	}
+
 
 	/**
 	 * @return array relational rules.
@@ -59,13 +69,6 @@ class News extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 		);
-	}
-	
-	public function GetBrief()
-	{
-		$pagebreak = "<!-- pagebreak -->";
-		$pieces = explode($pagebreak, $this->NWS_CONTENT);
-		return strip_tags($pieces[0]);
 	}
 
 	/**
@@ -78,6 +81,7 @@ class News extends CActiveRecord
 			'NWS_DATE' => 'Data',
 			'NWS_TITLE' => 'Tytuł',
 			'NWS_CONTENT' => 'Treść',
+			'NWS_BIP' => 'Pokazuj znaczek "Bip"',
 		);
 	}
 
@@ -96,6 +100,7 @@ class News extends CActiveRecord
 		$criteria->compare('NWS_DATE',$this->NWS_DATE,true);
 		$criteria->compare('NWS_TITLE',$this->NWS_TITLE,true);
 		$criteria->compare('NWS_CONTENT',$this->NWS_CONTENT,true);
+		$criteria->compare('NWS_BIP',$this->NWS_BIP);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
