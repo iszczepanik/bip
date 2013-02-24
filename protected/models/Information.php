@@ -147,6 +147,18 @@ class Information extends CActiveRecord
 		
 		return array();
 	}
+	
+	public function GetExternalControls()
+	{
+		if ($this->INF_SHOW_CTRL != '')
+		{
+			$criteria = new CDbCriteria;
+			$criteria->order='CTRL_YEAR DESC';
+			return ExternalControl::model()->findAll($criteria);
+		}
+		
+		return array();
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -166,6 +178,7 @@ class Information extends CActiveRecord
 			'INF_SHOW_PRJ_CAT' => 'Inf Show Prj Cat',
 			'INF_SHOW_FILE_CAT' => 'Inf Show File Cat',
 			'INF_SHOW_FIN_TYPE' => 'Inf Show Fin Type',
+			'INF_SHOW_CTRL' => 'Inf Show Ctrl',
 			'INF_CREATE_DATE' => 'Inf Create Date',
 			'INF_CREATE_BY' => 'Inf Create By',
 			'INF_MODIFY_DATE' => 'Inf Modify Date',
@@ -220,6 +233,7 @@ class Information extends CActiveRecord
 		$criteria->compare('INF_SHOW_PRJ_CAT',$this->INF_SHOW_PRJ_CAT);
 		$criteria->compare('INF_SHOW_FILE_CAT',$this->INF_SHOW_FILE_CAT);
 		$criteria->compare('INF_SHOW_FIN_TYPE',$this->INF_SHOW_FIN_TYPE);
+		$criteria->compare('INF_SHOW_CTRL',$this->INF_SHOW_CTRL);
 		$criteria->compare('INF_CREATE_DATE',$this->INF_CREATE_DATE,true);
 		$criteria->compare('INF_CREATE_BY',$this->INF_CREATE_BY);
 		$criteria->compare('INF_MODIFY_DATE',$this->INF_MODIFY_DATE,true);

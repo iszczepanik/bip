@@ -29,6 +29,9 @@
 
 		if (count($information->Files) > 0)
 			$this->renderPartial('//file/_view_link', array('data'=>$information->Files));
+			
+		if ($information->INF_SHOW_CTRL == true)
+			$this->renderPartial('//externalControl/index', array('data'=>$information->ExternalControls));
 
 		if (count($inf_model->Informations) > 0)
 			$this->renderPartial('//information/_view', array('data'=>$inf_model->Informations, 'level'=>($level+1)));

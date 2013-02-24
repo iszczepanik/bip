@@ -4,7 +4,7 @@
 	<? $type = $finance->FIN_TYPE; ?>
 	<? if ($finance->FIN_YEAR < $year): ?>
 		<? $year = $finance->FIN_YEAR; ?>
-		<h3 style="font-size: 16pt; font-weight: normal;"><? echo $finance->FIN_YEAR; ?></h3>
+		<h3 class="year"><? echo $finance->FIN_YEAR; ?></h3>
 	<? endif; ?>
 	<? if ($finance->FIN_SOURCE == FinanceSource::Project) : ?>
 		<? if (!$projects): ?>
