@@ -1,0 +1,1 @@
+DELETE FROM `sit` WHERE `sit`.`SIT_NAME` = 'Oferta';
