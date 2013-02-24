@@ -27,8 +27,22 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		//$this->render('index',array());
 		$this->redirect(array('/Sites/view', 'id'=>'1'));
+	}
+	
+	public function actionSearch()
+	{
+		$this->render('search');
+	}
+	
+	public function actionSearchResult()
+	{
+		if (isset($_POST['searchfrase']))
+		{
+			echo $_POST['searchfrase'];
+		}
+		else
+			$this->actionSearch();
 	}
 	
 	public function actionContrast()
