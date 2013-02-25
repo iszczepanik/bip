@@ -169,18 +169,9 @@ class Information extends CActiveRecord
 			return Yii::app()->createUrl('Information/view', array('id' => $this->INF_ID)); 
 	}
 	
-	// public function GetSiteName()
-	// {
-		// if ($this->INF_TYPE == InformationType::Internal)
-			// return $this->createUrl('Site/view', array('id' => $this->Site->SIT_ID)); 
-
-		// if ($this->INF_TYPE == InformationType::External)
-			// return $this->createUrl('Information/view', array('id' => $this->INF_ID)); 
-	// }
-	
 	public function UserFind($phrase)
 	{
-		$condition = "LOWER(INF_NAME) like :PHRASE or LOWER(fnStripTags(INF_CONTENT)) LIKE :PHRASE";
+		$condition = "INF_SHOW = 1 and ( LOWER(INF_NAME) like :PHRASE or LOWER(fnStripTags(INF_CONTENT)) LIKE :PHRASE )";
 		$params[':PHRASE'] = '%'.$phrase.'%';
 
 		$criteria = new CDbCriteria(array(
@@ -190,6 +181,10 @@ class Information extends CActiveRecord
 
 		$dataProvider = new CActiveDataProvider('Information', array(
 				'criteria'=>$criteria,
+				'pagination'=>false,
+				// 'pagination'=>array(
+					// 'pageSize'=>20,
+				// ),
 			));
 			
 		return $dataProvider;
@@ -223,26 +218,14 @@ class Information extends CActiveRecord
 	
 	public function FindByName($name)
 	{
-		/*
-		
-		if (isset($searchParams['Name']) && $searchParams['Name'] != "")
-		{
-			$condition .= " and UCH_NAME like :UCH_NAME ";
-			$params[':UCH_NAME'] = '%'.$searchParams['Name'].'%';
-		}
-		
-		$condition .= " and UCH_TYPE = ".UchwalaType::Uchwala;
-		
-		$criteria = new CDbCriteria(array(
-				'condition'=>$condition,
-				'params'=>$params
-			));
-		*/
-	
 		$found=Information::model()->find('INF_NAME=:INF_NAME', array(':INF_NAME'=>'Pełna nazwa organizacji'));
-	
-		
 		return $found->INF_CONTENT;
+	}
+	
+	public function FindByProjectType($type) 
+	{
+		$found=Information::model()->find('INF_SHOW_PRJ_CAT=:INF_SHOW_PRJ_CAT', array(':INF_SHOW_PRJ_CAT'=>$type));
+		return $found;
 	}
 
 	/**

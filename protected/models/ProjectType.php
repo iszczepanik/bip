@@ -11,6 +11,11 @@ class ProjectType
 	(
 		1 => "Realizowany" , 2 => "Zrealizowany"
 	);
+	
+	private static $enumPlural = array
+	(
+		1 => "Realizowane" , 2 => "Zrealizowane"
+	);
 
 	public function GetOrdinal($name) 
 	{
@@ -20,6 +25,11 @@ class ProjectType
 	public function GetDescription($ordinal) 
 	{
 		return self::$enum[$ordinal];
+	}
+	
+	public function GetDescriptionPlural($ordinal) 
+	{
+		return self::$enumPlural[$ordinal];
 	}
 	
 	public function GetProjectTypeArray()

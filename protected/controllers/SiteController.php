@@ -43,6 +43,7 @@ class SiteController extends Controller
 			//echo $_POST['searchfrase'];
 			$this->render('searchResult', array(
 				'dataProvider'=>Information::model()->UserFind($phrase),
+				'dataProviderProject'=>Project::model()->UserFind($phrase),
 				'phrase'=>$_POST['searchfrase'],
 			));
 		}

@@ -94,6 +94,25 @@ class Project extends CActiveRecord
 			
 		return $dataProvider;
 	}
+	
+	public function UserFind($phrase)
+	{
+		$condition = "LOWER(PRJ_NAME) like :PHRASE or LOWER(PRJ_SOURCES) like :PHRASE or LOWER(fnStripTags(PRJ_DESCRIPTION)) LIKE :PHRASE";
+		$params[':PHRASE'] = '%'.$phrase.'%';
+
+		$criteria = new CDbCriteria(array(
+				'condition'=>$condition,
+				'params'=>$params
+			));
+		$criteria->order='PRJ_CAT';
+
+		$dataProvider = new CActiveDataProvider('Project', array(
+				'criteria'=>$criteria,
+				'pagination'=>false,
+			));
+			
+		return $dataProvider;
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
