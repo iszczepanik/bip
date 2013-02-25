@@ -1,5 +1,6 @@
 <br />
 <ul class="nav nav-list">
+<li><a href="<? echo  $this->createUrl('Site/search'); ?>"><i class="icon-search"></i> Szukaj</a></li>
 <? foreach ($data as $item) : ?>
 <? //echo var_dump($item); ?>
 <? if ($item->SIT_NAME == "Aktualności") : ?>

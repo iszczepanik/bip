@@ -39,7 +39,12 @@ class SiteController extends Controller
 	{
 		if (isset($_POST['searchfrase']))
 		{
-			echo $_POST['searchfrase'];
+			$phrase = strtolower($_POST['searchfrase']);
+			//echo $_POST['searchfrase'];
+			$this->render('searchResult', array(
+				'dataProvider'=>Information::model()->UserFind($phrase),
+				'phrase'=>$_POST['searchfrase'],
+			));
 		}
 		else
 			$this->actionSearch();

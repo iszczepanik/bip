@@ -159,6 +159,41 @@ class Information extends CActiveRecord
 		
 		return array();
 	}
+	
+	public function GetLink()
+	{
+		if ($this->INF_TYPE == InformationType::Internal)
+			return Yii::app()->createUrl('Sites/view', array('id' => $this->Site->SIT_ID)); 
+
+		if ($this->INF_TYPE == InformationType::External)
+			return Yii::app()->createUrl('Information/view', array('id' => $this->INF_ID)); 
+	}
+	
+	// public function GetSiteName()
+	// {
+		// if ($this->INF_TYPE == InformationType::Internal)
+			// return $this->createUrl('Site/view', array('id' => $this->Site->SIT_ID)); 
+
+		// if ($this->INF_TYPE == InformationType::External)
+			// return $this->createUrl('Information/view', array('id' => $this->INF_ID)); 
+	// }
+	
+	public function UserFind($phrase)
+	{
+		$condition = "LOWER(INF_NAME) like :PHRASE or LOWER(fnStripTags(INF_CONTENT)) LIKE :PHRASE";
+		$params[':PHRASE'] = '%'.$phrase.'%';
+
+		$criteria = new CDbCriteria(array(
+				'condition'=>$condition,
+				'params'=>$params
+			));
+
+		$dataProvider = new CActiveDataProvider('Information', array(
+				'criteria'=>$criteria,
+			));
+			
+		return $dataProvider;
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
