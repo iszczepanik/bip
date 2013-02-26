@@ -78,6 +78,26 @@ class ExternalControl extends CActiveRecord
 		return $dataProvider;
 	}
 
+	public function UserFind($phrase)
+	{
+		$condition = "LOWER(CTRL_NAME) like :PHRASE or LOWER(CTRL_INSTITUTION) like :PHRASE or LOWER(fnStripTags(CTRL_SCOPE)) LIKE :PHRASE";
+		$params[':PHRASE'] = '%'.$phrase.'%';
+
+		$criteria = new CDbCriteria(array(
+				'condition'=>$condition,
+				'params'=>$params
+			));
+
+		$dataProvider = new CActiveDataProvider('ExternalControl', array(
+				'criteria'=>$criteria,
+				'pagination'=>false,
+				// 'pagination'=>array(
+					// 'pageSize'=>20,
+				// ),
+			));
+			
+		return $dataProvider;
+	}
 	
 	/**
 	 * @return array relational rules.

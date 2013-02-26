@@ -227,6 +227,12 @@ class Information extends CActiveRecord
 		$found=Information::model()->find('INF_SHOW_PRJ_CAT=:INF_SHOW_PRJ_CAT', array(':INF_SHOW_PRJ_CAT'=>$type));
 		return $found;
 	}
+	
+	public function FindByExternalControl() 
+	{
+		$found=Information::model()->find('INF_SHOW_CTRL=1');
+		return $found;
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

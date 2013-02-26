@@ -2,10 +2,12 @@
 <? $year = 9999; ?>
 <? foreach ($data as $control): ?>
 
+	
 	<? if ($control->CTRL_YEAR < $year): ?>
 		<? $year = $control->CTRL_YEAR; ?>
 		<h3 class="year"><? echo $control->CTRL_YEAR; ?></h3>
 	<? endif; 
+	?><a name="ctrl_<? echo $control->CTRL_ID; ?>"></a> <?
 	$this->renderPartial('//externalControl/_view', array('data'=>$control));
 	
 	$this->renderPartial('//externalControl/_history_link', array('data'=>$control));

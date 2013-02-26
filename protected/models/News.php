@@ -59,6 +59,23 @@ class News extends CActiveRecord
 		return strip_tags($pieces[0]);
 	}
 
+	public function UserFind($phrase)
+	{
+		$condition = "LOWER(NWS_TITLE) like :PHRASE or LOWER(fnStripTags(NWS_CONTENT)) LIKE :PHRASE";
+		$params[':PHRASE'] = '%'.$phrase.'%';
+
+		$criteria = new CDbCriteria(array(
+				'condition'=>$condition,
+				'params'=>$params
+			));
+
+		$dataProvider = new CActiveDataProvider('News', array(
+				'criteria'=>$criteria,
+				'pagination'=>false,
+			));
+			
+		return $dataProvider;
+	}
 
 	/**
 	 * @return array relational rules.
