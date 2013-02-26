@@ -1,6 +1,6 @@
 <br />
 <ul class="nav nav-list">
-<li><h3 class="year" ><i class="icon-search"></i> <a href="<? echo  $this->createUrl('Site/search'); ?>">Szukaj</a></h3></li>
+<li><h3 class="year" ><a href="<? echo  $this->createUrl('Site/search'); ?>"><i class="icon-search" style="vertical-align:baseline;" ></i> Szukaj</a></h3></li>
 <? foreach ($data as $item) : ?>
 <? //echo var_dump($item); ?>
 <? if ($item->SIT_NAME == "Aktualności") : ?>
