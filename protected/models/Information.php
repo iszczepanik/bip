@@ -55,7 +55,7 @@ class Information extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('INF_CONTENT, INF_SIT_ID, INF_CREATE_DATE, INF_CREATE_BY', 'required'),
+			array('INF_SIT_ID, INF_CREATE_DATE, INF_CREATE_BY', 'required'),
 			array('INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_CREATE_BY, INF_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('INF_NAME', 'length', 'max'=>256),
 			array('INF_MODIFY_DATE', 'safe'),

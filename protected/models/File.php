@@ -121,7 +121,7 @@ class File extends CActiveRecord
 			'FIL_NAME' => 'Plik',
 			'FIL_CAT' => 'Kategoria',
 			'FIL_CONTENT' => 'Fil Content',
-			'FIL_CREATE_DATE' => 'Data udostępnienia iformacji w BIP',
+			'FIL_CREATE_DATE' => 'Data udostępnienia informacji w BIP',
 			'FIL_CREATE_BY' => 'Informację wprowadził do BIP',
 			'FIL_MODIFY_DATE' => 'Fil Modify Date',
 			'FIL_MODIFY_BY' => 'Fil Modify By',
