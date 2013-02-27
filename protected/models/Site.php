@@ -66,6 +66,7 @@ class Site extends CActiveRecord
 		{
 			$criteria = new CDbCriteria;
 			$criteria->condition='INF_SIT_ID='.$this->SIT_ID.' and INF_INF_ID is null';
+			$criteria->order='INF_CREATE_DATE';
 			//$criteria->params=array(':INF_SIT_ID'=>$this->SIT_ID);
 			return Information::model()->findAll($criteria);
 		}

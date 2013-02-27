@@ -36,10 +36,10 @@ class SitesController extends Controller
 	
 	public function actionView($id)
 	{
-		$model=Site::model()->findAll();
+		//$model=Site::model()->findAll();
 
 		$this->render('view',array(
-				'model'=>$model,
+				//'model'=>$model,
 				'viewed'=> Site::model()->findByPk($id),
 		));
 	}
