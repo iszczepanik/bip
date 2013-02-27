@@ -47,6 +47,11 @@ class News extends CActiveRecord
 		);
 	}
 	
+	public function GetLink()
+	{
+		return Yii::app()->createUrl('/news/view',array('id'=>$this->NWS_ID));
+	}
+	
 	public function GetNewsCount()
 	{
 		return Yii::app()->db->createCommand('SELECT count(*) FROM `nws`')->queryScalar();

@@ -16,7 +16,7 @@ foreach ($dataNews as $item)
 		?><h3 class="year" >Aktualności / Ogłoszenia<?
 		$header = true;
 	}
-	?><small> &bull; <a href="<? echo $this->createUrl('/news/view',array('id'=>$item->NWS_ID)); ?>"><? echo $item->NWS_TITLE; ?></a></small> <?
+	?><small> &bull; <a href="<? echo $item->Link; ?>"><? echo $item->NWS_TITLE; ?></a></small> <?
 }
 if ($header)
 {
@@ -35,9 +35,8 @@ foreach ($dataProjects as $item)
 		$type = $item->PRJ_CAT;
 		?><h3 class="year" >Projekty <? echo ProjectType::GetDescriptionPlural($type); 
 	} 
-	$inf = Information::FindByProjectType($type);
 	?>
-	<small> &bull; <a href="<? echo $inf->Link."#prj_".$item->PRJ_ID; ?>"><? echo $item->PRJ_NAME; ?></a></small> 
+	<small> &bull; <a href="<? echo $item->Link; ?>"><? echo $item->PRJ_NAME; ?></a></small> 
 
 <?
 }
@@ -55,8 +54,7 @@ foreach ($dataControl as $item)
 		?><h3 class="year" >Kontrole zewnętrzne<?
 		$header = true;
 	}
-	$inf = Information::FindByExternalControl();
-	?><small> &bull; <a href="<? echo $inf->Link."#ctrl_".$item->CTRL_ID; ?>"><? echo $item->CTRL_NAME; ?></a></small> <?
+	?><small> &bull; <a href="<? echo $item->Link; ?>"><? echo $item->CTRL_NAME; ?></a></small> <?
 }
 if ($header)
 {

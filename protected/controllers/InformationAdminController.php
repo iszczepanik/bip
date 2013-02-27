@@ -51,7 +51,7 @@ class InformationAdminController extends Controller
 			$model->INF_MODIFY_BY = Yii::app()->user->id;
 			
 			if($model->save())
-				$this->redirect(array('Information/view','id'=>$model->INF_ID));
+				$this->redirect($model->LinkAnchor);
 		}
 
 		$this->render('update',array(

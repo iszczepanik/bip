@@ -64,7 +64,7 @@ class ProjectAdminController extends Controller
 			$model->PRJ_CREATE_BY = Yii::app()->user->id;
 			
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->PRJ_ID));
+				$this->redirect($model->Link);
 		}
 
 		$this->render('create',array(
@@ -93,7 +93,7 @@ class ProjectAdminController extends Controller
 			$model->PRJ_MODIFY_BY = Yii::app()->user->id;
 			
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->PRJ_ID));
+				$this->redirect($model->Link);
 		}
 
 		$this->render('update',array(

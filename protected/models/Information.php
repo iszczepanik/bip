@@ -55,7 +55,7 @@ class Information extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('INF_SIT_ID, INF_CREATE_DATE, INF_CREATE_BY', 'required'),
+			array('INF_CONTENT, INF_SIT_ID, INF_CREATE_DATE, INF_CREATE_BY', 'required'),
 			array('INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_CREATE_BY, INF_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('INF_NAME', 'length', 'max'=>256),
 			array('INF_MODIFY_DATE', 'safe'),
@@ -169,6 +169,15 @@ class Information extends CActiveRecord
 			return Yii::app()->createUrl('Information/view', array('id' => $this->INF_ID)); 
 	}
 	
+	public function GetLinkAnchor()
+	{
+		if ($this->INF_TYPE == InformationType::Internal)
+			return Yii::app()->createUrl('Sites/view', array('id' => $this->Site->SIT_ID, "#" => "inf_".$this->INF_ID));
+
+		if ($this->INF_TYPE == InformationType::External)
+			return Yii::app()->createUrl('Information/view', array('id' => $this->INF_ID)); 
+	}
+	
 	public function UserFind($phrase)
 	{
 		$condition = "INF_SHOW = 1 and ( LOWER(INF_NAME) like :PHRASE or LOWER(fnStripTags(INF_CONTENT)) LIKE :PHRASE )";
@@ -225,6 +234,12 @@ class Information extends CActiveRecord
 	public function FindByProjectType($type) 
 	{
 		$found=Information::model()->find('INF_SHOW_PRJ_CAT=:INF_SHOW_PRJ_CAT', array(':INF_SHOW_PRJ_CAT'=>$type));
+		return $found;
+	}
+	
+	public function FindByFinanceType($type) 
+	{
+		$found=Information::model()->find('INF_SHOW_FIN_TYPE=:INF_SHOW_FIN_TYPE', array(':INF_SHOW_FIN_TYPE'=>$type));
 		return $found;
 	}
 	

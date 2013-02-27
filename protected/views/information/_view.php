@@ -13,6 +13,8 @@
 				$class = 'display-none';
 		
 		?><div class="<? echo $class; ?>" ><?
+
+		echo "<a name='inf_".$information['INF_ID']."'></a>"; 
 		echo "<h".$headerLevel.">".$information['INF_NAME']."</h".$headerLevel.">"; 
 		
 		echo $information['INF_CONTENT'];

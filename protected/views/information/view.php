@@ -12,7 +12,8 @@
 	?>
 	
 	<div class="<? echo $class; ?>" >
-
+	
+	<a name="inf_<? echo $viewed->INF_ID; ?>"></a> 
 	<h2><? echo $viewed->INF_NAME; ?></h2>
 	<? 
 	echo $viewed->INF_CONTENT;

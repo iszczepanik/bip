@@ -63,7 +63,7 @@ class NewsAdminController extends Controller
 			$model->NWS_DATE = $date->format('Y-m-d H:i:s');
 			
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->NWS_ID));
+				$this->redirect($model->Link);
 		}
 
 		$this->render('create',array(
@@ -91,7 +91,7 @@ class NewsAdminController extends Controller
 			$model->NWS_DATE = $date->format('Y-m-d H:i:s');
 			
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->NWS_ID));
+				$this->redirect($model->Link);
 		}
 
 		$this->render('update',array(

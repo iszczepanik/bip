@@ -140,6 +140,12 @@ class Project extends CActiveRecord
 		return ProjectType::GetDescription($this->PRJ_CAT);
 	}
 	
+	public function GetLink()
+	{
+		$inf = Information::FindByProjectType($this->PRJ_CAT);
+		return $inf->Link."#prj_".$this->PRJ_ID;
+	}
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

@@ -42,6 +42,12 @@ class ExternalControl extends CActiveRecord
 	{
 		return 'ctrl';
 	}
+	
+	public function GetLink()
+	{
+		$inf = Information::FindByExternalControl();
+		return $inf->Link."#ctrl_".$this->CTRL_ID;
+	}
 
 	/**
 	 * @return array validation rules for model attributes.

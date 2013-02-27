@@ -1,4 +1,4 @@
-
+<a name="prj_<? echo $data->PRJ_ID; ?>"></a> 
 <h3><? echo $data->PRJ_NAME; ?></h3>
 <p><? echo $data->PRJ_DESCRIPTION; ?></p>
 <p><strong>Źródło finansowania:</strong> <? echo $data->PRJ_SOURCES; ?></p>

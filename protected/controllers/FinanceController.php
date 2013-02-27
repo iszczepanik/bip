@@ -78,7 +78,7 @@ class FinanceController extends Controller
 			$model->FIN_CREATE_BY = Yii::app()->user->id;
 			
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->FIN_ID));
+				$this->redirect($model->Link);
 		}
 
 		$this->render('create',array(
@@ -107,7 +107,7 @@ class FinanceController extends Controller
 			$model->FIN_MODIFY_BY = Yii::app()->user->id;
 			
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->FIN_ID));
+				$this->redirect($model->Link);
 		}
 
 		$this->render('update',array(
