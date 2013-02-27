@@ -16,6 +16,7 @@
  * @property integer $INF_SHOW_PRJ_CAT
  * @property integer $INF_SHOW_FILE_CAT
  * @property integer $INF_SHOW_FIN_TYPE
+ * @property integer $INF_SHOW_CTRL
  * @property string $INF_CREATE_DATE
  * @property integer $INF_CREATE_BY
  * @property string $INF_MODIFY_DATE
@@ -55,13 +56,13 @@ class Information extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('INF_CONTENT, INF_SIT_ID, INF_CREATE_DATE, INF_CREATE_BY', 'required'),
-			array('INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_CREATE_BY, INF_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('INF_SIT_ID, INF_CREATE_DATE, INF_CREATE_BY', 'required'),
+			array('INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_SHOW_CTRL, INF_CREATE_BY, INF_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('INF_NAME', 'length', 'max'=>256),
-			array('INF_MODIFY_DATE', 'safe'),
+			array('INF_CONTENT, INF_MODIFY_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('INF_ID, INF_NAME, INF_CONTENT, INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_CREATE_DATE, INF_CREATE_BY, INF_MODIFY_DATE, INF_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('INF_ID, INF_NAME, INF_CONTENT, INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_SHOW_CTRL, INF_CREATE_DATE, INF_CREATE_BY, INF_MODIFY_DATE, INF_MODIFY_BY', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +82,7 @@ class Information extends CActiveRecord
 			'History' => array(self::HAS_MANY, 'InformationHistory', 'INF_HIST_INF_ID'),
 		);
 	}
+
 	
 	public function GetHistoryProvider()
 	{
