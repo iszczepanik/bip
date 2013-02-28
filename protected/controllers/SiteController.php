@@ -45,6 +45,7 @@ class SiteController extends Controller
 				'dataProviderNews'=>News::model()->UserFind($phrase),
 				'dataProviderProject'=>Project::model()->UserFind($phrase),
 				'dataProviderControl'=>ExternalControl::model()->UserFind($phrase),
+				'dataProviderFile'=>File::model()->UserFind($phrase),
 				'phrase'=>$_POST['searchfrase'],
 			));
 		}

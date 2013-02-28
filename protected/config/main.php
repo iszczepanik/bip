@@ -127,6 +127,7 @@ return array(
 		'adminEmail'=>'webmaster@example.com',
 		'debug'=>false,
 		'organization'=>'Bona Fides',
+		'homepage'=>'http://bonafides.pl',
 		'version'=>'0.9.8',
 	),
 );

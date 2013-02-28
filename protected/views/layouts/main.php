@@ -22,8 +22,9 @@
 		$logo = Image::GetLogo();
 		if ($logo != "none") :
 		?>
+			<a href="<? echo Yii::app()->params['homepage']; ?>">
 			<img src="<?php echo Yii::app()->request->baseUrl; ?>/<? echo $logo; ?>"
-			alt="<? echo strip_tags(Information::FindByName('Pełna nazwa organizacji')); ?>" />
+			alt="<? echo strip_tags(Information::FindByName('Pełna nazwa organizacji')); ?>" /></a>
 			<br />
 			<? if (Yii::app()->user->checkAccess('admin')): ?>
 				<a class="pull-right" href="<?php echo $this->createUrl('/imageAdmin/upload'); ?>">Zaimportuj</a><br />

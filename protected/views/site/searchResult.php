@@ -61,5 +61,16 @@ if ($header)
 	?></h3><?
 }
 
+
+//File
+$dataControl = $dataProviderFile->getData();
+if (count($dataControl) > 0): ?>
+	<h3 class="year" >Dokumenty</h3>
+<?
+$this->renderPartial('//file/_view_link', array('data'=>$dataControl));
+endif;
+
+
+
 ?>
 

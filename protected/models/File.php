@@ -110,6 +110,27 @@ class File extends CActiveRecord
 			
 		return $dataProvider;
 	}
+	
+	public function UserFind($phrase)
+	{
+		$condition = "LOWER(FIL_NAME) like :PHRASE";
+		$params[':PHRASE'] = '%'.$phrase.'%';
+
+		$criteria = new CDbCriteria(array(
+				'condition'=>$condition,
+				'params'=>$params
+			));
+
+		$dataProvider = new CActiveDataProvider('File', array(
+				'criteria'=>$criteria,
+				'pagination'=>false,
+				// 'pagination'=>array(
+					// 'pageSize'=>20,
+				// ),
+			));
+			
+		return $dataProvider;
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
