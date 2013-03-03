@@ -128,6 +128,6 @@ return array(
 		'debug'=>false,
 		'organization'=>'Bona Fides',
 		'homepage'=>'http://bonafides.pl',
-		'version'=>'0.9.8',
+		'version'=>'0.9.9',
 	),
 );
