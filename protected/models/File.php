@@ -52,7 +52,7 @@ class File extends CActiveRecord
 			array('FIL_CONTENT, FIL_MODIFY_DATE, FIL_INFO_CREATEDATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('FIL_ID, FIL_NAME, FIL_CAT, FIL_CONTENT, FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY, FIL_INFO_CREATED_BY, FIL_INFO_CREATEDATE', 'safe', 'on'=>'search'),
+			array('FIL_ID, FIL_NAME, FIL_CAT, FIL_CONTENT, FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY, FIL_INFO_CREATED_BY, FIL_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -148,7 +148,7 @@ class File extends CActiveRecord
 			'FIL_MODIFY_BY' => 'Fil Modify By',
 			'uploadedFile' => 'Plik',
 			'FIL_INFO_CREATED_BY' => 'Informację wytworzył lub odpowiada za treść',
-			'FIL_INFO_CREATEDATE' => 'Data wytworzenia informacji',
+			'FIL_INFO_CREATE_DATE' => 'Data wytworzenia informacji',
 			'Podmiot'=>'Podmiot udostępniający informację'
 		);
 	}
@@ -173,7 +173,7 @@ class File extends CActiveRecord
 		$criteria->compare('FIL_MODIFY_DATE',$this->FIL_MODIFY_DATE,true);
 		$criteria->compare('FIL_MODIFY_BY',$this->FIL_MODIFY_BY);
 		$criteria->compare('FIL_INFO_CREATED_BY',$this->FIL_INFO_CREATED_BY,true);
-		$criteria->compare('FIL_INFO_CREATEDATE',$this->FIL_INFO_CREATEDATE,true);
+		$criteria->compare('FIL_INFO_CREATE_DATE',$this->FIL_INFO_CREATE_DATE,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

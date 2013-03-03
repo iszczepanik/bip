@@ -1,5 +1,7 @@
 <div id="rejestr-zmian-ctrl-<? echo $data->CTRL_ID; ?>-grid" style="display: none;" >
 
+<? $this->renderPartial('//externalControl/_metryczka', array('data'=>$data)); ?>
+
 <?php $this->widget('bootstrap.widgets.BootGridView',array(
 	'type'=>'striped bordered condensed',
 	'id'=>'control-history-grid',

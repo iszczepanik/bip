@@ -16,6 +16,8 @@
  * @property integer $CTRL_CREATE_BY
  * @property string $CTRL_MODIFY_DATE
  * @property integer $CTRL_MODIFY_BY
+ * @property string $CTRL_INFO_CREATED_BY
+ * @property string $CTRL_INFO_CREATE_DATE
  *
  * The followings are the available model relations:
  * @property Fil $cTRLFILE
@@ -42,12 +44,6 @@ class ExternalControl extends CActiveRecord
 	{
 		return 'ctrl';
 	}
-	
-	public function GetLink()
-	{
-		$inf = Information::FindByExternalControl();
-		return $inf->Link."#ctrl_".$this->CTRL_ID;
-	}
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -60,13 +56,19 @@ class ExternalControl extends CActiveRecord
 			array('CTRL_YEAR, CTRL_NAME, CTRL_INSTITUTION, CTRL_DATE_START, CTRL_DATE_END, CTRL_SCOPE, CTRL_CREATE_DATE, CTRL_CREATE_BY', 'required'),
 			array('CTRL_YEAR, CTRL_FILE_ID, CTRL_CREATE_BY, CTRL_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('CTRL_NAME, CTRL_INSTITUTION', 'length', 'max'=>128),
-			array('CTRL_MODIFY_DATE', 'safe'),
+			array('CTRL_INFO_CREATED_BY', 'length', 'max'=>256),
+			array('CTRL_MODIFY_DATE, CTRL_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('CTRL_ID, CTRL_YEAR, CTRL_NAME, CTRL_INSTITUTION, CTRL_DATE_START, CTRL_DATE_END, CTRL_SCOPE, CTRL_FILE_ID, CTRL_CREATE_DATE, CTRL_CREATE_BY, CTRL_MODIFY_DATE, CTRL_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('CTRL_ID, CTRL_YEAR, CTRL_NAME, CTRL_INSTITUTION, CTRL_DATE_START, CTRL_DATE_END, CTRL_SCOPE, CTRL_FILE_ID, CTRL_CREATE_DATE, CTRL_CREATE_BY, CTRL_MODIFY_DATE, CTRL_MODIFY_BY, CTRL_INFO_CREATED_BY, CTRL_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 		);
 	}
-
+	
+	public function GetPodmiot()
+	{
+		return strip_tags(Information::FindByName('Pełna nazwa organizacji'));
+	}
+	
 	public function GetHistoryProvider()
 	{
 		$params[':CTRL_HIST_CTRL_ID'] = $this->CTRL_ID;
@@ -105,6 +107,12 @@ class ExternalControl extends CActiveRecord
 		return $dataProvider;
 	}
 	
+	public function GetLink()
+	{
+		$inf = Information::FindByExternalControl();
+		return $inf->Link."#ctrl_".$this->CTRL_ID;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -114,7 +122,7 @@ class ExternalControl extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'File' => array(self::BELONGS_TO, 'File', 'CTRL_FILE_ID'),
-			'cTRLCREATEBY' => array(self::BELONGS_TO, 'Usr', 'CTRL_CREATE_BY'),
+			'CreateBy' => array(self::BELONGS_TO, 'User', 'CTRL_CREATE_BY'),
 			'cTRLMODIFYBY' => array(self::BELONGS_TO, 'Usr', 'CTRL_MODIFY_BY'),
 			'History' => array(self::HAS_MANY, 'ExternalControlHistory', 'CTRL_HIST_CTRL_ID'),
 		);
@@ -134,10 +142,13 @@ class ExternalControl extends CActiveRecord
 			'CTRL_DATE_END' => 'Do',
 			'CTRL_SCOPE' => 'Zakres kontroli',
 			'CTRL_FILE_ID' => 'Wyniki',
-			'CTRL_CREATE_DATE' => 'Ctrl Create Date',
-			'CTRL_CREATE_BY' => 'Ctrl Create By',
+			'CTRL_CREATE_DATE' => 'Data udostępnienia informacji w BIP',
+			'CTRL_CREATE_BY' => 'Informację wprowadził do BIP',
 			'CTRL_MODIFY_DATE' => 'Ctrl Modify Date',
 			'CTRL_MODIFY_BY' => 'Ctrl Modify By',
+			'CTRL_INFO_CREATED_BY' => 'Informację wytworzył lub odpowiada za treść',
+			'CTRL_INFO_CREATE_DATE' => 'Data wytworzenia informacji',
+			'Podmiot'=>'Podmiot udostępniający informację'
 		);
 	}
 
@@ -164,6 +175,8 @@ class ExternalControl extends CActiveRecord
 		$criteria->compare('CTRL_CREATE_BY',$this->CTRL_CREATE_BY);
 		$criteria->compare('CTRL_MODIFY_DATE',$this->CTRL_MODIFY_DATE,true);
 		$criteria->compare('CTRL_MODIFY_BY',$this->CTRL_MODIFY_BY);
+		$criteria->compare('CTRL_INFO_CREATED_BY',$this->CTRL_INFO_CREATED_BY,true);
+		$criteria->compare('CTRL_INFO_CREATE_DATE',$this->CTRL_INFO_CREATE_DATE,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

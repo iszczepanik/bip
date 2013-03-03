@@ -5,13 +5,13 @@
 			'name'=>'Podmiot',
 			'value'=>$data->Podmiot,
 		),
-		'FIL_INFO_CREATED_BY',
-		'FIL_INFO_CREATE_DATE',
+		'CTRL_INFO_CREATED_BY',
+		'CTRL_INFO_CREATE_DATE',
 		array(
-			'name'=>'FIL_CREATE_BY',
+			'name'=>'CTRL_CREATE_BY',
 			'value'=>$data->CreateBy->WholeName(),
 		),
-		'FIL_CREATE_DATE',
+		'CTRL_CREATE_DATE',
 	),
 )); ?>
 

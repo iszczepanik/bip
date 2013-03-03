@@ -68,11 +68,11 @@
 	</div>
 	-->
 	
-	<div class='control-group<?php echo (CHtml::error($model,'FIL_INFO_CREATEDATE') == '' ? '' : ' error'); ?>'>
-		<?php echo $form->labelEx($model,'FIL_INFO_CREATEDATE',array('class'=>'control-label')); ?>
+	<div class='control-group<?php echo (CHtml::error($model,'FIL_INFO_CREATE_DATE') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'FIL_INFO_CREATE_DATE',array('class'=>'control-label')); ?>
 		<div class="controls">
-		<?php echo $form->textField($model,'FIL_INFO_CREATEDATE'); ?>
-		<?php echo $form->error($model,'FIL_INFO_CREATEDATE',array('class'=>'help-inline')); ?>
+		<?php echo $form->textField($model,'FIL_INFO_CREATE_DATE'); ?>
+		<?php echo $form->error($model,'FIL_INFO_CREATE_DATE',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
 

@@ -72,6 +72,22 @@
 		<?php echo $form->error($model,'CTRL_FILE_ID',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
+	
+	<div class='control-group<?php echo (CHtml::error($model,'CTRL_INFO_CREATE_DATE') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'CTRL_INFO_CREATE_DATE',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->textField($model,'CTRL_INFO_CREATE_DATE'); ?>
+		<?php echo $form->error($model,'CTRL_INFO_CREATE_DATE',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
+
+	<div class='control-group<?php echo (CHtml::error($model,'CTRL_INFO_CREATED_BY') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'CTRL_INFO_CREATED_BY',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->textField($model,'CTRL_INFO_CREATED_BY'); ?>
+		<?php echo $form->error($model,'CTRL_INFO_CREATED_BY',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.BootButton', array(
