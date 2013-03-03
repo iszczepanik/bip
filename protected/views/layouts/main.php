@@ -35,7 +35,7 @@
 		<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/BIPnij.png" alt="BIPnij" />
 		
 		<div class="side_menu">
-			<?php $this->renderPartial('//layouts/_menu', array('data'=>Site::model()->findAll(), 'contrast'=>$contrast))?>
+			<?php $this->renderPartial('//layouts/_menu', array('data'=>Site::model()->findAll(array("order"=>"SIT_DISPALY_ORDER")), 'contrast'=>$contrast))?>
 			<? if (Yii::app()->user->checkAccess('admin')): ?>
 				<?php $this->renderPartial('//layouts/_adminmenu'); ?>
 			<? endif; ?>

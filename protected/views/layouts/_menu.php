@@ -2,20 +2,28 @@
 <ul class="nav nav-list">
 <li><h3 class="year" ><a href="<? echo  $this->createUrl('Site/search'); ?>"><i class="icon-search" style="vertical-align:baseline;" ></i> Szukaj</a></h3></li>
 <? foreach ($data as $item) : ?>
-<? //echo var_dump($item); ?>
-<? if ($item->SIT_NAME == "Aktualności") : ?>
-	<? if (News::GetNewsCount() > 0): ?>
-		<li><a href="<? echo  $this->createUrl('News/index'); ?>"><?  echo $item->SIT_NAME; ?></a></li>
-	<? endif; ?>
-<? else : ?>
-	<? if (count($item->InformationsExternal) > 0) : ?>
+<? 
+if ($item->SIT_NAME == "Aktualności")
+{
+	if (News::GetNewsCount() > 0){
+		?><li><a href="<? echo  $this->createUrl('News/index'); ?>"><?  echo $item->SIT_NAME; ?></a></li><?
+	}
+}
+else if ($item->SIT_NAME == "Ogłoszenia")
+{
+	if (News::GetAnnouncementCount() > 0){
+		?><li><a href="<? echo  $this->createUrl('News/announcements'); ?>"><?  echo $item->SIT_NAME; ?></a></li><?
+	}
+}
+else 
+{
+	if (count($item->InformationsExternal) > 0) : ?>
 		<li class="disabled" ><a href="#"  ><?  echo $item->SIT_NAME; ?></a></li>
 	<? else : ?>
 		<li><a href="<? echo $this->createUrl('Sites/view', array('id' => $item->SIT_ID)); ?>"><?  echo $item->SIT_NAME; ?></a></li>
-	<? endif; ?>
-<? endif; ?>
-
-<? 
+	<? endif;
+}
+ 
 if (count($item->InformationsExternal) > 0) 
 {	
 	foreach ($item->InformationsExternal as $subitem) : ?>

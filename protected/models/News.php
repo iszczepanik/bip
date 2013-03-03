@@ -54,7 +54,12 @@ class News extends CActiveRecord
 	
 	public function GetNewsCount()
 	{
-		return Yii::app()->db->createCommand('SELECT count(*) FROM `nws`')->queryScalar();
+		return Yii::app()->db->createCommand('SELECT count(*) FROM `nws` where `NWS_BIP` = 0')->queryScalar();
+	}
+	
+	public function GetAnnouncementCount()
+	{
+		return Yii::app()->db->createCommand('SELECT count(*) FROM `nws` where `NWS_BIP` = 1')->queryScalar();
 	}
 	
 	public function GetBrief()

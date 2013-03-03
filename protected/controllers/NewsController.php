@@ -27,7 +27,7 @@ class NewsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','announcements'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -129,9 +129,22 @@ class NewsController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('News', array(
 			'criteria'=>array(
+				'condition'=>'NWS_BIP = 0',
 				'order'=>'NWS_DATE DESC',
 			)));
 		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+	
+	public function actionAnnouncements()
+	{
+		$dataProvider=new CActiveDataProvider('News', array(
+			'criteria'=>array(
+				'condition'=>'NWS_BIP = 1',
+				'order'=>'NWS_DATE DESC',
+			)));
+		$this->render('announcements',array(
 			'dataProvider'=>$dataProvider,
 		));
 	}
