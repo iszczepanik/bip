@@ -1,5 +1,5 @@
 <div id="rejestr-zmian-prj-<? echo $data->PRJ_ID; ?>-grid" style="display: none;" >
-
+<? $this->renderPartial('//project/_metryczka', array('data'=>$data)); ?>
 <?php $this->widget('bootstrap.widgets.BootGridView',array(
 	'type'=>'striped bordered condensed',
 	'id'=>'project-history-grid',

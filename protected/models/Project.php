@@ -54,12 +54,12 @@ class Project extends CActiveRecord
 			array('PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT, PRJ_CREATE_DATE, PRJ_CREATE_BY', 'required'),
 			array('PRJ_CAT, PRJ_CREATE_BY, PRJ_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC', 'numerical'),
-			array('PRJ_NAME, PRJ_SHORT_DESCRIPTION', 'length', 'max'=>256),
+			array('PRJ_NAME, PRJ_SHORT_DESCRIPTION, PRJ_INFO_CREATED_BY', 'length', 'max'=>256),
 			array('PRJ_DESCRIPTION, PRJ_SOURCES', 'length', 'max'=>512),
-			array('PRJ_MODIFY_DATE', 'safe'),
+			array('PRJ_MODIFY_DATE, PRJ_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_CREATE_DATE, PRJ_CREATE_BY, PRJ_MODIFY_DATE, PRJ_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_CREATE_DATE, PRJ_CREATE_BY, PRJ_MODIFY_DATE, PRJ_MODIFY_BY, PRJ_INFO_CREATED_BY, PRJ_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,7 +73,7 @@ class Project extends CActiveRecord
 		return array(
 			'fins' => array(self::HAS_MANY, 'Fin', 'FIN_PRJ_ID'),
 			'pRJMODIFYBY' => array(self::BELONGS_TO, 'Usr', 'PRJ_MODIFY_BY'),
-			'pRJCREATEBY' => array(self::BELONGS_TO, 'Usr', 'PRJ_CREATE_BY'),
+			'CreateBy' => array(self::BELONGS_TO, 'User', 'PRJ_CREATE_BY'),
 			'History' => array(self::HAS_MANY, 'ProjectHistory', 'PRJ_HIST_PRJ_ID'),
 		);
 	}
@@ -128,10 +128,13 @@ class Project extends CActiveRecord
 			'PRJ_AMOUNT_PUBLIC' => 'Kwota środków publicznych',
 			'PRJ_SOURCES' => 'Źródła',
 			'PRJ_CAT' => 'Kategoria',
-			'PRJ_CREATE_DATE' => 'Prj Create Date',
-			'PRJ_CREATE_BY' => 'Prj Create By',
+			'PRJ_CREATE_DATE' => 'Data udostępnienia informacji w BIP',
+			'PRJ_CREATE_BY' => 'Informację wprowadził do BIP',
 			'PRJ_MODIFY_DATE' => 'Prj Modify Date',
 			'PRJ_MODIFY_BY' => 'Prj Modify By',
+			'PRJ_INFO_CREATED_BY' => 'Informację wytworzył lub odpowiada za treść',
+			'PRJ_INFO_CREATE_DATE' => 'Data wytworzenia informacji',
+			'Podmiot'=>'Podmiot udostępniający informację'
 		);
 	}
 
@@ -144,6 +147,11 @@ class Project extends CActiveRecord
 	{
 		$inf = Information::FindByProjectType($this->PRJ_CAT);
 		return $inf->Link."#prj_".$this->PRJ_ID;
+	}
+	
+	public function GetPodmiot()
+	{
+		return strip_tags(Information::FindByName('Pełna nazwa organizacji'));
 	}
 	
 	/**
@@ -169,6 +177,8 @@ class Project extends CActiveRecord
 		$criteria->compare('PRJ_CREATE_BY',$this->PRJ_CREATE_BY);
 		$criteria->compare('PRJ_MODIFY_DATE',$this->PRJ_MODIFY_DATE,true);
 		$criteria->compare('PRJ_MODIFY_BY',$this->PRJ_MODIFY_BY);
+		$criteria->compare('PRJ_INFO_CREATED_BY',$this->PRJ_INFO_CREATED_BY,true);
+		$criteria->compare('PRJ_INFO_CREATE_DATE',$this->PRJ_INFO_CREATE_DATE,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
