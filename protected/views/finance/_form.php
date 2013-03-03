@@ -64,9 +64,27 @@
 		</div>
 	</div>
 	
+
+	
 	<? else: ?>
 		<?php //echo $form->hiddenField($model,'FIN_FROM',array('size'=>60,'maxlength'=>256)); ?>
 	<? endif; ?>
+	
+	<div class='control-group<?php echo (CHtml::error($model,'FIN_INFO_CREATE_DATE') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'FIN_INFO_CREATE_DATE',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->textField($model,'FIN_INFO_CREATE_DATE'); ?>
+		<?php echo $form->error($model,'FIN_INFO_CREATE_DATE',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
+
+	<div class='control-group<?php echo (CHtml::error($model,'FIN_INFO_CREATED_BY') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'FIN_INFO_CREATED_BY',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->textField($model,'FIN_INFO_CREATED_BY'); ?>
+		<?php echo $form->error($model,'FIN_INFO_CREATED_BY',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.BootButton', array(

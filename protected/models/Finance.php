@@ -15,11 +15,13 @@
  * @property integer $FIN_CREATE_BY
  * @property string $FIN_MODIFY_DATE
  * @property integer $FIN_MODIFY_BY
+ * @property integer $FIN_INFO_CREATED_BY
+ * @property string $FIN_INFO_CREATE_DATE
  *
  * The followings are the available model relations:
- * @property Usr $fINMODIFYBY
  * @property Prj $fINPRJ
  * @property Usr $fINCREATEBY
+ * @property Usr $fINMODIFYBY
  * @property FinHist[] $finHists
  */
 class Finance extends CActiveRecord
@@ -53,11 +55,11 @@ class Finance extends CActiveRecord
 			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_CREATE_DATE, FIN_CREATE_BY', 'required'),
 			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_PRJ_ID, FIN_CREATE_BY, FIN_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('FIN_AMOUNT', 'numerical'),
-			array('FIN_FROM', 'length', 'max'=>256),
-			array('FIN_MODIFY_DATE', 'safe'),
+			array('FIN_FROM, FIN_INFO_CREATED_BY', 'length', 'max'=>256),
+			array('FIN_MODIFY_DATE, FIN_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('FIN_ID, FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_FROM, FIN_PRJ_ID, FIN_CREATE_DATE, FIN_CREATE_BY, FIN_MODIFY_DATE, FIN_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('FIN_ID, FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_FROM, FIN_PRJ_ID, FIN_CREATE_DATE, FIN_CREATE_BY, FIN_MODIFY_DATE, FIN_MODIFY_BY, FIN_INFO_CREATED_BY, FIN_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,27 +77,12 @@ class Finance extends CActiveRecord
 			'CreateBy' => array(self::BELONGS_TO, 'User', 'FIN_CREATE_BY'),
 		);
 	}
-
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
+	
+	public function GetPodmiot()
 	{
-		return array(
-			'FIN_ID' => '#',
-			'FIN_TYPE' => 'Kategoria',
-			'FIN_SOURCE' => 'Typ',
-			'FIN_YEAR' => 'Rok',
-			'FIN_AMOUNT' => 'Kwota',
-			'FIN_FROM' => 'Źródło',
-			'FIN_PRJ_ID' => 'Projekt',
-			'FIN_CREATE_DATE' => 'Fin Create Date',
-			'FIN_CREATE_BY' => 'Fin Create By',
-			'FIN_MODIFY_DATE' => 'Fin Modify Date',
-			'FIN_MODIFY_BY' => 'Fin Modify By',
-		);
+		return strip_tags(Information::FindByName('Pełna nazwa organizacji'));
 	}
-
+	
 	public function GetTypeDescription()
 	{
 		return FinanceType::GetDescription($this->FIN_TYPE);
@@ -128,7 +115,30 @@ class Finance extends CActiveRecord
 		$inf = Information::FindByFinanceType($this->FIN_TYPE);
 		return $inf->Link;
 	}
-	
+
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'FIN_ID' => '#',
+			'FIN_TYPE' => 'Kategoria',
+			'FIN_SOURCE' => 'Typ',
+			'FIN_YEAR' => 'Rok',
+			'FIN_AMOUNT' => 'Kwota',
+			'FIN_FROM' => 'Źródło',
+			'FIN_PRJ_ID' => 'Projekt',
+			'FIN_CREATE_DATE' => 'Data udostępnienia informacji w BIP',
+			'FIN_CREATE_BY' => 'Informację wprowadził do BIP',
+			'FIN_MODIFY_DATE' => 'Fin Modify Date',
+			'FIN_MODIFY_BY' => 'Fin Modify By',
+			'FIN_INFO_CREATED_BY' => 'Informację wytworzył lub odpowiada za treść',
+			'FIN_INFO_CREATE_DATE' => 'Data wytworzenia informacji',
+			'Podmiot'=>'Podmiot udostępniający informację'
+		);
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -151,6 +161,8 @@ class Finance extends CActiveRecord
 		$criteria->compare('FIN_CREATE_BY',$this->FIN_CREATE_BY);
 		$criteria->compare('FIN_MODIFY_DATE',$this->FIN_MODIFY_DATE,true);
 		$criteria->compare('FIN_MODIFY_BY',$this->FIN_MODIFY_BY);
+		$criteria->compare('FIN_INFO_CREATED_BY',$this->FIN_INFO_CREATED_BY,true);
+		$criteria->compare('FIN_INFO_CREATE_DATE',$this->FIN_INFO_CREATE_DATE,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
