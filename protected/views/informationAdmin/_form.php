@@ -28,6 +28,22 @@
 		<?php $this->widget('application.extensions.tinymce.ETinyMce', array('model'=>$model, 'attribute'=>'INF_CONTENT', 'id'=>'INF_CONTENT', )); ?>
 		<?php echo $form->error($model,'INF_CONTENT',array('class'=>'help-inline')); ?>
 	</div>
+	
+	<div class='control-group<?php echo (CHtml::error($model,'INF_INFO_CREATE_DATE') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'INF_INFO_CREATE_DATE',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->textField($model,'INF_INFO_CREATE_DATE'); ?>
+		<?php echo $form->error($model,'INF_INFO_CREATE_DATE',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
+
+	<div class='control-group<?php echo (CHtml::error($model,'INF_INFO_CREATED_BY') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'INF_INFO_CREATED_BY',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->textField($model,'INF_INFO_CREATED_BY'); ?>
+		<?php echo $form->error($model,'INF_INFO_CREATED_BY',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.BootButton', array(

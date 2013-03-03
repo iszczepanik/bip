@@ -58,11 +58,11 @@ class Information extends CActiveRecord
 		return array(
 			array('INF_SIT_ID, INF_CREATE_DATE, INF_CREATE_BY', 'required'),
 			array('INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_SHOW_CTRL, INF_CREATE_BY, INF_MODIFY_BY', 'numerical', 'integerOnly'=>true),
-			array('INF_NAME', 'length', 'max'=>256),
-			array('INF_CONTENT, INF_MODIFY_DATE', 'safe'),
+			array('INF_NAME, INF_INFO_CREATED_BY', 'length', 'max'=>256),
+			array('INF_CONTENT, INF_MODIFY_DATE, INF_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('INF_ID, INF_NAME, INF_CONTENT, INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_SHOW_CTRL, INF_CREATE_DATE, INF_CREATE_BY, INF_MODIFY_DATE, INF_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('INF_ID, INF_NAME, INF_CONTENT, INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_SHOW_CTRL, INF_CREATE_DATE, INF_CREATE_BY, INF_MODIFY_DATE, INF_MODIFY_BY, INF_INFO_CREATED_BY, INF_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,7 +77,7 @@ class Information extends CActiveRecord
 			'Parent' => array(self::BELONGS_TO, 'Information', 'INF_INF_ID'),
 			'Informations' => array(self::HAS_MANY, 'Information', 'INF_INF_ID'),
 			'Site' => array(self::BELONGS_TO, 'Site', 'INF_SIT_ID'),
-			'iNFCREATEBY' => array(self::BELONGS_TO, 'User', 'INF_CREATE_BY'),
+			'CreateBy' => array(self::BELONGS_TO, 'User', 'INF_CREATE_BY'),
 			'iNFMODIFYBY' => array(self::BELONGS_TO, 'User', 'INF_MODIFY_BY'),
 			'History' => array(self::HAS_MANY, 'InformationHistory', 'INF_HIST_INF_ID'),
 		);
@@ -220,10 +220,13 @@ class Information extends CActiveRecord
 			'INF_SHOW_FILE_CAT' => 'Inf Show File Cat',
 			'INF_SHOW_FIN_TYPE' => 'Inf Show Fin Type',
 			'INF_SHOW_CTRL' => 'Inf Show Ctrl',
-			'INF_CREATE_DATE' => 'Inf Create Date',
-			'INF_CREATE_BY' => 'Inf Create By',
+			'INF_CREATE_DATE' => 'Data udostępnienia informacji w BIP',
+			'INF_CREATE_BY' => 'Informację wprowadził do BIP',
 			'INF_MODIFY_DATE' => 'Inf Modify Date',
 			'INF_MODIFY_BY' => 'Inf Modify By',
+			'INF_INFO_CREATED_BY' => 'Informację wytworzył lub odpowiada za treść',
+			'INF_INFO_CREATE_DATE' => 'Data wytworzenia informacji',
+			'Podmiot'=>'Podmiot udostępniający informację'
 		);
 	}
 	
@@ -250,7 +253,11 @@ class Information extends CActiveRecord
 		$found=Information::model()->find('INF_SHOW_CTRL=1');
 		return $found;
 	}
-
+	
+	public function GetPodmiot()
+	{
+		return strip_tags(Information::FindByName('Pełna nazwa organizacji'));
+	}
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -279,6 +286,8 @@ class Information extends CActiveRecord
 		$criteria->compare('INF_CREATE_BY',$this->INF_CREATE_BY);
 		$criteria->compare('INF_MODIFY_DATE',$this->INF_MODIFY_DATE,true);
 		$criteria->compare('INF_MODIFY_BY',$this->INF_MODIFY_BY);
+		$criteria->compare('INF_INFO_CREATED_BY',$this->INF_INFO_CREATED_BY,true);
+		$criteria->compare('INF_INFO_CREATE_DATE',$this->INF_INFO_CREATE_DATE,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
