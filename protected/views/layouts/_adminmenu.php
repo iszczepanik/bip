@@ -17,7 +17,7 @@
 <? endif; ?>
 
 <? if (Yii::app()->user->checkAccess('admin')) : ?>
-<li><a href="<? echo  $this->createUrl('newsAdmin/admin'); ?>">Aktualności</a></li>
+<li><a href="<? echo  $this->createUrl('newsAdmin/admin'); ?>">Aktualności / Ogłoszenia</a></li>
 <? endif; ?>
 
 </ul>
