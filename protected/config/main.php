@@ -45,6 +45,7 @@ return array(
 		
         'request' => array(
             'baseUrl' => 'http://localhost/bip',
+			//'baseUrl' => 'http://83.238.168.145/bip',
 			//'baseUrl' => 'http://isabel.drl.pl/bip/',
         ),
 		
@@ -72,9 +73,11 @@ return array(
 		/* localhost */
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=bonafide_bip',
+			//'connectionString' => 'mysql:host=localhost;dbname=bip',
+			'connectionString' => 'mysql:host=localhost;dbname=bonafides_bip',
 			'emulatePrepare' => true,
 			'username' => 'root',
+			//'password' => 'Katowice1',
 			'password' => '',
 			'charset' => 'utf8',
 		),
