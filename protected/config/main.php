@@ -131,6 +131,6 @@ return array(
 		'debug'=>false,
 		'organization'=>'Bona Fides',
 		'homepage'=>'http://bonafides.pl',
-		'version'=>'0.9.9',
+		'version'=>'0.9.10',
 	),
 );
