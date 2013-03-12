@@ -52,12 +52,12 @@ class News extends CActiveRecord
 		return Yii::app()->createUrl('/news/view',array('id'=>$this->NWS_ID));
 	}
 	
-	public function GetNewsCount()
+	public static function GetNewsCount()
 	{
 		return Yii::app()->db->createCommand('SELECT count(*) FROM `nws` where `NWS_BIP` = 0')->queryScalar();
 	}
 	
-	public function GetAnnouncementCount()
+	public static function GetAnnouncementCount()
 	{
 		return Yii::app()->db->createCommand('SELECT count(*) FROM `nws` where `NWS_BIP` = 1')->queryScalar();
 	}

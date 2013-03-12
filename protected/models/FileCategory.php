@@ -16,17 +16,17 @@ class FileCategory
 		1 => "Sprawozdania" , 2 => "Zbiórki publiczne", 3 => "Statut", 4 => "Wyniki pokontrolne"
 	);
 
-	public function GetOrdinal($name) 
+	public static function GetOrdinal($name) 
 	{
 		return array_search($name, self::$enum);
 	}
 
-	public function GetDescription($ordinal) 
+	public static function GetDescription($ordinal) 
 	{
 		return self::$enum[$ordinal];
 	}
 	
-	public function GetFileCategoryArray()
+	public static function GetFileCategoryArray()
 	{
 		return array(
 			FileCategory::Report=>FileCategory::ReportLabel, 

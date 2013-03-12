@@ -8,18 +8,18 @@ class Image //extends CActiveRecord
 	
 	public static function GetLogo()
 	{
-		if (isset($_SESSION[$LOGO_FILE]))
-			return ($_SESSION[$LOGO_FILE]);
+		if (isset($_SESSION[Image::$LOGO_FILE]))
+			return ($_SESSION[Image::$LOGO_FILE]);
 		
-		if (file_exists('img/'."organizacja.png")) { $_SESSION[$LOGO_FILE] = 'img/'."organizacja.png"; }
-		if (file_exists('img/'."organizacja.jpg")) { $_SESSION[$LOGO_FILE] = 'img/'."organizacja.jpg"; }
-		if (file_exists('img/'."organizacja.gif")) { $_SESSION[$LOGO_FILE] = 'img/'."organizacja.gif"; }
+		if (file_exists('img/'."organizacja.png")) { $_SESSION[Image::$LOGO_FILE] = 'img/'."organizacja.png"; }
+		if (file_exists('img/'."organizacja.jpg")) { $_SESSION[Image::$LOGO_FILE] = 'img/'."organizacja.jpg"; }
+		if (file_exists('img/'."organizacja.gif")) { $_SESSION[Image::$LOGO_FILE] = 'img/'."organizacja.gif"; }
 		
-		if (isset($_SESSION[$LOGO_FILE]))
-			return $_SESSION[$LOGO_FILE];
+		if (isset($_SESSION[Image::$LOGO_FILE]))
+			return $_SESSION[Image::$LOGO_FILE];
 		
-		$_SESSION[$LOGO_FILE] = "none";
-		return $_SESSION[$LOGO_FILE];
+		$_SESSION[Image::$LOGO_FILE] = "none";
+		return $_SESSION[Image::$LOGO_FILE];
 	}
  
 	private function rename()

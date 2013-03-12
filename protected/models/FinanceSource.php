@@ -19,17 +19,17 @@ class FinanceSource
 		4 => "Środki pozyskane na realizację projektów"
 	);
 
-	public function GetOrdinal($name) 
+	public static function GetOrdinal($name) 
 	{
 		return array_search($name, self::$enum);
 	}
 
-	public function GetDescription($ordinal) 
+	public static function GetDescription($ordinal) 
 	{
 		return self::$enum[$ordinal];
 	}
 	
-	public function GetFinanceSourceArray()
+	public static function GetFinanceSourceArray()
 	{
 		return array(
 			FinanceSource::Percent=>FinanceSource::PercentLabel,

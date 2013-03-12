@@ -60,7 +60,7 @@ class SiteController extends Controller
 		if ($value == 'high')
 			unset(Yii::app()->request->cookies['contrast']);
 		else
-			Yii::app()->request->cookies['contrast'] = new CHttpCookie('contrast', 'high', $options);
+			Yii::app()->request->cookies['contrast'] = new CHttpCookie('contrast', 'high', null);
 		
 		$this->redirect(array('/Sites/view', 'id'=>'1'));
 	}

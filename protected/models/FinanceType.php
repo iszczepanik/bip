@@ -12,17 +12,17 @@ class FinanceType
 		1 => "Środki prywatne" , 2 => "Środki publiczne"
 	);
 
-	public function GetOrdinal($name) 
+	public static function GetOrdinal($name) 
 	{
 		return array_search($name, self::$enum);
 	}
 
-	public function GetDescription($ordinal) 
+	public static function GetDescription($ordinal) 
 	{
 		return self::$enum[$ordinal];
 	}
 	
-	public function GetFinanceTypeArray()
+	public static function GetFinanceTypeArray()
 	{
 		return array(FinanceType::PrivateFinance=>FinanceType::PrivateFinanceLabel,
 			FinanceType::PublicFinance=>FinanceType::PublicFinanceLabel);

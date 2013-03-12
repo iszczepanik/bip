@@ -17,22 +17,22 @@ class ProjectType
 		1 => "Realizowane" , 2 => "Zrealizowane"
 	);
 
-	public function GetOrdinal($name) 
+	public static function GetOrdinal($name) 
 	{
 		return array_search($name, self::$enum);
 	}
 
-	public function GetDescription($ordinal) 
+	public static function GetDescription($ordinal) 
 	{
 		return self::$enum[$ordinal];
 	}
 	
-	public function GetDescriptionPlural($ordinal) 
+	public static function GetDescriptionPlural($ordinal) 
 	{
 		return self::$enumPlural[$ordinal];
 	}
 	
-	public function GetProjectTypeArray()
+	public static function GetProjectTypeArray()
 	{
 		return array(ProjectType::Current=>ProjectType::CurrentLabel,
 			ProjectType::Passed=>ProjectType::PassedLabel);

@@ -74,7 +74,7 @@ return array(
 		
 		'db'=>array(
 			//'connectionString' => 'mysql:host=localhost;dbname=bip',
-			'connectionString' => 'mysql:host=localhost;dbname=bonafides_bip',
+			'connectionString' => 'mysql:host=localhost;dbname=bonafide_bip',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			//'password' => 'Katowice1',

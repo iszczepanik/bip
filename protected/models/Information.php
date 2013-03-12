@@ -230,25 +230,25 @@ class Information extends CActiveRecord
 		);
 	}
 	
-	public function FindByName($name)
+	public static function FindByName($name)
 	{
 		$found=Information::model()->find('INF_NAME=:INF_NAME', array(':INF_NAME'=>'Pełna nazwa organizacji'));
 		return $found->INF_CONTENT;
 	}
 	
-	public function FindByProjectType($type) 
+	public static function FindByProjectType($type) 
 	{
 		$found=Information::model()->find('INF_SHOW_PRJ_CAT=:INF_SHOW_PRJ_CAT', array(':INF_SHOW_PRJ_CAT'=>$type));
 		return $found;
 	}
 	
-	public function FindByFinanceType($type) 
+	public static function FindByFinanceType($type) 
 	{
 		$found=Information::model()->find('INF_SHOW_FIN_TYPE=:INF_SHOW_FIN_TYPE', array(':INF_SHOW_FIN_TYPE'=>$type));
 		return $found;
 	}
 	
-	public function FindByExternalControl() 
+	public static function FindByExternalControl() 
 	{
 		$found=Information::model()->find('INF_SHOW_CTRL=1');
 		return $found;
