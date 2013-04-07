@@ -27,8 +27,11 @@ class ImageAdminController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','download','create','update','admin','delete'),
+				'actions'=>array('upload'),
 				'roles'=>array('admin'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
 			),
 		);
 	}

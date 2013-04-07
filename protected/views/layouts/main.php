@@ -20,17 +20,19 @@
 	<div class="span3" >
 		<?
 		$logo = Image::GetLogo();
+		//echo $logo;
 		if ($logo != "none") :
 		?>
 			<a href="<? echo Yii::app()->params['homepage']; ?>">
 			<img src="<?php echo Yii::app()->request->baseUrl; ?>/<? echo $logo; ?>"
 			alt="<? echo strip_tags(Information::FindByName('Pełna nazwa organizacji')); ?>" /></a>
 			<br />
-			<? if (Yii::app()->user->checkAccess('admin')): ?>
-				<a class="pull-right" href="<?php echo $this->createUrl('/imageAdmin/upload'); ?>">Zaimportuj</a><br />
-			<? endif; ?>
-			<br />
+			
+		<? endif; 
+		if (Yii::app()->user->checkAccess('admin')): ?>
+			<a class="pull-right" href="<?php echo $this->createUrl('/imageAdmin/upload'); ?>">Zaimportuj logo</a><br /><br />
 		<? endif; ?>
+			
 		
 		<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/BIPnij.png" alt="BIPnij" />
 		

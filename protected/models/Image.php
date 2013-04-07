@@ -8,9 +8,9 @@ class Image //extends CActiveRecord
 	
 	public static function GetLogo()
 	{
-		if (isset($_SESSION[Image::$LOGO_FILE]))
+		if (isset($_SESSION[Image::$LOGO_FILE]) && $_SESSION[Image::$LOGO_FILE] != "none")
 			return ($_SESSION[Image::$LOGO_FILE]);
-		
+
 		if (file_exists('img/'."organizacja.png")) { $_SESSION[Image::$LOGO_FILE] = 'img/'."organizacja.png"; }
 		if (file_exists('img/'."organizacja.jpg")) { $_SESSION[Image::$LOGO_FILE] = 'img/'."organizacja.jpg"; }
 		if (file_exists('img/'."organizacja.gif")) { $_SESSION[Image::$LOGO_FILE] = 'img/'."organizacja.gif"; }
@@ -91,7 +91,7 @@ class Image //extends CActiveRecord
 		if ($this->image->saveAs('img/'.$newName))
 		{
 			$this->resize('img/'.$newName);
-			$_SESSION[$LOGO_FILE] = null;
+			$_SESSION[Image::$LOGO_FILE] = null;
 			return true; 
 		}
 		

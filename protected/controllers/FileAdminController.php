@@ -27,7 +27,7 @@ class FileAdminController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','download','create','update','admin','delete'),
+				'actions'=>array('view','download','create','update','admin','delete'),
 				'roles'=>array('admin'),
 			),
 		);
@@ -71,26 +71,6 @@ class FileAdminController extends Controller
 			'model'=>$model,
 		));
 	}
-
-	
-	/*
-	public function actionCreate()
-    {
-        $model=new Item;
-        if(isset($_POST['Item']))
-        {
-            $model->attributes=$_POST['Item'];
-            $model->image=CUploadedFile::getInstance($model,'image');
-            if($model->save())
-            {
-                $model->image->saveAs('path/to/localFile');
-                // redirect to success page
-            }
-        }
-        $this->render('create', array('model'=>$model));
-    }
-
-	*/
 
 	/**
 	 * Updates a particular model.
@@ -137,17 +117,6 @@ class FileAdminController extends Controller
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('File');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
 	}
 
 	/**
