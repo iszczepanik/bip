@@ -20,7 +20,6 @@
 	<div class="span3" >
 		<?
 		$logo = Image::GetLogo();
-		//echo $logo;
 		if ($logo != "none") :
 		?>
 			<a href="<? echo Yii::app()->params['homepage']; ?>">
@@ -30,9 +29,9 @@
 			
 		<? endif; 
 		if (Yii::app()->user->checkAccess('admin')): ?>
-			<a class="pull-right" href="<?php echo $this->createUrl('/imageAdmin/upload'); ?>">Zaimportuj logo</a><br /><br />
+			<a class="pull-right" href="<?php echo $this->createUrl('/imageAdmin/upload'); ?>">Zaimportuj logo</a><br />
 		<? endif; ?>
-			
+		<br />	
 		
 		<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/BIPnij.png" alt="BIPnij" />
 		
