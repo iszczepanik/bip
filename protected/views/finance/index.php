@@ -3,7 +3,7 @@
 <? foreach ($data as $finance): ?>
 	<? $type = $finance->FIN_TYPE; ?>
 	<? if ($finance->FIN_YEAR < $year): ?>
-		<? $year = $finance->FIN_YEAR; ?>
+		<? $year = $finance->FIN_YEAR; $projects = false; ?>
 		<h3 class="year"><? echo $finance->FIN_YEAR; ?></h3>
 	<? endif; ?>
 	<? if ($finance->FIN_SOURCE == FinanceSource::Project) : ?>
@@ -12,7 +12,7 @@
 			<h3><? echo $finance->sourceDescription; ?>:</h3>
 		<? endif; ?>
 		<h3><? echo $finance->Project->PRJ_NAME; ?></h3>
-		<? echo $finance->FIN_FROM; ?><br />
+		<? if ($finance->FIN_FROM != "") echo $finance->FIN_FROM."<br />"; ?>
 		<? echo $finance->FIN_AMOUNT; ?> PLN<br />
 	<? else: ?>
 		<p><strong><? echo $finance->sourceDescription; ?></strong>: <? echo $finance->FIN_AMOUNT; ?> PLN</p>
