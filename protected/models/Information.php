@@ -56,13 +56,13 @@ class Information extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('INF_SIT_ID, INF_CREATE_DATE, INF_CREATE_BY', 'required'),
-			array('INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_SHOW_CTRL, INF_CREATE_BY, INF_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('INF_DISPLAY_ORDER, INF_SIT_ID, INF_CREATE_DATE, INF_CREATE_BY', 'required'),
+			array('INF_OBLIGATORY, INF_DISPLAY_ORDER, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_SHOW_CTRL, INF_CREATE_BY, INF_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('INF_NAME, INF_INFO_CREATED_BY', 'length', 'max'=>256),
 			array('INF_CONTENT, INF_MODIFY_DATE, INF_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('INF_ID, INF_NAME, INF_CONTENT, INF_OBLIGATORY, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_SHOW_CTRL, INF_CREATE_DATE, INF_CREATE_BY, INF_MODIFY_DATE, INF_MODIFY_BY, INF_INFO_CREATED_BY, INF_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
+			array('INF_ID, INF_NAME, INF_CONTENT, INF_OBLIGATORY, INF_DISPLAY_ORDER, INF_SHOW, INF_BIP, INF_SIT_ID, INF_TYPE, INF_INF_ID, INF_SHOW_PRJ_CAT, INF_SHOW_FILE_CAT, INF_SHOW_FIN_TYPE, INF_SHOW_CTRL, INF_CREATE_DATE, INF_CREATE_BY, INF_MODIFY_DATE, INF_MODIFY_BY, INF_INFO_CREATED_BY, INF_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -107,6 +107,7 @@ class Information extends CActiveRecord
 		{
 			$criteria = new CDbCriteria;
 			$criteria->condition='INF_INF_ID='.$this->INF_ID;
+			$criteria->order='INF_DISPLAY_ORDER';
 			return Information::model()->findAll($criteria);
 		}
 		
@@ -211,6 +212,7 @@ class Information extends CActiveRecord
 			'INF_NAME' => 'Inf Name',
 			'INF_CONTENT' => 'Treść',
 			'INF_OBLIGATORY' => 'Inf Obligatory',
+			'INF_DISPLAY_ORDER' => 'Inf Display Order',
 			'INF_SHOW' => 'Pokazuj tą informację',
 			'INF_BIP' => 'Pokazuj Bip',
 			'INF_SIT_ID' => 'Inf Sit',
@@ -273,6 +275,7 @@ class Information extends CActiveRecord
 		$criteria->compare('INF_NAME',$this->INF_NAME,true);
 		$criteria->compare('INF_CONTENT',$this->INF_CONTENT,true);
 		$criteria->compare('INF_OBLIGATORY',$this->INF_OBLIGATORY);
+		$criteria->compare('INF_DISPLAY_ORDER',$this->INF_DISPLAY_ORDER);
 		$criteria->compare('INF_SHOW',$this->INF_SHOW);
 		$criteria->compare('INF_BIP',$this->INF_BIP);
 		$criteria->compare('INF_SIT_ID',$this->INF_SIT_ID);
