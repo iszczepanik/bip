@@ -132,6 +132,7 @@ class Information extends CActiveRecord
 		{
 			$criteria = new CDbCriteria;
 			$criteria->condition='FIL_CAT='.$this->INF_SHOW_FILE_CAT;
+			$criteria->order='FIL_CREATE_DATE desc';
 			return File::model()->findAll($criteria);
 		}
 		
