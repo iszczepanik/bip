@@ -19,10 +19,15 @@
 	//Brak treści i linków edycji i historii, jeżeli treść jest nullem, nie pusta.
 	if ($viewed->INF_CONTENT != null)
 	{
+		echo "niebrak";
 		echo $viewed->INF_CONTENT;
 		$this->renderPartial('//information/_history_link', array('data'=>$viewed));
 		if (Yii::app()->user->checkAccess('admin'))
 			$this->renderPartial('//information/_edit_link', array('id'=>$viewed->INF_ID)); 
+	}
+	else if (Yii::app()->user->checkAccess('admin') && $viewed->INF_OBLIGATORY == 0)
+	{
+		$this->renderPartial('//information/_visibility_link', array('id'=>$viewed->INF_ID)); 
 	}
 
 	if (count($viewed->Projects) > 0)

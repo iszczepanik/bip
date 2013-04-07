@@ -22,6 +22,7 @@
 		<?php echo $form->error($model,'INF_SHOW',array('class'=>'help-inline')); ?>
 	</div>
 	<? endif; ?>
+	<? if ($model->INF_CONTENT != null) : ?>
 	<div class='control-group<?php echo (CHtml::error($model,'INF_CONTENT') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'INF_CONTENT'); ?>
 		<?php //echo $form->textArea($model,'INF_CONTENT',array('rows'=>6, 'cols'=>50)); ?>
@@ -44,7 +45,8 @@
 		<?php echo $form->error($model,'INF_INFO_CREATED_BY',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
-
+	<? endif; ?>
+	
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.BootButton', array(
 			'buttonType'=>'submit',

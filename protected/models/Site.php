@@ -29,7 +29,12 @@ class Site extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sit';
+		return 'sit_inf_visible_count';
+	}
+	
+	public function primaryKey()
+	{
+		return 'SIT_ID';
 	}
 
 	/**
@@ -87,7 +92,17 @@ class Site extends CActiveRecord
 		
 		return array();
 	}
-
+	/*
+	public function GetShow()
+	{
+		$res = Yii::app()->db->createCommand('SELECT count(*) 
+			FROM `inf` 
+			WHERE `inf_show` = 1
+			AND `inf_sit_id` = '.$this->SIT_ID)->queryScalar();
+			
+		return $res > 0;
+	}
+*/
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

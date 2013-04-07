@@ -17,10 +17,17 @@ else if ($item->SIT_NAME == "Ogłoszenia")
 }
 else 
 {
+	$class = '';
+	if ($item->INF_VISIBLE_COUNT == 0)
+		if (Yii::app()->user->checkAccess('admin'))
+			$class = 'muted';
+		else
+			$class = 'display-none';
+	
 	if (count($item->InformationsExternal) > 0) : ?>
-		<li class="disabled" ><a href="#"  ><?  echo $item->SIT_NAME; ?></a></li>
+		<li class="disabled <? echo $class; ?>" ><a href="#"  ><?  echo $item->SIT_NAME; ?></a></li>
 	<? else : ?>
-		<li><a href="<? echo $this->createUrl('Sites/view', array('id' => $item->SIT_ID)); ?>"><?  echo $item->SIT_NAME; ?></a></li>
+		<li class="<? echo $class; ?>"><a href="<? echo $this->createUrl('Sites/view', array('id' => $item->SIT_ID)); ?>"><?  echo $item->SIT_NAME; ?></a></li>
 	<? endif;
 }
  

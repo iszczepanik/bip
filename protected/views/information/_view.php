@@ -25,6 +25,11 @@
 			if (Yii::app()->user->checkAccess('admin'))
 				$this->renderPartial('//information/_edit_link', array('id'=>$information->INF_ID)); 
 		}
+		else if (Yii::app()->user->checkAccess('admin') && $information['INF_OBLIGATORY'] == 0)
+		{
+			//echo "brak";
+			$this->renderPartial('//information/_visibility_link', array('id'=>$information->INF_ID)); 
+		}
 		
 		if (count($information->Projects) > 0)
 			$this->renderPartial('//project/index', array('data'=>$information->Projects));
