@@ -16,10 +16,14 @@
 	<a name="inf_<? echo $viewed->INF_ID; ?>"></a> 
 	<h2><? echo $viewed->INF_NAME; ?></h2>
 	<? 
-	echo $viewed->INF_CONTENT;
-	$this->renderPartial('//information/_history_link', array('data'=>$viewed));
-	if (Yii::app()->user->checkAccess('admin'))
-		$this->renderPartial('//information/_edit_link', array('id'=>$viewed->INF_ID)); 
+	//Brak treści i linków edycji i historii, jeżeli treść jest nullem, nie pusta.
+	if ($viewed->INF_CONTENT != null)
+	{
+		echo $viewed->INF_CONTENT;
+		$this->renderPartial('//information/_history_link', array('data'=>$viewed));
+		if (Yii::app()->user->checkAccess('admin'))
+			$this->renderPartial('//information/_edit_link', array('id'=>$viewed->INF_ID)); 
+	}
 
 	if (count($viewed->Projects) > 0)
 		$this->renderPartial('//project/index', array('data'=>$viewed->Projects));

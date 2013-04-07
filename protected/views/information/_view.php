@@ -17,11 +17,14 @@
 		echo "<a name='inf_".$information['INF_ID']."'></a>"; 
 		echo "<h".$headerLevel.">".$information['INF_NAME']."</h".$headerLevel.">"; 
 		
-		echo $information['INF_CONTENT'];
-		//var_dump($information->History);
-		$this->renderPartial('//information/_history_link', array('data'=>$information));
-		if (Yii::app()->user->checkAccess('admin'))
-			$this->renderPartial('//information/_edit_link', array('id'=>$information->INF_ID)); 
+		//Brak treści i linków edycji i historii, jeżeli treść jest nullem, nie pusta.
+		if ($information['INF_CONTENT'] != null)
+		{
+			echo $information['INF_CONTENT'];
+			$this->renderPartial('//information/_history_link', array('data'=>$information));
+			if (Yii::app()->user->checkAccess('admin'))
+				$this->renderPartial('//information/_edit_link', array('id'=>$information->INF_ID)); 
+		}
 		
 		if (count($information->Projects) > 0)
 			$this->renderPartial('//project/index', array('data'=>$information->Projects));
