@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<? $contrast = isset(Yii::app()->request->cookies['contrast']) ? Yii::app()->request->cookies['contrast']->value : ''; ?>
+	<? $contrast = isset(Yii::app()->request->cookies['contrast']) ? Yii::app()->request->cookies['contrast']->value : 'normal'; ?>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/datepicker.css?v=<? echo Yii::app()->params['version']; ?>"  />
