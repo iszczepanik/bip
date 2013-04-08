@@ -98,6 +98,11 @@ class News extends CActiveRecord
 		);
 	}
 
+	public function GetType()
+	{
+		return $this->NWS_BIP ? "Ogłoszenie" : "Aktualność";
+	}
+	
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -108,7 +113,7 @@ class News extends CActiveRecord
 			'NWS_DATE' => 'Data',
 			'NWS_TITLE' => 'Tytuł',
 			'NWS_CONTENT' => 'Treść',
-			'NWS_BIP' => 'Pokazuj znaczek "Bip"',
+			'NWS_BIP' => 'Ogłoszenie (Bip)',
 		);
 	}
 

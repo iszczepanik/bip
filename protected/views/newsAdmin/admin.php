@@ -8,7 +8,7 @@ array('label'=>'Lista', 'icon'=>'th-list', 'url'=>array('admin')),
 array('label'=>'Nowy', 'icon'=>'plus-sign', 'url'=>array('create')),
 ),
 ));
-?><h2>Aktualności - Lista</h2>
+?><h2>Aktualności / Ogłoszenia - Lista</h2>
 </div>
 </div>
 
@@ -21,6 +21,11 @@ array('label'=>'Nowy', 'icon'=>'plus-sign', 'url'=>array('create')),
 		'NWS_ID',
 		'NWS_DATE',
 		'NWS_TITLE',
+		//'NWS_BIP',
+		array(
+			'header'=>'Typ',
+			'value'=>'$data->Type',
+		),
 		//'NWS_CONTENT',
 		array(
 			'class'=>'bootstrap.widgets.BootButtonColumn',

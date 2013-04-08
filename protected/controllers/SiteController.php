@@ -56,7 +56,7 @@ class SiteController extends Controller
 	public function actionContrast()
 	{
 		//$this->render('index',array());
-		$value = isset(Yii::app()->request->cookies['contrast']) ? Yii::app()->request->cookies['contrast']->value : '';
+		$value = isset(Yii::app()->request->cookies['contrast']) ? Yii::app()->request->cookies['contrast']->value : 'normal';
 		if ($value == 'high')
 			unset(Yii::app()->request->cookies['contrast']);
 		else
