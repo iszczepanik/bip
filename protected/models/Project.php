@@ -154,6 +154,11 @@ class Project extends CActiveRecord
 		return strip_tags(Information::FindByName('Pełna nazwa organizacji'));
 	}
 	
+	public function GetFiles()
+	{
+		return FileAttachment::GetFilesByEntity($this->PRJ_ID, 1);
+	}
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
