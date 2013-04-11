@@ -10,26 +10,19 @@
 	<div class='control-group<?php echo (CHtml::error($model,'fil_atch_fil_id') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'fil_atch_fil_id',array('class'=>'control-label')); ?>
 		<div class="controls">
-		<?php echo $form->textField($model,'fil_atch_fil_id'); ?>
+		<div class="alert alert-info">Wrzuć plik na serwer w 
+		<strong><a href="<?echo $this->createUrl('/Files/admin');?>" >panelu zarządzania dokumentami</a></strong> z kategorią "Projekty". Wówczas plik znajdzie się na poniższej liście i będzie można go powiązać z kontrolą zewnętrzną.
+		</div>
+		<?php echo $form->dropDownList($model, 'fil_atch_fil_id', CHtml::listData(
+			File::model()->findAllByAttributes(array('FIL_CAT'=>FileCategory::Projects)), 'FIL_ID', 'FIL_NAME')
+			, array('prompt' => '')
+			);?>
 		<?php echo $form->error($model,'fil_atch_fil_id',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
 
-	<div class='control-group<?php echo (CHtml::error($model,'fil_atch_entity_id') == '' ? '' : ' error'); ?>'>
-		<?php echo $form->labelEx($model,'fil_atch_entity_id',array('class'=>'control-label')); ?>
-		<div class="controls">
-		<?php echo $form->textField($model,'fil_atch_entity_id'); ?>
-		<?php echo $form->error($model,'fil_atch_entity_id',array('class'=>'help-inline')); ?>
-		</div>
-	</div>
-
-	<div class='control-group<?php echo (CHtml::error($model,'fil_atch_entity_type') == '' ? '' : ' error'); ?>'>
-		<?php echo $form->labelEx($model,'fil_atch_entity_type',array('class'=>'control-label')); ?>
-		<div class="controls">
-		<?php echo $form->textField($model,'fil_atch_entity_type'); ?>
-		<?php echo $form->error($model,'fil_atch_entity_type',array('class'=>'help-inline')); ?>
-		</div>
-	</div>
+	<?php echo $form->hiddenField($model,'fil_atch_entity_id'); ?>
+	<?php echo $form->hiddenField($model,'fil_atch_entity_type'); ?>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.BootButton', array(

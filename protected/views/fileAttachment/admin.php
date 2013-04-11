@@ -1,22 +1,18 @@
-<div class="row-fluid">
-<div class="span6">
 <?php $this->widget('bootstrap.widgets.BootMenu', array(
     'type'=>'tabs',
     'items'=>array(
-//array('label'=>'LIST HEADER'),
-array('label'=>'Lista', 'icon'=>'th-list', 'url'=>array('admin')),
-array('label'=>'Nowy', 'icon'=>'plus-sign', 'url'=>array('create')),
+array('label'=>'Przypnij dokument', 'icon'=>'plus-sign', 'url'=>$this->createUrl('fileAttachment/create', array('id'=>$model->PRJ_ID))),
 ),
 ));
-?><h2>Dokumenty w projekcie - Lista</h2>
-</div>
-</div>
+?>
+
+<h2>Dokumenty w projekcie <? echo $model->PRJ_NAME; ?></h2>
 
 <?php $this->widget('bootstrap.widgets.BootGridView',array(
 	'type'=>'striped bordered condensed',
 	'id'=>'file-attachment-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	'dataProvider'=>$provider,
+	//'filter'=>$model,
 	'columns'=>array(
 		//'fil_atch_id',
 		array(

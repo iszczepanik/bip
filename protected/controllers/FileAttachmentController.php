@@ -26,16 +26,8 @@ class FileAttachmentController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','create'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -45,59 +37,23 @@ class FileAttachmentController extends Controller
 	}
 
 	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($id)
 	{
 		$model=new FileAttachment;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
+		$model->fil_atch_entity_id = $id;
+		$model->fil_atch_entity_type = 1;
+		
 		if(isset($_POST['FileAttachment']))
 		{
 			$model->attributes=$_POST['FileAttachment'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->fil_atch_id));
+				$this->redirect(array('admin','id'=>$id));
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['FileAttachment']))
-		{
-			$model->attributes=$_POST['FileAttachment'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->fil_atch_id));
-		}
-
-		$this->render('update',array(
 			'model'=>$model,
 		));
 	}
@@ -123,28 +79,13 @@ class FileAttachmentController extends Controller
 	}
 
 	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('FileAttachment');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionAdmin($id)
 	{
-		$model=new FileAttachment('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['FileAttachment']))
-			$model->attributes=$_GET['FileAttachment'];
-
 		$this->render('admin',array(
-			'model'=>$model,
+			'provider'=>FileAttachment::GetFilesByEntity($id, 1),
+			'model'=>Project::model()->findByPk($id)
 		));
 	}
 

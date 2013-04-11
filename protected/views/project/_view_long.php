@@ -15,7 +15,7 @@ if (Yii::app()->user->checkAccess('admin'))
 	$this->renderPartial('//project/_edit_link', array('id'=>$data->PRJ_ID));
 	?>
 	<div class="block_link right" >
-		<a rel="tooltip" title="Przypnij/odepnij dokumenty" href="<? echo $this->createUrl('fileAttachment/admin'/*, array('prj_id'=>$data->PRJ_ID)*/); ?>" >
+		<a rel="tooltip" title="Przypnij/odepnij dokumenty" href="<? echo $this->createUrl('fileAttachment/admin', array('id'=>$data->PRJ_ID)); ?>" >
 			<i class="icon-folder-open" ></i>Przypnij/odepnij dokumenty
 		</a>
 	</div>
