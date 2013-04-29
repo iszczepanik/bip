@@ -44,6 +44,41 @@ class ExternalControl extends CActiveRecord
 	{
 		return 'ctrl';
 	}
+	
+	private $_old;
+	
+	public function beforeSave()
+	{
+		$this->_old = ExternalControl::model()->findByPk($this->CTRL_ID);
+		return parent::beforeSave();
+	}
+	
+	public function afterSave()
+	{
+		if ($this->_old->CTRL_YEAR != $this->CTRL_YEAR ||
+			$this->_old->CTRL_NAME != $this->CTRL_NAME ||
+			$this->_old->CTRL_INSTITUTION != $this->CTRL_INSTITUTION ||
+			$this->_old->CTRL_DATE_START != $this->CTRL_DATE_START ||
+			$this->_old->CTRL_DATE_END != $this->CTRL_DATE_END || 
+			$this->_old->CTRL_SCOPE != $this->CTRL_SCOPE)
+		{
+			$historyEntry = new ExternalControlHistory;
+			
+			$historyEntry->CTRL_HIST_CTRL_ID = $this->_old->CTRL_ID;
+			$historyEntry->CTRL_YEAR = $this->_old->CTRL_YEAR;
+			$historyEntry->CTRL_NAME = $this->_old->CTRL_NAME;
+			$historyEntry->CTRL_INSTITUTION = $this->_old->CTRL_INSTITUTION;
+			$historyEntry->CTRL_DATE_START = $this->_old->CTRL_DATE_START;
+			$historyEntry->CTRL_DATE_END = $this->_old->CTRL_DATE_END;
+			$historyEntry->CTRL_SCOPE = $this->_old->CTRL_SCOPE;
+			$historyEntry->CTRL_MODIFY_DATE = $this->CTRL_MODIFY_DATE;
+			$historyEntry->CTRL_MODIFY_BY = $this->CTRL_MODIFY_BY;
+			
+			$historyEntry->save();
+		}
+
+		parent::afterSave();
+	}
 
 	/**
 	 * @return array validation rules for model attributes.
