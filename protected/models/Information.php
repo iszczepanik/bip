@@ -47,6 +47,31 @@ class Information extends CActiveRecord
 	{
 		return 'inf';
 	}
+	
+	private $_old;
+	
+	public function beforeSave()
+	{
+		$this->_old = Information::model()->findByPk($this->INF_ID);
+		return parent::beforeSave();
+	}
+	
+	public function afterSave()
+	{
+		if ($this->_old->INF_CONTENT != $this->INF_CONTENT)
+		{
+			$historyEntry = new InformationHistory;
+			
+			$historyEntry->INF_HIST_INF_ID = $this->_old->INF_ID;
+			$historyEntry->INF_CONTENT = $this->_old->INF_CONTENT;
+			$historyEntry->INF_MODIFY_DATE = $this->INF_MODIFY_DATE;
+			$historyEntry->INF_MODIFY_BY = $this->INF_MODIFY_BY;
+			
+			$historyEntry->save();
+		}
+		
+		parent::afterSave();
+	}
 
 	/**
 	 * @return array validation rules for model attributes.
