@@ -43,6 +43,43 @@ class Project extends CActiveRecord
 		return 'prj';
 	}
 
+	private $_old;
+	
+	public function beforeSave()
+	{
+		$this->_old = Project::model()->findByPk($this->PRJ_ID);
+		return parent::beforeSave();
+	}
+	
+	public function afterSave()
+	{
+		if ($this->_old->PRJ_NAME != $this->PRJ_NAME || 
+			$this->_old->PRJ_DESCRIPTION != $this->PRJ_DESCRIPTION || 
+			$this->_old->PRJ_SHORT_DESCRIPTION != $this->PRJ_SHORT_DESCRIPTION ||
+			$this->_old->PRJ_AMOUNT_DONATION != $this->PRJ_AMOUNT_DONATION || 
+			$this->_old->PRJ_AMOUNT_PUBLIC != $this->PRJ_AMOUNT_PUBLIC || 
+			$this->_old->PRJ_SOURCES != $this->PRJ_SOURCES ||
+			$this->_old->PRJ_CAT != $this->PRJ_CAT)
+		{
+			$historyEntry = new ProjectHistory;
+			
+			$historyEntry->PRJ_HIST_PRJ_ID = $this->_old->PRJ_ID;
+			$historyEntry->PRJ_NAME = $this->_old->PRJ_NAME;
+			$historyEntry->PRJ_DESCRIPTION = $this->_old->PRJ_DESCRIPTION;
+			$historyEntry->PRJ_SHORT_DESCRIPTION = $this->_old->PRJ_SHORT_DESCRIPTION;
+			$historyEntry->PRJ_AMOUNT_DONATION = $this->_old->PRJ_AMOUNT_DONATION;
+			$historyEntry->PRJ_AMOUNT_PUBLIC = $this->_old->PRJ_AMOUNT_PUBLIC;
+			$historyEntry->PRJ_SOURCES = $this->_old->PRJ_SOURCES;
+			$historyEntry->PRJ_CAT = $this->_old->PRJ_CAT;
+			$historyEntry->PRJ_MODIFY_DATE = $this->PRJ_MODIFY_DATE;
+			$historyEntry->PRJ_MODIFY_BY = $this->PRJ_MODIFY_BY;
+			
+			$historyEntry->save();
+		}
+		
+		parent::afterSave();
+	}
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */
