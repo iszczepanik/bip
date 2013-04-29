@@ -43,6 +43,31 @@ class Finance extends CActiveRecord
 	{
 		return 'fin';
 	}
+	
+	private $_old;
+	
+	public function beforeSave()
+	{
+		$this->_old = Finance::model()->findByPk($this->FIN_ID);
+		return parent::beforeSave();
+	}
+	
+	public function afterSave()
+	{
+		if ($this->_old->FIN_AMOUNT != $this->FIN_AMOUNT)
+		{
+			$historyEntry = new FinanceHistory;
+			
+			$historyEntry->FIN_HIST_FIN_ID = $this->_old->FIN_ID;
+			$historyEntry->FIN_AMOUNT = $this->_old->FIN_AMOUNT;
+			$historyEntry->FIN_MODIFY_DATE = $this->FIN_MODIFY_DATE;
+			$historyEntry->FIN_MODIFY_BY = $this->FIN_MODIFY_BY;
+			
+			$historyEntry->save();
+		}
+		
+		parent::afterSave();
+	}
 
 	/**
 	 * @return array validation rules for model attributes.
