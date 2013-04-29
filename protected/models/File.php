@@ -80,18 +80,38 @@ class File extends CActiveRecord
 		return strip_tags(Information::FindByName('Pełna nazwa organizacji'));
 	}
 	
+	private $_old;
+	
 	public function beforeSave()
 	{
+		$this->_old = File::model()->findByPk($this->FIL_ID);
+	
 		if($file=CUploadedFile::getInstance($this,'uploadedFile'))
 		{
 			$this->FIL_NAME = $file->name;
-			$this->FIL_CONTENT = $file->name;
-			$this->FIL_CONTENT = $file->type;
-			$this->FIL_CONTENT = $file->size;
 			$this->FIL_CONTENT = file_get_contents($file->tempName);
 		}
 
 		return parent::beforeSave();
+	}
+	
+	public function afterSave()
+	{
+		if ($this->_old->FIL_NAME != $this->FIL_NAME ||
+			$this->_old->FIL_CONTENT != $this->FIL_CONTENT)
+		{
+			$historyEntry = new FileHistory;
+			
+			$historyEntry->FIL_HIST_FIL_ID = $this->_old->FIL_ID;
+			$historyEntry->FIL_NAME = $this->_old->FIL_NAME;
+			$historyEntry->FIL_CONTENT = $this->_old->FIL_CONTENT;
+			$historyEntry->FIL_MODIFY_DATE = $this->FIL_MODIFY_DATE;
+			$historyEntry->FIL_MODIFY_BY = $this->FIL_MODIFY_BY;
+			
+			$historyEntry->save();
+		}
+
+		parent::afterSave();
 	}
 	
 	public function GetHistoryProvider()
