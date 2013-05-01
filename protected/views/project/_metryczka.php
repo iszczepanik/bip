@@ -4,6 +4,7 @@
 		array(
 			'name'=>'Podmiot',
 			'value'=>$data->Podmiot,
+			'type'=>'html'
 		),
 		'PRJ_INFO_CREATED_BY',
 		'PRJ_INFO_CREATE_DATE',

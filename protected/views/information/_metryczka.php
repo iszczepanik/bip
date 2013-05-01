@@ -4,6 +4,7 @@
 		array(
 			'name'=>'Podmiot',
 			'value'=>$data->Podmiot,
+			'type'=>'html'
 		),
 		'INF_INFO_CREATED_BY',
 		'INF_INFO_CREATE_DATE',
