@@ -30,7 +30,32 @@ class User extends CActiveRecord
 	{
 		return 'usr';
 	}
+	
+	public function afterSave()
+	{
+		if ($this->isNewRecord) 
+		{
+			$auth=Yii::app()->authManager;
+			$auth->assign('admin', $this->USR_ID);
+			
+        }
+		
+		parent::afterSave();
+	}
 
+	public function GetRole()
+	{
+		$auth=Yii::app()->authManager;
+		$ar = $auth->getAuthItems(NULL, $this->USR_ID);
+		$result = "";
+		foreach ($ar as $role)
+		{
+			$result .= $role->Name . " ";
+		}
+		
+		return $result;
+	}
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -76,7 +101,8 @@ class User extends CActiveRecord
 			'USR_FIRSTNAME' => 'Imię',
 			'USR_LASTNAME' => 'Nazwisko',
 			'USR_EMAIL' => 'Email',
-			'USR_WHOLENAME' => 'Imię i nazwisko'
+			'USR_WHOLENAME' => 'Imię i nazwisko',
+			'Role' => 'Rola'
 		);
 	}
 

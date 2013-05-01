@@ -22,10 +22,14 @@ array('label'=>'Nowy', 'icon'=>'plus-sign', 'url'=>array('create')),
 	'columns'=>array(
 		'USR_ID',
 		'USR_NAME',
-		'USR_PASS',
 		'USR_FIRSTNAME',
 		'USR_LASTNAME',
 		'USR_EMAIL',
+		array(
+			'name'=>'Role',
+			'value'=>'$data->Role',
+			'filter'=>'',
+		),
 		array(
 			'class'=>'bootstrap.widgets.BootButtonColumn',
 		),

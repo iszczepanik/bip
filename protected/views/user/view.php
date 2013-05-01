@@ -19,7 +19,6 @@ array('label'=>'Nowy', 'icon'=>'plus-sign', 'url'=>array('create')),
 	'attributes'=>array(
 		'USR_ID',
 		'USR_NAME',
-		'USR_PASS',
 		'USR_FIRSTNAME',
 		'USR_LASTNAME',
 		'USR_EMAIL',
