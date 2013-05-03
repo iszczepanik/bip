@@ -38,13 +38,20 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+			//'identityCookie' => array('domain' => 'localhost.com')
+		),
+		'session' => array(
+			'autoStart'=>true,
+			//'cookieParams' => array('domain' => 'localhost.com'),
+			'sessionName' => 'DomainSession',
 		),
 		'bootstrap'=>array(
 		        'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
 		),
 		
         'request' => array(
-            'baseUrl' => 'http://localhost/bip',
+			'class'=>'CHttpRequestSubDomain',
+            //'baseUrl' => 'http://localhost/bip',
 			//'baseUrl' => 'http://83.238.168.145/bip',
 			//'baseUrl' => 'http://isabel.drl.pl/bip/',
         ),

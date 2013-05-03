@@ -15,7 +15,11 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-datepicker.js?v=<? echo Yii::app()->params['version']; ?>"></script>
 <body data-offset="50" data-target=".subnav" data-spy="scroll">
 <div class="container" id="page">
-
+<? 
+//var_dump(Yii::app()->user); 
+//echo Yii::app()->session['var'];
+//Yii::app()->session['var'] = '1234';
+?>
 <div class="row" >
 	<div class="span3" >
 		<?
