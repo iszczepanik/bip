@@ -53,13 +53,14 @@ class Project extends CActiveRecord
 	
 	public function afterSave()
 	{
-		if ($this->_old->PRJ_NAME != $this->PRJ_NAME || 
+		if ($this->_old != null && 
+			($this->_old->PRJ_NAME != $this->PRJ_NAME || 
 			$this->_old->PRJ_DESCRIPTION != $this->PRJ_DESCRIPTION || 
 			$this->_old->PRJ_SHORT_DESCRIPTION != $this->PRJ_SHORT_DESCRIPTION ||
 			$this->_old->PRJ_AMOUNT_DONATION != $this->PRJ_AMOUNT_DONATION || 
 			$this->_old->PRJ_AMOUNT_PUBLIC != $this->PRJ_AMOUNT_PUBLIC || 
 			$this->_old->PRJ_SOURCES != $this->PRJ_SOURCES ||
-			$this->_old->PRJ_CAT != $this->PRJ_CAT)
+			$this->_old->PRJ_CAT != $this->PRJ_CAT))
 		{
 			$historyEntry = new ProjectHistory;
 			

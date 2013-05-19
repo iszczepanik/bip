@@ -54,7 +54,7 @@ class Finance extends CActiveRecord
 	
 	public function afterSave()
 	{
-		if ($this->_old->FIN_AMOUNT != $this->FIN_AMOUNT)
+		if ($this->_old != null && ($this->_old->FIN_AMOUNT != $this->FIN_AMOUNT))
 		{
 			$historyEntry = new FinanceHistory;
 			

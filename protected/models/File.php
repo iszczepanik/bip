@@ -97,8 +97,8 @@ class File extends CActiveRecord
 	
 	public function afterSave()
 	{
-		if ($this->_old->FIL_NAME != $this->FIL_NAME ||
-			$this->_old->FIL_CONTENT != $this->FIL_CONTENT)
+		if ($this->_old != null && ($this->_old->FIL_NAME != $this->FIL_NAME ||
+			$this->_old->FIL_CONTENT != $this->FIL_CONTENT))
 		{
 			$historyEntry = new FileHistory;
 			

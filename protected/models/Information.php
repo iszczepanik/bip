@@ -58,7 +58,7 @@ class Information extends CActiveRecord
 	
 	public function afterSave()
 	{
-		if ($this->_old->INF_CONTENT != $this->INF_CONTENT)
+		if ($this->_old != null && ($this->_old->INF_CONTENT != $this->INF_CONTENT))
 		{
 			$historyEntry = new InformationHistory;
 			

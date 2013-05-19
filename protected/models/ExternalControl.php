@@ -55,12 +55,13 @@ class ExternalControl extends CActiveRecord
 	
 	public function afterSave()
 	{
-		if ($this->_old->CTRL_YEAR != $this->CTRL_YEAR ||
+		if ($this->_old != null && 
+			($this->_old->CTRL_YEAR != $this->CTRL_YEAR ||
 			$this->_old->CTRL_NAME != $this->CTRL_NAME ||
 			$this->_old->CTRL_INSTITUTION != $this->CTRL_INSTITUTION ||
 			$this->_old->CTRL_DATE_START != $this->CTRL_DATE_START ||
 			$this->_old->CTRL_DATE_END != $this->CTRL_DATE_END || 
-			$this->_old->CTRL_SCOPE != $this->CTRL_SCOPE)
+			$this->_old->CTRL_SCOPE != $this->CTRL_SCOPE))
 		{
 			$historyEntry = new ExternalControlHistory;
 			
