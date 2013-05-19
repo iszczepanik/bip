@@ -46,13 +46,13 @@ class File extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('FIL_CREATE_DATE, FIL_CREATE_BY', 'required'),
-			array('FIL_CAT, FIL_CREATE_BY, FIL_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('FIL_APP_ID, FIL_CREATE_DATE, FIL_CREATE_BY', 'required'),
+			array('FIL_CAT, FIL_APP_ID, FIL_CREATE_BY, FIL_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('FIL_NAME, FIL_INFO_CREATED_BY', 'length', 'max'=>256),
-			array('FIL_CONTENT, FIL_MODIFY_DATE, FIL_INFO_CREATEDATE', 'safe'),
+			array('FIL_CONTENT, FIL_MODIFY_DATE, FIL_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('FIL_ID, FIL_NAME, FIL_CAT, FIL_CONTENT, FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY, FIL_INFO_CREATED_BY, FIL_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
+			array('FIL_ID, FIL_NAME, FIL_CAT, FIL_CONTENT, FIL_APP_ID, FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY, FIL_INFO_CREATED_BY, FIL_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -162,6 +162,7 @@ class File extends CActiveRecord
 			'FIL_NAME' => 'Plik',
 			'FIL_CAT' => 'Kategoria',
 			'FIL_CONTENT' => 'Fil Content',
+			'FIL_APP_ID' => 'App',
 			'FIL_CREATE_DATE' => 'Data udostępnienia informacji w BIP',
 			'FIL_CREATE_BY' => 'Informację wprowadził do BIP',
 			'FIL_MODIFY_DATE' => 'Fil Modify Date',
@@ -188,6 +189,7 @@ class File extends CActiveRecord
 		$criteria->compare('FIL_NAME',$this->FIL_NAME,true);
 		$criteria->compare('FIL_CAT',$this->FIL_CAT);
 		$criteria->compare('FIL_CONTENT',$this->FIL_CONTENT,true);
+		$criteria->compare('FIL_APP_ID',Yii::app()->request->subdomainAppId);
 		$criteria->compare('FIL_CREATE_DATE',$this->FIL_CREATE_DATE,true);
 		$criteria->compare('FIL_CREATE_BY',$this->FIL_CREATE_BY);
 		$criteria->compare('FIL_MODIFY_DATE',$this->FIL_MODIFY_DATE,true);

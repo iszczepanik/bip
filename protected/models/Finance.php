@@ -77,14 +77,14 @@ class Finance extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_CREATE_DATE, FIN_CREATE_BY', 'required'),
-			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_PRJ_ID, FIN_CREATE_BY, FIN_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_APP_ID, FIN_CREATE_DATE, FIN_CREATE_BY', 'required'),
+			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_PRJ_ID, FIN_APP_ID, FIN_CREATE_BY, FIN_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('FIN_AMOUNT', 'numerical'),
 			array('FIN_FROM, FIN_INFO_CREATED_BY', 'length', 'max'=>256),
 			array('FIN_MODIFY_DATE, FIN_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('FIN_ID, FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_FROM, FIN_PRJ_ID, FIN_CREATE_DATE, FIN_CREATE_BY, FIN_MODIFY_DATE, FIN_MODIFY_BY, FIN_INFO_CREATED_BY, FIN_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
+			array('FIN_ID, FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_FROM, FIN_PRJ_ID, FIN_APP_ID, FIN_CREATE_DATE, FIN_CREATE_BY, FIN_MODIFY_DATE, FIN_MODIFY_BY, FIN_INFO_CREATED_BY, FIN_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -154,6 +154,7 @@ class Finance extends CActiveRecord
 			'FIN_AMOUNT' => 'Kwota',
 			'FIN_FROM' => 'Źródło',
 			'FIN_PRJ_ID' => 'Projekt',
+			'FIN_APP_ID' => 'App',
 			'FIN_CREATE_DATE' => 'Data udostępnienia informacji w BIP',
 			'FIN_CREATE_BY' => 'Informację wprowadził do BIP',
 			'FIN_MODIFY_DATE' => 'Fin Modify Date',
@@ -182,6 +183,7 @@ class Finance extends CActiveRecord
 		$criteria->compare('FIN_AMOUNT',$this->FIN_AMOUNT);
 		$criteria->compare('FIN_FROM',$this->FIN_FROM,true);
 		$criteria->compare('FIN_PRJ_ID',$this->FIN_PRJ_ID);
+		$criteria->compare('FIN_APP_ID',Yii::app()->request->subdomainAppId);
 		$criteria->compare('FIN_CREATE_DATE',$this->FIN_CREATE_DATE,true);
 		$criteria->compare('FIN_CREATE_BY',$this->FIN_CREATE_BY);
 		$criteria->compare('FIN_MODIFY_DATE',$this->FIN_MODIFY_DATE,true);

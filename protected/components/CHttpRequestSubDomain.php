@@ -12,5 +12,6 @@ class CHttpRequestSubDomain extends CHttpRequest
 	{
 		return Subdomains::GetOrdinal($this->getSubdomain());
 	}
+	
 }
 ?>

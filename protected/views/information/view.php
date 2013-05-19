@@ -33,8 +33,8 @@
 	if (count($viewed->Projects) > 0)
 		$this->renderPartial('//project/index', array('data'=>$viewed->Projects));
 		
-	if (count($viewed->Finances) > 0)
-		$this->renderPartial('//finance/index', array('data'=>$viewed->Finances));
+	if ($viewed->INF_SHOW_FIN_TYPE != NULL)
+		$this->renderPartial('//finance/index', array('data'=>$viewed->Finances,'type'=>$viewed->INF_SHOW_FIN_TYPE));
 	
 	if (count($viewed->Files) > 0)
 		$this->renderPartial('//file/_view_link', array('data'=>$viewed->Files));

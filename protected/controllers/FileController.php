@@ -59,7 +59,9 @@ class FileController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=File::model()->findByPk($id);
+		$model=File::model()->find('FIL_ID=:FIL_ID and FIL_APP_ID=:FIL_APP_ID', 
+		array(':FIL_ID'=>$id,':FIL_APP_ID'=>Yii::app()->request->subdomainAppId));
+		
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

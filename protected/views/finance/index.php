@@ -1,7 +1,7 @@
 <p></p>
-<? $year = 9999; $projects = false; $type = ''; ?>
+<? $year = 9999; $projects = false; //$type = ''; ?>
 <? foreach ($data as $finance): ?>
-	<? $type = $finance->FIN_TYPE; ?>
+	<? //$type = $finance->FIN_TYPE; ?>
 	<? if ($finance->FIN_YEAR < $year): ?>
 		<? $year = $finance->FIN_YEAR; $projects = false; ?>
 		<h3 class="year"><? echo $finance->FIN_YEAR; ?></h3>

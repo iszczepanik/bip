@@ -63,6 +63,8 @@ class FileAdminController extends Controller
 			$date = new DateTime(); 
 			$model->FIL_CREATE_DATE = $date->format('Y-m-d H:i:s');
 			$model->FIL_CREATE_BY = Yii::app()->user->id;
+			$model->FIL_APP_ID = Yii::app()->request->subdomainAppId;
+			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->FIL_ID));
 		}
@@ -90,6 +92,8 @@ class FileAdminController extends Controller
 			$date = new DateTime(); 
 			$model->FIL_MODIFY_DATE = $date->format('Y-m-d H:i:s');
 			$model->FIL_MODIFY_BY = Yii::app()->user->id;
+			$model->FIL_APP_ID = Yii::app()->request->subdomainAppId;
+			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->FIL_ID));
 		}
@@ -141,7 +145,9 @@ class FileAdminController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=File::model()->findByPk($id);
+		$model=File::model()->find('FIL_ID=:FIL_ID and FIL_APP_ID=:FIL_APP_ID', 
+		array(':FIL_ID'=>$id,':FIL_APP_ID'=>Yii::app()->request->subdomainAppId));
+		
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
