@@ -43,11 +43,3 @@ INSERT INTO `inf` (`INF_APP_ID`, `INF_NAME`, `INF_CONTENT`, `INF_OBLIGATORY`, `I
 
 go
 DELIMITER ;
-
-/*
-INSERT INTO `usr` (`USR_ID`, `USR_NAME`, `USR_PASS`, `USR_FIRSTNAME`, `USR_LASTNAME`, `USR_EMAIL`) VALUES
-(1, 'admin', 'k@lafio4', 'Izabela', 'Szczepanik', 'izabela.szczepanik@gazeta.pl'),
-(15, 'grzegorz', 'portugali@', 'Grzegorz', 'Wójkowski', 'grzegorz@bonafides.pl'),
-(16, 'anna', 'je$temAnn@', 'Anna', 'Zetelman', 'anna.zetelman@bonafides.pl'),
-(17, 'kasia', 'K@+arzyna', 'Kasia', '', 'kasia@bonafides.pl');
-*/
