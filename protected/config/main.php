@@ -138,6 +138,33 @@ return array(
 		'debug'=>false,
 		'organization'=>'Bona Fides',
 		'homepage'=>'http://bonafides.pl',
-		'version'=>'1.0.0',
+		'version'=>'1.0.1',
+		
+		'subdomains'=>array
+		(
+			1 => "example", 
+			2 => "example2", 
+			3 => "spddar",
+			4 => "kontra",
+			5 => "pomozmysobie",
+			6 => "stowdob",
+			7 => "asperger",
+			8 => "pozytywnezmiany",
+			9 => "mrowisko",
+			10 => "naszeslaskie",
+			11 => "zabrzanskiekobiety",
+			12 => "piaskowysmok",
+			13 => "dignam",
+			14 => "naprawsobiemiasto",
+			15 => "babiniec",
+			16 => "ceiwr",
+			17 => "dlaszopienic",
+			18 => "federacjaslask",
+			19 => "pkegliwice",
+			20 => "nereusz",
+			21 => "gniazdo",
+			22 => "rtpd",
+		)
+		
 	),
 );
