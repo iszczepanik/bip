@@ -65,11 +65,12 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('USR_NAME, USR_PASS', 'length', 'max'=>16),
+			array('USR_APP_ID', 'numerical', 'integerOnly'=>true),
 			array('USR_FIRSTNAME, USR_LASTNAME, USR_EMAIL', 'length', 'max'=>100),
-			array('USR_NAME, USR_PASS, USR_FIRSTNAME, USR_LASTNAME, USR_EMAIL', 'required'),
+			array('USR_APP_ID, USR_NAME, USR_PASS, USR_FIRSTNAME, USR_LASTNAME, USR_EMAIL', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('USR_ID, USR_NAME, USR_PASS, USR_FIRSTNAME, USR_LASTNAME, USR_EMAIL', 'safe', 'on'=>'search'),
+			array('USR_APP_ID, USR_ID, USR_NAME, USR_PASS, USR_FIRSTNAME, USR_LASTNAME, USR_EMAIL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -102,6 +103,7 @@ class User extends CActiveRecord
 			'USR_LASTNAME' => 'Nazwisko',
 			'USR_EMAIL' => 'Email',
 			'USR_WHOLENAME' => 'Imię i nazwisko',
+			'USR_APP_ID' => 'App',
 			'Role' => 'Rola'
 		);
 	}
@@ -123,6 +125,7 @@ class User extends CActiveRecord
 		$criteria->compare('USR_FIRSTNAME',$this->USR_FIRSTNAME,true);
 		$criteria->compare('USR_LASTNAME',$this->USR_LASTNAME,true);
 		$criteria->compare('USR_EMAIL',$this->USR_EMAIL,true);
+		$criteria->compare('USR_APP_ID',Yii::app()->request->subdomainAppId);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

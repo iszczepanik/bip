@@ -61,6 +61,7 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
+			$model->USR_APP_ID = Yii::app()->request->subdomainAppId;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->USR_ID));
 		}
@@ -85,6 +86,7 @@ class UserController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
+			$model->USR_APP_ID = Yii::app()->request->subdomainAppId;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->USR_ID));
 		}
@@ -136,7 +138,9 @@ class UserController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=User::model()->findByPk($id);
+		$model=User::model()->find('USR_ID=:USR_ID and USR_APP_ID=:USR_APP_ID', 
+		array(':USR_ID'=>$id,':USR_APP_ID'=>Yii::app()->request->subdomainAppId));
+		
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
