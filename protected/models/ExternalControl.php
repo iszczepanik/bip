@@ -124,7 +124,7 @@ class ExternalControl extends CActiveRecord
 
 	public function UserFind($phrase)
 	{
-		$condition = "CTRL_APP_ID = ".Yii::app()->request->subdomainAppId." AND LOWER(CTRL_NAME) like :PHRASE or LOWER(CTRL_INSTITUTION) like :PHRASE or LOWER(fnStripTags(CTRL_SCOPE)) LIKE :PHRASE";
+		$condition = "CTRL_APP_ID = ".Yii::app()->request->subdomainAppId." AND (LOWER(CTRL_NAME) like :PHRASE or LOWER(CTRL_INSTITUTION) like :PHRASE or LOWER(fnStripTags(CTRL_SCOPE)) LIKE :PHRASE)";
 		$params[':PHRASE'] = '%'.$phrase.'%';
 
 		$criteria = new CDbCriteria(array(

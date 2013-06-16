@@ -73,7 +73,7 @@ class News extends CActiveRecord
 
 	public function UserFind($phrase)
 	{
-		$condition = "NWS_APP_ID=".Yii::app()->request->subdomainAppId." AND LOWER(NWS_TITLE) like :PHRASE or LOWER(fnStripTags(NWS_CONTENT)) LIKE :PHRASE";
+		$condition = "NWS_APP_ID=".Yii::app()->request->subdomainAppId." AND (LOWER(NWS_TITLE) like :PHRASE or LOWER(fnStripTags(NWS_CONTENT)) LIKE :PHRASE)";
 		$params[':PHRASE'] = '%'.$phrase.'%';
 
 		$criteria = new CDbCriteria(array(

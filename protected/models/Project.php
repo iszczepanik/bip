@@ -135,7 +135,7 @@ class Project extends CActiveRecord
 	
 	public function UserFind($phrase)
 	{
-		$condition = "PRJ_APP_ID=".Yii::app()->request->subdomainAppId." AND LOWER(PRJ_NAME) like :PHRASE or LOWER(PRJ_SOURCES) like :PHRASE or LOWER(fnStripTags(PRJ_DESCRIPTION)) LIKE :PHRASE";
+		$condition = "PRJ_APP_ID=".Yii::app()->request->subdomainAppId." AND (LOWER(PRJ_NAME) like :PHRASE or LOWER(PRJ_SOURCES) like :PHRASE or LOWER(fnStripTags(PRJ_DESCRIPTION)) LIKE :PHRASE)";
 		$params[':PHRASE'] = '%'.$phrase.'%';
 
 		$criteria = new CDbCriteria(array(
