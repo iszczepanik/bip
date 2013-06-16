@@ -55,12 +55,13 @@ class ExternalControl extends CActiveRecord
 	
 	public function afterSave()
 	{
-		if ($this->_old->CTRL_YEAR != $this->CTRL_YEAR ||
+		if ($this->_old != null && 
+			($this->_old->CTRL_YEAR != $this->CTRL_YEAR ||
 			$this->_old->CTRL_NAME != $this->CTRL_NAME ||
 			$this->_old->CTRL_INSTITUTION != $this->CTRL_INSTITUTION ||
 			$this->_old->CTRL_DATE_START != $this->CTRL_DATE_START ||
 			$this->_old->CTRL_DATE_END != $this->CTRL_DATE_END || 
-			$this->_old->CTRL_SCOPE != $this->CTRL_SCOPE)
+			$this->_old->CTRL_SCOPE != $this->CTRL_SCOPE))
 		{
 			$historyEntry = new ExternalControlHistory;
 			
@@ -88,14 +89,14 @@ class ExternalControl extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('CTRL_YEAR, CTRL_NAME, CTRL_INSTITUTION, CTRL_DATE_START, CTRL_DATE_END, CTRL_SCOPE, CTRL_CREATE_DATE, CTRL_CREATE_BY', 'required'),
-			array('CTRL_YEAR, CTRL_FILE_ID, CTRL_CREATE_BY, CTRL_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('CTRL_YEAR, CTRL_NAME, CTRL_INSTITUTION, CTRL_DATE_START, CTRL_DATE_END, CTRL_SCOPE, CTRL_APP_ID, CTRL_CREATE_DATE, CTRL_CREATE_BY', 'required'),
+			array('CTRL_YEAR, CTRL_FILE_ID, CTRL_APP_ID, CTRL_CREATE_BY, CTRL_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('CTRL_NAME, CTRL_INSTITUTION', 'length', 'max'=>128),
 			array('CTRL_INFO_CREATED_BY', 'length', 'max'=>256),
 			array('CTRL_MODIFY_DATE, CTRL_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('CTRL_ID, CTRL_YEAR, CTRL_NAME, CTRL_INSTITUTION, CTRL_DATE_START, CTRL_DATE_END, CTRL_SCOPE, CTRL_FILE_ID, CTRL_CREATE_DATE, CTRL_CREATE_BY, CTRL_MODIFY_DATE, CTRL_MODIFY_BY, CTRL_INFO_CREATED_BY, CTRL_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
+			array('CTRL_ID, CTRL_YEAR, CTRL_NAME, CTRL_INSTITUTION, CTRL_DATE_START, CTRL_DATE_END, CTRL_SCOPE, CTRL_FILE_ID, CTRL_APP_ID, CTRL_CREATE_DATE, CTRL_CREATE_BY, CTRL_MODIFY_DATE, CTRL_MODIFY_BY, CTRL_INFO_CREATED_BY, CTRL_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 		);
 	}
 	
@@ -123,7 +124,7 @@ class ExternalControl extends CActiveRecord
 
 	public function UserFind($phrase)
 	{
-		$condition = "LOWER(CTRL_NAME) like :PHRASE or LOWER(CTRL_INSTITUTION) like :PHRASE or LOWER(fnStripTags(CTRL_SCOPE)) LIKE :PHRASE";
+		$condition = "CTRL_APP_ID = ".Yii::app()->request->subdomainAppId." AND LOWER(CTRL_NAME) like :PHRASE or LOWER(CTRL_INSTITUTION) like :PHRASE or LOWER(fnStripTags(CTRL_SCOPE)) LIKE :PHRASE";
 		$params[':PHRASE'] = '%'.$phrase.'%';
 
 		$criteria = new CDbCriteria(array(
@@ -177,6 +178,7 @@ class ExternalControl extends CActiveRecord
 			'CTRL_DATE_END' => 'Do',
 			'CTRL_SCOPE' => 'Zakres kontroli',
 			'CTRL_FILE_ID' => 'Wyniki',
+			'CTRL_APP_ID' => 'App',
 			'CTRL_CREATE_DATE' => 'Data udostępnienia informacji w BIP',
 			'CTRL_CREATE_BY' => 'Informację wprowadził do BIP',
 			'CTRL_MODIFY_DATE' => 'Ctrl Modify Date',
@@ -206,6 +208,7 @@ class ExternalControl extends CActiveRecord
 		$criteria->compare('CTRL_DATE_END',$this->CTRL_DATE_END,true);
 		$criteria->compare('CTRL_SCOPE',$this->CTRL_SCOPE,true);
 		$criteria->compare('CTRL_FILE_ID',$this->CTRL_FILE_ID);
+		$criteria->compare('CTRL_APP_ID',Yii::app()->request->subdomainAppId);
 		$criteria->compare('CTRL_CREATE_DATE',$this->CTRL_CREATE_DATE,true);
 		$criteria->compare('CTRL_CREATE_BY',$this->CTRL_CREATE_BY);
 		$criteria->compare('CTRL_MODIFY_DATE',$this->CTRL_MODIFY_DATE,true);

@@ -49,6 +49,7 @@ class InformationAdminController extends Controller
 			$date = new DateTime(); 
 			$model->INF_MODIFY_DATE = $date->format('Y-m-d H:i:s');
 			$model->INF_MODIFY_BY = Yii::app()->user->id;
+			$model->INF_APP_ID = Yii::app()->request->subdomainAppId;
 			
 			if($model->save())
 				$this->redirect($model->LinkAnchor);
@@ -81,7 +82,9 @@ class InformationAdminController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Information::model()->findByPk($id);
+		$model=Information::model()->find('INF_ID=:INF_ID and INF_APP_ID=:INF_APP_ID', 
+		array(':INF_ID'=>$id,':INF_APP_ID'=>Yii::app()->request->subdomainAppId));
+		
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

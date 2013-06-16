@@ -15,14 +15,18 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-datepicker.js?v=<? echo Yii::app()->params['version']; ?>"></script>
 <body data-offset="50" data-target=".subnav" data-spy="scroll">
 <div class="container" id="page">
-
+<? 
+//var_dump(Yii::app()->user); 
+//echo Yii::app()->session['var'];
+//Yii::app()->session['var'] = '1234';
+?>
 <div class="row" >
 	<div class="span3" >
 		<?
 		$logo = Image::GetLogo();
 		if ($logo != "none") :
 		?>
-			<a href="<? echo Yii::app()->params['homepage']; ?>">
+			<!--<a href="<? echo Yii::app()->params['homepage']; ?>">-->
 			<img src="<?php echo Yii::app()->request->baseUrl; ?>/<? echo $logo; ?>"
 			alt="<? echo strip_tags(Information::FindByName('Pełna nazwa organizacji')); ?>" /></a>
 			<br />
@@ -59,7 +63,7 @@
 			</li>
 			<? endif; ?>
 		</ul>
-		<h1><? echo strip_tags(Information::FindByName('Pełna nazwa organizacji')); ?><small><br /><?php echo CHtml::encode(Yii::app()->name); ?></small> <span class="label label-info">Beta</span></h1>
+		<h1><? echo strip_tags(Information::FindByName('Pełna nazwa organizacji')); ?><small><br /><?php echo CHtml::encode(Yii::app()->name); ?></small> <!--<span class="label label-info">Beta</span>--></h1>
 		
 		<?php echo $content; ?>
 		

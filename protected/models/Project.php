@@ -53,13 +53,14 @@ class Project extends CActiveRecord
 	
 	public function afterSave()
 	{
-		if ($this->_old->PRJ_NAME != $this->PRJ_NAME || 
+		if ($this->_old != null && 
+			($this->_old->PRJ_NAME != $this->PRJ_NAME || 
 			$this->_old->PRJ_DESCRIPTION != $this->PRJ_DESCRIPTION || 
 			$this->_old->PRJ_SHORT_DESCRIPTION != $this->PRJ_SHORT_DESCRIPTION ||
 			$this->_old->PRJ_AMOUNT_DONATION != $this->PRJ_AMOUNT_DONATION || 
 			$this->_old->PRJ_AMOUNT_PUBLIC != $this->PRJ_AMOUNT_PUBLIC || 
 			$this->_old->PRJ_SOURCES != $this->PRJ_SOURCES ||
-			$this->_old->PRJ_CAT != $this->PRJ_CAT)
+			$this->_old->PRJ_CAT != $this->PRJ_CAT))
 		{
 			$historyEntry = new ProjectHistory;
 			
@@ -88,15 +89,15 @@ class Project extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT, PRJ_CREATE_DATE, PRJ_CREATE_BY', 'required'),
-			array('PRJ_CAT, PRJ_CREATE_BY, PRJ_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_DATE, PRJ_CREATE_BY', 'required'),
+			array('PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_BY, PRJ_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC', 'numerical'),
 			array('PRJ_NAME, PRJ_SHORT_DESCRIPTION, PRJ_INFO_CREATED_BY', 'length', 'max'=>256),
 			array('PRJ_DESCRIPTION, PRJ_SOURCES', 'length', 'max'=>512),
 			array('PRJ_MODIFY_DATE, PRJ_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_CREATE_DATE, PRJ_CREATE_BY, PRJ_MODIFY_DATE, PRJ_MODIFY_BY, PRJ_INFO_CREATED_BY, PRJ_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
+			array('PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_DATE, PRJ_CREATE_BY, PRJ_MODIFY_DATE, PRJ_MODIFY_BY, PRJ_INFO_CREATED_BY, PRJ_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -134,7 +135,7 @@ class Project extends CActiveRecord
 	
 	public function UserFind($phrase)
 	{
-		$condition = "LOWER(PRJ_NAME) like :PHRASE or LOWER(PRJ_SOURCES) like :PHRASE or LOWER(fnStripTags(PRJ_DESCRIPTION)) LIKE :PHRASE";
+		$condition = "PRJ_APP_ID=".Yii::app()->request->subdomainAppId." AND LOWER(PRJ_NAME) like :PHRASE or LOWER(PRJ_SOURCES) like :PHRASE or LOWER(fnStripTags(PRJ_DESCRIPTION)) LIKE :PHRASE";
 		$params[':PHRASE'] = '%'.$phrase.'%';
 
 		$criteria = new CDbCriteria(array(
@@ -165,6 +166,7 @@ class Project extends CActiveRecord
 			'PRJ_AMOUNT_PUBLIC' => 'Kwota środków publicznych',
 			'PRJ_SOURCES' => 'Źródła',
 			'PRJ_CAT' => 'Kategoria',
+			'PRJ_APP_ID' => 'App',
 			'PRJ_CREATE_DATE' => 'Data udostępnienia informacji w BIP',
 			'PRJ_CREATE_BY' => 'Informację wprowadził do BIP',
 			'PRJ_MODIFY_DATE' => 'Prj Modify Date',
@@ -215,6 +217,7 @@ class Project extends CActiveRecord
 		$criteria->compare('PRJ_AMOUNT_PUBLIC',$this->PRJ_AMOUNT_PUBLIC);
 		$criteria->compare('PRJ_SOURCES',$this->PRJ_SOURCES,true);
 		$criteria->compare('PRJ_CAT',$this->PRJ_CAT);
+		$criteria->compare('PRJ_APP_ID',Yii::app()->request->subdomainAppId);
 		$criteria->compare('PRJ_CREATE_DATE',$this->PRJ_CREATE_DATE,true);
 		$criteria->compare('PRJ_CREATE_BY',$this->PRJ_CREATE_BY);
 		$criteria->compare('PRJ_MODIFY_DATE',$this->PRJ_MODIFY_DATE,true);

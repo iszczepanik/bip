@@ -32,7 +32,7 @@ class ExternalControlController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete','create','update'),
-				'users'=>array('admin'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -62,6 +62,7 @@ class ExternalControlController extends Controller
 		$model->CTRL_CREATE_DATE = $date->format('Y-m-d H:i:s');
 		$model->CTRL_CREATE_BY = Yii::app()->user->id;
 		$model->CTRL_YEAR = $date->format('Y');
+		$model->CTRL_APP_ID = Yii::app()->request->subdomainAppId;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -95,6 +96,7 @@ class ExternalControlController extends Controller
 			$date = new DateTime(); 
 			$model->CTRL_MODIFY_DATE = $date->format('Y-m-d H:i:s');
 			$model->CTRL_MODIFY_BY = Yii::app()->user->id;
+			$model->CTRL_APP_ID = Yii::app()->request->subdomainAppId;
 			
 			if($model->save())
 				$this->redirect($model->Link);
@@ -158,7 +160,9 @@ class ExternalControlController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=ExternalControl::model()->findByPk($id);
+		$model=ExternalControl::model()->find('CTRL_ID=:CTRL_ID and CTRL_APP_ID=:CTRL_APP_ID', 
+		array(':CTRL_ID'=>$id,':CTRL_APP_ID'=>Yii::app()->request->subdomainAppId));
+		
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

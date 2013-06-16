@@ -62,6 +62,7 @@ class ProjectAdminController extends Controller
 			$date = new DateTime(); 
 			$model->PRJ_CREATE_DATE = $date->format('Y-m-d H:i:s');
 			$model->PRJ_CREATE_BY = Yii::app()->user->id;
+			$model->PRJ_APP_ID = Yii::app()->request->subdomainAppId;
 			
 			if($model->save())
 				$this->redirect($model->Link);
@@ -91,6 +92,7 @@ class ProjectAdminController extends Controller
 			$date = new DateTime(); 
 			$model->PRJ_MODIFY_DATE = $date->format('Y-m-d H:i:s');
 			$model->PRJ_MODIFY_BY = Yii::app()->user->id;
+			$model->PRJ_APP_ID = Yii::app()->request->subdomainAppId;
 			
 			if($model->save())
 				$this->redirect($model->Link);
@@ -154,7 +156,9 @@ class ProjectAdminController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Project::model()->findByPk($id);
+		$model=Project::model()->find('PRJ_ID=:PRJ_ID and PRJ_APP_ID=:PRJ_APP_ID', 
+		array(':PRJ_ID'=>$id,':PRJ_APP_ID'=>Yii::app()->request->subdomainAppId));
+		
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

@@ -14,7 +14,7 @@
 		<strong><a href="<?echo $this->createUrl('/Files/admin');?>" >panelu zarządzania dokumentami</a></strong> z kategorią "Projekty". Wówczas plik znajdzie się na poniższej liście i będzie można go powiązać z kontrolą zewnętrzną.
 		</div>
 		<?php echo $form->dropDownList($model, 'fil_atch_fil_id', CHtml::listData(
-			File::model()->findAllByAttributes(array('FIL_CAT'=>FileCategory::Projects)), 'FIL_ID', 'FIL_NAME')
+			File::model()->findAllByAttributes(array('FIL_CAT'=>FileCategory::Projects,'FIL_APP_ID'=>Yii::app()->request->subdomainAppId)), 'FIL_ID', 'FIL_NAME')
 			, array('prompt' => '')
 			);?>
 		<?php echo $form->error($model,'fil_atch_fil_id',array('class'=>'help-inline')); ?>
@@ -33,3 +33,4 @@
 	</div>
 
 <?php $this->endWidget(); ?>
+>>>>>>> subdomains
