@@ -133,7 +133,7 @@ class File extends CActiveRecord
 	
 	public function UserFind($phrase)
 	{
-		$condition = "LOWER(FIL_NAME) like :PHRASE";
+		$condition = "FIL_APP_ID=".Yii::app()->request->subdomainAppId." AND LOWER(FIL_NAME) like :PHRASE";
 		$params[':PHRASE'] = '%'.$phrase.'%';
 
 		$criteria = new CDbCriteria(array(
