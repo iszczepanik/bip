@@ -96,8 +96,9 @@
 
     $(document).ready(function() {
 
-		$('#dp_do').datepicker();
 		$('#dp_od').datepicker();
+		$('#start_date').datepicker();
+		$('#end_date').datepicker();
 		
 		$('[data-toggle="modal"]').click(function(e) {
 			e.preventDefault();

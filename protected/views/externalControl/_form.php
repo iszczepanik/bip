@@ -37,7 +37,10 @@
 	<div class='control-group<?php echo (CHtml::error($model,'CTRL_DATE_START') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'CTRL_DATE_START',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<div class="input-append date" id="start_date" data-date="<? echo date('Y-m-d'); ?>" data-date-format="yyyy-mm-dd">
 		<?php echo $form->textField($model,'CTRL_DATE_START'); ?>
+		<span class="add-on"><i class="icon-calendar"></i></span>
+		</div>
 		<?php echo $form->error($model,'CTRL_DATE_START',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
@@ -45,7 +48,10 @@
 	<div class='control-group<?php echo (CHtml::error($model,'CTRL_DATE_END') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'CTRL_DATE_END',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<div class="input-append date" id="end_date" data-date="<? echo date('Y-m-d'); ?>" data-date-format="yyyy-mm-dd">
 		<?php echo $form->textField($model,'CTRL_DATE_END'); ?>
+		<span class="add-on"><i class="icon-calendar"></i></span>
+		</div>
 		<?php echo $form->error($model,'CTRL_DATE_END',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
@@ -76,7 +82,10 @@
 	<div class='control-group<?php echo (CHtml::error($model,'CTRL_INFO_CREATE_DATE') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'CTRL_INFO_CREATE_DATE',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<div class="input-append date" id="dp_od" data-date="<? echo date('Y-m-d'); ?>" data-date-format="yyyy-mm-dd">
 		<?php echo $form->textField($model,'CTRL_INFO_CREATE_DATE'); ?>
+		<span class="add-on"><i class="icon-calendar"></i></span>
+		</div>
 		<?php echo $form->error($model,'CTRL_INFO_CREATE_DATE',array('class'=>'help-inline')); ?>
 		</div>
 	</div>

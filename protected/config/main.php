@@ -138,7 +138,7 @@ return array(
 		'debug'=>false,
 		'organization'=>'Bona Fides',
 		'homepage'=>'http://bonafides.pl',
-		'version'=>'1.0.3',
+		'version'=>'1.0.4',
 		
 		'subdomains'=>array
 		(

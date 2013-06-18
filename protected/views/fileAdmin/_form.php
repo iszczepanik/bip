@@ -71,7 +71,10 @@
 	<div class='control-group<?php echo (CHtml::error($model,'FIL_INFO_CREATE_DATE') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'FIL_INFO_CREATE_DATE',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<div class="input-append date" id="dp_od" data-date="<? echo date('Y-m-d'); ?>" data-date-format="yyyy-mm-dd">
 		<?php echo $form->textField($model,'FIL_INFO_CREATE_DATE'); ?>
+		<span class="add-on"><i class="icon-calendar"></i></span>
+		</div>
 		<?php echo $form->error($model,'FIL_INFO_CREATE_DATE',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
