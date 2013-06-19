@@ -18,7 +18,7 @@
 	<div class='control-group<?php echo (CHtml::error($model,'USR_PASS') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'USR_PASS',array('class'=>'control-label')); ?>
 		<div class="controls">
-		<?php echo $form->textField($model,'USR_PASS',array('size'=>16,'maxlength'=>16)); ?>
+		<?php echo $form->passwordField($model,'USR_PASS',array('size'=>16,'maxlength'=>16)); ?>
 		<?php echo $form->error($model,'USR_PASS',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
