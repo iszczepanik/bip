@@ -139,6 +139,7 @@ return array(
 		'organization'=>'Bona Fides',
 		'homepage'=>'http://bonafides.pl',
 		'version'=>'1.0.4',
+		'noindex'=>false,
 		
 		'subdomains'=>array
 		(

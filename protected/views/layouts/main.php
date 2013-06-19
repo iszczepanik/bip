@@ -6,6 +6,9 @@
 	<meta name="language" content="en" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/datepicker.css?v=<? echo Yii::app()->params['version']; ?>"  />
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<? if (Yii::app()->params['noindex']): ?>
+	<meta name="robots" content="noindex, nofollow">
+	<? endif; ?>
 </head>
 <? if ($contrast == 'high'): ?>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-modifications-high.css?v=<? echo Yii::app()->params['version']; ?>"  />
