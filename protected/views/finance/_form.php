@@ -54,7 +54,7 @@
 	</div>
 
 	<div class='control-group<?php echo (CHtml::error($model,'FIN_PRJ_ID') == '' ? '' : ' error'); ?>'>
-		<?php echo $form->labelEx($model,'FIN_PRJ_ID',array('class'=>'control-label')); ?>
+		<?php echo CHtml::label($model->getAttributeLabel('FIN_PRJ_ID'),'FIN_PRJ_ID',array('class'=>'control-label','required'=>'required')); ?>
 		<div class="controls">
 		<?php echo $form->dropDownList($model, 'FIN_PRJ_ID', CHtml::listData(
 			Project::model()->findAll("PRJ_APP_ID=".Yii::app()->request->subdomainAppId), 'PRJ_ID', 'PRJ_NAME')
