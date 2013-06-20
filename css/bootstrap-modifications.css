@@ -108,3 +108,7 @@ a.block
 	color: #000;
 	margin-top: 15px;
 }
+.set-user-name
+{
+	cursor: pointer;
+}

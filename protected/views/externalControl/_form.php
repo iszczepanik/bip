@@ -93,7 +93,12 @@
 	<div class='control-group<?php echo (CHtml::error($model,'CTRL_INFO_CREATED_BY') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'CTRL_INFO_CREATED_BY',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<div class="input-append" >
 		<?php echo $form->textField($model,'CTRL_INFO_CREATED_BY'); ?>
+		<span class="add-on set-user-name" title="Wstaw moje nazwisko"
+			onclick='$("#ExternalControl_CTRL_INFO_CREATED_BY").val("<? echo Yii::app()->user->UserWholeName;?>");' >
+		<i class="icon-user"></i></span>
+		</div>
 		<?php echo $form->error($model,'CTRL_INFO_CREATED_BY',array('class'=>'help-inline')); ?>
 		</div>
 	</div>

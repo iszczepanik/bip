@@ -38,6 +38,7 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+			'class' => 'WebUser',
 			//'identityCookie' => array('domain' => 'localhost.com')
 		),
 		'session' => array(
