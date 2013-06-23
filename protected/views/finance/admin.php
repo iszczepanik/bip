@@ -27,7 +27,14 @@ array('label'=>'Lista', 'icon'=>'th-list', 'url'=>array('admin')),
 			'value'=>'$data->sourceDescription',
 		),
 		'FIN_YEAR',
-		'FIN_AMOUNT',
+		//'FIN_AMOUNT',
+		array(
+			'name'=>'FIN_AMOUNT',
+			'value'=>function($data){
+					return number_format($data->FIN_AMOUNT, 2, ',', '');
+				},
+			'htmlOptions'=>array('style' => 'text-align: right;')
+		),
 		array(
 			'class'=>'bootstrap.widgets.BootButtonColumn',
 			'template'=>'{update}{delete}',

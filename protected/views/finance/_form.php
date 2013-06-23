@@ -38,6 +38,7 @@
 	<div class='control-group<?php echo (CHtml::error($model,'FIN_AMOUNT') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'FIN_AMOUNT',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<?php $model->FIN_AMOUNT = number_format($model->FIN_AMOUNT, 2, ',', ''); ?>
 		<?php echo $form->textField($model,'FIN_AMOUNT'); ?>
 		<?php echo $form->error($model,'FIN_AMOUNT',array('class'=>'help-inline')); ?>
 		</div>

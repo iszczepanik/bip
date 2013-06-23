@@ -20,8 +20,22 @@ array('label'=>'Nowy', 'icon'=>'plus-sign', 'url'=>array('create')),
 	'columns'=>array(
 		'PRJ_ID',
 		'PRJ_NAME',
-		'PRJ_AMOUNT_DONATION',
-		'PRJ_AMOUNT_PUBLIC',
+		//'PRJ_AMOUNT_DONATION',
+		array(
+			'name'=>'PRJ_AMOUNT_DONATION',
+			'value'=>function($data){
+					return number_format($data->PRJ_AMOUNT_DONATION, 2, ',', '');
+				},
+			'htmlOptions'=>array('style' => 'text-align: right;')
+		),
+		//'PRJ_AMOUNT_PUBLIC',
+		array(
+			'name'=>'PRJ_AMOUNT_PUBLIC',
+			'value'=>function($data){
+					return number_format($data->PRJ_AMOUNT_PUBLIC, 2, ',', '');
+				},
+			'htmlOptions'=>array('style' => 'text-align: right;')
+		),
 		'PRJ_SOURCES',
 		array(
 			'name'=>'PRJ_CAT',
