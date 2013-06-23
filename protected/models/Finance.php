@@ -79,24 +79,31 @@ class Finance extends CActiveRecord
 		return array(
 			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_APP_ID, FIN_CREATE_DATE, FIN_CREATE_BY', 'required'),
 			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_PRJ_ID, FIN_APP_ID, FIN_CREATE_BY, FIN_MODIFY_BY', 'numerical', 'integerOnly'=>true),
-			array('FIN_AMOUNT', 'numerical'),
+			array('FIN_AMOUNT', 'NumericalGlobalizationInsensitive'),
 			array('FIN_FROM, FIN_INFO_CREATED_BY', 'length', 'max'=>256),
 			array('FIN_MODIFY_DATE, FIN_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('FIN_ID, FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_FROM, FIN_PRJ_ID, FIN_APP_ID, FIN_CREATE_DATE, FIN_CREATE_BY, FIN_MODIFY_DATE, FIN_MODIFY_BY, FIN_INFO_CREATED_BY, FIN_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 			
-			array('FIN_PRJ_ID', 'ValidateProjectRequired'),
+			array('FIN_PRJ_ID', 'ProjectRequired'),
 		);
 	}
 	
-	public function ValidateProjectRequired($attribute, $params)
+	public function ProjectRequired($attribute, $params)
 	{
 		if ($this->FIN_SOURCE == FinanceSource::Project)
 		{
 			$validator = CValidator::createValidator('required', $this, $attribute, $params);
 			$validator->validate($this);
 		}
+	}
+	
+	public function NumericalGlobalizationInsensitive($attribute, $params)
+	{
+		$this->FIN_AMOUNT = str_replace(",", ".", $this->FIN_AMOUNT);
+		$validator = CValidator::createValidator('numerical', $this, $attribute, $params);
+		$validator->validate($this);
 	}
 
 	/**

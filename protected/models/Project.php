@@ -91,7 +91,7 @@ class Project extends CActiveRecord
 		return array(
 			array('PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_DATE, PRJ_CREATE_BY', 'required'),
 			array('PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_BY, PRJ_MODIFY_BY', 'numerical', 'integerOnly'=>true),
-			array('PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC', 'numerical'),
+			array('PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC', 'NumericalGlobalizationInsensitive'),
 			array('PRJ_NAME, PRJ_SHORT_DESCRIPTION, PRJ_INFO_CREATED_BY', 'length', 'max'=>256),
 			array('PRJ_DESCRIPTION, PRJ_SOURCES', 'length', 'max'=>512),
 			array('PRJ_MODIFY_DATE, PRJ_INFO_CREATE_DATE', 'safe'),
@@ -99,6 +99,14 @@ class Project extends CActiveRecord
 			// Please remove those attributes that should not be searched.
 			array('PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_DATE, PRJ_CREATE_BY, PRJ_MODIFY_DATE, PRJ_MODIFY_BY, PRJ_INFO_CREATED_BY, PRJ_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 		);
+	}
+	
+	public function NumericalGlobalizationInsensitive($attribute, $params)
+	{
+		$this->PRJ_AMOUNT_DONATION = str_replace(",", ".", $this->PRJ_AMOUNT_DONATION);
+		$this->PRJ_AMOUNT_PUBLIC = str_replace(",", ".", $this->PRJ_AMOUNT_PUBLIC);
+		$validator = CValidator::createValidator('numerical', $this, $attribute, $params);
+		$validator->validate($this);
 	}
 
 	/**
