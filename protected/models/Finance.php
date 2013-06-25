@@ -106,6 +106,11 @@ class Finance extends CActiveRecord
 		$validator->validate($this);
 	}
 
+	public function getAmountFormated()
+	{
+		return number_format($this->FIN_AMOUNT, 2, ',', '');
+	}
+	
 	/**
 	 * @return array relational rules.
 	 */

@@ -108,6 +108,16 @@ class Project extends CActiveRecord
 		$validator = CValidator::createValidator('numerical', $this, $attribute, $params);
 		$validator->validate($this);
 	}
+	
+	public function getAmountDonationFormated()
+	{
+		return number_format($this->PRJ_AMOUNT_DONATION, 2, ',', '');
+	}
+	
+	public function getAmountPublicFormated()
+	{
+		return number_format($this->PRJ_AMOUNT_PUBLIC, 2, ',', '');
+	}
 
 	/**
 	 * @return array relational rules.

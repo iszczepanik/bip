@@ -30,9 +30,7 @@ array('label'=>'Lista', 'icon'=>'th-list', 'url'=>array('admin')),
 		//'FIN_AMOUNT',
 		array(
 			'name'=>'FIN_AMOUNT',
-			'value'=>function($data){
-					return number_format($data->FIN_AMOUNT, 2, ',', '');
-				},
+			'value'=>'$data->AmountFormated',
 			'htmlOptions'=>array('style' => 'text-align: right;')
 		),
 		array(

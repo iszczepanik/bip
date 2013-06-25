@@ -23,17 +23,13 @@ array('label'=>'Nowy', 'icon'=>'plus-sign', 'url'=>array('create')),
 		//'PRJ_AMOUNT_DONATION',
 		array(
 			'name'=>'PRJ_AMOUNT_DONATION',
-			'value'=>function($data){
-					return number_format($data->PRJ_AMOUNT_DONATION, 2, ',', '');
-				},
+			'value'=>'$data->AmountDonationFormated',
 			'htmlOptions'=>array('style' => 'text-align: right;')
 		),
 		//'PRJ_AMOUNT_PUBLIC',
 		array(
 			'name'=>'PRJ_AMOUNT_PUBLIC',
-			'value'=>function($data){
-					return number_format($data->PRJ_AMOUNT_PUBLIC, 2, ',', '');
-				},
+			'value'=>'$data->AmountPublicFormated',
 			'htmlOptions'=>array('style' => 'text-align: right;')
 		),
 		'PRJ_SOURCES',
