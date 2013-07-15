@@ -19,10 +19,18 @@
 <body data-offset="50" data-target=".subnav" data-spy="scroll">
 <div class="container" id="page">
 <? 
-//var_dump(Yii::app()->user); 
-//echo Yii::app()->session['var'];
-//Yii::app()->session['var'] = '1234';
-?>
+$cookieName = "getCookies".Yii::app()->request->subdomain;
+$getCookies = isset(Yii::app()->request->cookies[$cookieName]) ? Yii::app()->request->cookies[$cookieName]->value : '0';
+if ($getCookies != '1'): ?>
+<div class="alert alert-info" >
+<h4>Informacja o plikach cookies</h4>
+Używamy plików cookies, aby ułatwić Ci korzystanie z naszego serwisu oraz do celów statystycznych. Jeśli nie blokujesz tych plików, to zgadzasz się na ich użycie oraz zapisanie w pamięci urządzenia. Pamiętaj, że możesz samodzielnie zarządzać cookies, zmieniając ustawienia przeglądarki.
+<div style="text-align: center" >
+<a href="<?php echo $this->createUrl('/site/getCookies'); ?>" class="btn btn-info btn-mini" style="margin-top: 10px" >Rozumiem, nie pokazuj więcej.</a>
+</div>
+</div>
+<? endif; ?>
+
 <div class="row" >
 	<div class="span3" >
 		<?
