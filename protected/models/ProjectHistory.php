@@ -49,17 +49,37 @@ class ProjectHistory extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('PRJ_HIST_PRJ_ID, PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT', 'required'),
-			array('PRJ_HIST_PRJ_ID, PRJ_CAT, PRJ_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('PRJ_HIST_PRJ_ID, PRJ_CAT, PRJ_MODIFY_BY, PRJ_DONATION_CURRENCY, PRJ_PUBLIC_CURRENCY', 'numerical', 'integerOnly'=>true),
 			array('PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC', 'numerical'),
 			array('PRJ_NAME, PRJ_SHORT_DESCRIPTION', 'length', 'max'=>256),
 			array('PRJ_DESCRIPTION, PRJ_SOURCES', 'length', 'max'=>512),
 			array('PRJ_MODIFY_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('PRJ_HIST_ID, PRJ_HIST_PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_MODIFY_DATE, PRJ_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('PRJ_HIST_ID, PRJ_HIST_PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_MODIFY_DATE, PRJ_MODIFY_BY, PRJ_DONATION_CURRENCY, PRJ_PUBLIC_CURRENCY', 'safe', 'on'=>'search'),
 		);
 	}
 
+	public function getAmountDonationFormated()
+	{
+		return number_format($this->PRJ_AMOUNT_DONATION, 2, ',', '');
+	}
+	
+	public function getAmountPublicFormated()
+	{
+		return number_format($this->PRJ_AMOUNT_PUBLIC, 2, ',', '');
+	}
+	
+	public function GetPublicCurrencySymbol()
+	{
+		return CurrencyType::GetSymbol($this->PRJ_PUBLIC_CURRENCY);
+	}
+	
+	public function GetDonationCurrencySymbol()
+	{
+		return CurrencyType::GetSymbol($this->PRJ_DONATION_CURRENCY);
+	}
+	
 	/**
 	 * @return array relational rules.
 	 */
@@ -86,6 +106,8 @@ class ProjectHistory extends CActiveRecord
 			'PRJ_SHORT_DESCRIPTION' => 'Prj Short Description',
 			'PRJ_AMOUNT_DONATION' => 'Prj Amount Donation',
 			'PRJ_AMOUNT_PUBLIC' => 'Prj Amount Public',
+			'PRJ_DONATION_CURRENCY' => 'Prj Donation Currency',
+			'PRJ_PUBLIC_CURRENCY' => 'Prj Public Currency',
 			'PRJ_SOURCES' => 'Prj Sources',
 			'PRJ_CAT' => 'Prj Cat',
 			'PRJ_MODIFY_DATE' => 'Data modyfikacji',
@@ -111,6 +133,8 @@ class ProjectHistory extends CActiveRecord
 		$criteria->compare('PRJ_SHORT_DESCRIPTION',$this->PRJ_SHORT_DESCRIPTION,true);
 		$criteria->compare('PRJ_AMOUNT_DONATION',$this->PRJ_AMOUNT_DONATION);
 		$criteria->compare('PRJ_AMOUNT_PUBLIC',$this->PRJ_AMOUNT_PUBLIC);
+		$criteria->compare('PRJ_DONATION_CURRENCY',$this->PRJ_DONATION_CURRENCY);
+		$criteria->compare('PRJ_PUBLIC_CURRENCY',$this->PRJ_PUBLIC_CURRENCY);
 		$criteria->compare('PRJ_SOURCES',$this->PRJ_SOURCES,true);
 		$criteria->compare('PRJ_CAT',$this->PRJ_CAT);
 		$criteria->compare('PRJ_MODIFY_DATE',$this->PRJ_MODIFY_DATE,true);

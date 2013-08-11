@@ -13,9 +13,10 @@
 		<? endif; ?>
 		<h3><? echo $finance->Project->PRJ_NAME; ?></h3>
 		<? if ($finance->FIN_FROM != "") echo $finance->FIN_FROM."<br />"; ?>
-		<? echo number_format($finance->FIN_AMOUNT, 2, ',', ' '); ?> PLN<br />
+		<? echo number_format($finance->FIN_AMOUNT, 2, ',', ' ')." ".$finance->currencySymbol; ?><br />
 	<? else: ?>
-		<p><strong><? echo $finance->sourceDescription; ?></strong>: <? echo number_format($finance->FIN_AMOUNT, 2, ',', ' '); ?> PLN</p>
+		<p><strong><? echo $finance->sourceDescription; ?></strong>: 
+		<? echo number_format($finance->FIN_AMOUNT, 2, ',', ' ')." ".$finance->currencySymbol;  ?></p>
 	<? endif; ?>
 	
 	<? 

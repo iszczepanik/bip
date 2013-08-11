@@ -42,12 +42,12 @@ class FinanceHistory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('FIN_HIST_FIN_ID, FIN_AMOUNT, FIN_MODIFY_DATE, FIN_MODIFY_BY', 'required'),
-			array('FIN_HIST_FIN_ID, FIN_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('FIN_HIST_FIN_ID, FIN_AMOUNT, FIN_CURRENCY, FIN_MODIFY_DATE, FIN_MODIFY_BY', 'required'),
+			array('FIN_HIST_FIN_ID, FIN_MODIFY_BY, FIN_CURRENCY', 'numerical', 'integerOnly'=>true),
 			array('FIN_AMOUNT', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('FIN_HIST_ID, FIN_HIST_FIN_ID, FIN_AMOUNT, FIN_MODIFY_DATE, FIN_MODIFY_BY', 'safe', 'on'=>'search'),
+			array('FIN_HIST_ID, FIN_HIST_FIN_ID, FIN_AMOUNT, FIN_CURRENCY, FIN_MODIFY_DATE, FIN_MODIFY_BY', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,9 +73,25 @@ class FinanceHistory extends CActiveRecord
 			'FIN_HIST_ID' => '#',
 			'FIN_HIST_FIN_ID' => 'Fin Hist Fin',
 			'FIN_AMOUNT' => 'Kwota',
+			'FIN_CURRENCY' => 'Waluta',
 			'FIN_MODIFY_DATE' => 'Data modyfikacji',
 			'FIN_MODIFY_BY' => 'Zmodyfikował',
 		);
+	}
+	
+	public function getAmountFormated()
+	{
+		return number_format($this->FIN_AMOUNT, 2, ',', '');
+	}
+	
+	public function GetCurrencyDescription()
+	{
+		return CurrencyType::GetDescription($this->FIN_CURRENCY);
+	}
+	
+	public function GetCurrencySymbol()
+	{
+		return CurrencyType::GetSymbol($this->FIN_CURRENCY);
 	}
 
 	/**
@@ -92,6 +108,7 @@ class FinanceHistory extends CActiveRecord
 		$criteria->compare('FIN_HIST_ID',$this->FIN_HIST_ID);
 		$criteria->compare('FIN_HIST_FIN_ID',$this->FIN_HIST_FIN_ID);
 		$criteria->compare('FIN_AMOUNT',$this->FIN_AMOUNT);
+		$criteria->compare('FIN_CURRENCY',$this->FIN_CURRENCY);
 		$criteria->compare('FIN_MODIFY_DATE',$this->FIN_MODIFY_DATE,true);
 		$criteria->compare('FIN_MODIFY_BY',$this->FIN_MODIFY_BY);
 

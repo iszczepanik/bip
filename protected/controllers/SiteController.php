@@ -26,8 +26,11 @@ class SiteController extends Controller
 		$cookieName = "getCookies".Yii::app()->request->subdomain;
 		$value = isset(Yii::app()->request->cookies[$cookieName]) ? Yii::app()->request->cookies[$cookieName]->value : '0';
 		if ($value != '1')
-			Yii::app()->request->cookies[$cookieName] = new CHttpCookie($cookieName, '1', null);
-		
+		{
+			$cookie = new CHttpCookie($cookieName, '1');
+			$cookie->expire = time()+60*60*24*365*5; 
+			Yii::app()->request->cookies[$cookieName] = $cookie;
+		}
 		$this->redirect(array('/Site/index'));
 	}
 

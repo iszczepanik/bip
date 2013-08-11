@@ -43,6 +43,14 @@
 		<?php echo $form->error($model,'FIN_AMOUNT',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
+	
+	<div class='control-group<?php echo (CHtml::error($model,'FIN_CURRENCY') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'FIN_CURRENCY',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->dropDownList($model, 'FIN_CURRENCY', CurrencyType::GetCurrencyTypeArray()); ?>
+		<?php echo $form->error($model,'FIN_CURRENCY',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
 
 	<? if ($model->FIN_SOURCE == FinanceSource::Project) : ?>
 	

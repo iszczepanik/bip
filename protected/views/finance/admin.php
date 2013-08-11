@@ -34,6 +34,10 @@ array('label'=>'Lista', 'icon'=>'th-list', 'url'=>array('admin')),
 			'htmlOptions'=>array('style' => 'text-align: right;')
 		),
 		array(
+			'name'=>'FIN_CURRENCY',
+			'value'=>'$data->currencyDescription',
+		),
+		array(
 			'class'=>'bootstrap.widgets.BootButtonColumn',
 			'template'=>'{update}{delete}',
 		),

@@ -37,6 +37,14 @@
 		<?php echo $form->error($model,'PRJ_AMOUNT_DONATION',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
+	
+	<div class='control-group<?php echo (CHtml::error($model,'PRJ_DONATION_CURRENCY') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'PRJ_DONATION_CURRENCY',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->dropDownList($model, 'PRJ_DONATION_CURRENCY', CurrencyType::GetCurrencyTypeArray()); ?>
+		<?php echo $form->error($model,'PRJ_DONATION_CURRENCY',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
 
 	<div class='control-group<?php echo (CHtml::error($model,'PRJ_AMOUNT_PUBLIC') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'PRJ_AMOUNT_PUBLIC',array('class'=>'control-label')); ?>
@@ -44,6 +52,14 @@
 		<?php $model->PRJ_AMOUNT_PUBLIC = number_format($model->PRJ_AMOUNT_PUBLIC, 2, ',', ''); ?>
 		<?php echo $form->textField($model,'PRJ_AMOUNT_PUBLIC'); ?>
 		<?php echo $form->error($model,'PRJ_AMOUNT_PUBLIC',array('class'=>'help-inline')); ?>
+		</div>
+	</div>
+	
+	<div class='control-group<?php echo (CHtml::error($model,'PRJ_PUBLIC_CURRENCY') == '' ? '' : ' error'); ?>'>
+		<?php echo $form->labelEx($model,'PRJ_PUBLIC_CURRENCY',array('class'=>'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->dropDownList($model, 'PRJ_PUBLIC_CURRENCY', CurrencyType::GetCurrencyTypeArray()); ?>
+		<?php echo $form->error($model,'PRJ_PUBLIC_CURRENCY',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
 

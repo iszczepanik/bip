@@ -59,6 +59,8 @@ class Project extends CActiveRecord
 			$this->_old->PRJ_SHORT_DESCRIPTION != $this->PRJ_SHORT_DESCRIPTION ||
 			$this->_old->PRJ_AMOUNT_DONATION != $this->PRJ_AMOUNT_DONATION || 
 			$this->_old->PRJ_AMOUNT_PUBLIC != $this->PRJ_AMOUNT_PUBLIC || 
+			$this->_old->PRJ_DONATION_CURRENCY != $this->PRJ_DONATION_CURRENCY || 
+			$this->_old->PRJ_PUBLIC_CURRENCY != $this->PRJ_PUBLIC_CURRENCY || 
 			$this->_old->PRJ_SOURCES != $this->PRJ_SOURCES ||
 			$this->_old->PRJ_CAT != $this->PRJ_CAT))
 		{
@@ -70,6 +72,8 @@ class Project extends CActiveRecord
 			$historyEntry->PRJ_SHORT_DESCRIPTION = $this->_old->PRJ_SHORT_DESCRIPTION;
 			$historyEntry->PRJ_AMOUNT_DONATION = $this->_old->PRJ_AMOUNT_DONATION;
 			$historyEntry->PRJ_AMOUNT_PUBLIC = $this->_old->PRJ_AMOUNT_PUBLIC;
+			$historyEntry->PRJ_DONATION_CURRENCY = $this->_old->PRJ_DONATION_CURRENCY;
+			$historyEntry->PRJ_PUBLIC_CURRENCY = $this->_old->PRJ_PUBLIC_CURRENCY;
 			$historyEntry->PRJ_SOURCES = $this->_old->PRJ_SOURCES;
 			$historyEntry->PRJ_CAT = $this->_old->PRJ_CAT;
 			$historyEntry->PRJ_MODIFY_DATE = $this->PRJ_MODIFY_DATE;
@@ -90,14 +94,14 @@ class Project extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_DATE, PRJ_CREATE_BY', 'required'),
-			array('PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_BY, PRJ_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('PRJ_DONATION_CURRENCY, PRJ_PUBLIC_CURRENCY, PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_BY, PRJ_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC', 'NumericalGlobalizationInsensitive'),
 			array('PRJ_NAME, PRJ_SHORT_DESCRIPTION, PRJ_INFO_CREATED_BY', 'length', 'max'=>256),
 			array('PRJ_DESCRIPTION, PRJ_SOURCES', 'length', 'max'=>512),
 			array('PRJ_MODIFY_DATE, PRJ_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_DATE, PRJ_CREATE_BY, PRJ_MODIFY_DATE, PRJ_MODIFY_BY, PRJ_INFO_CREATED_BY, PRJ_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
+			array('PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_DATE, PRJ_CREATE_BY, PRJ_MODIFY_DATE, PRJ_MODIFY_BY, PRJ_INFO_CREATED_BY, PRJ_INFO_CREATE_DATE, PRJ_DONATION_CURRENCY, PRJ_PUBLIC_CURRENCY', 'safe', 'on'=>'search'),
 		);
 	}
 	
@@ -117,6 +121,16 @@ class Project extends CActiveRecord
 	public function getAmountPublicFormated()
 	{
 		return number_format($this->PRJ_AMOUNT_PUBLIC, 2, ',', '');
+	}
+	
+	public function GetPublicCurrencySymbol()
+	{
+		return CurrencyType::GetSymbol($this->PRJ_PUBLIC_CURRENCY);
+	}
+	
+	public function GetDonationCurrencySymbol()
+	{
+		return CurrencyType::GetSymbol($this->PRJ_DONATION_CURRENCY);
 	}
 
 	/**
@@ -182,6 +196,8 @@ class Project extends CActiveRecord
 			'PRJ_SHORT_DESCRIPTION' => 'Krótki opis',
 			'PRJ_AMOUNT_DONATION' => 'Kwota darowizny',
 			'PRJ_AMOUNT_PUBLIC' => 'Kwota środków publicznych',
+			'PRJ_DONATION_CURRENCY' => 'Waluta darowizny',
+			'PRJ_PUBLIC_CURRENCY' => 'Waluta środków publicznych',
 			'PRJ_SOURCES' => 'Źródła',
 			'PRJ_CAT' => 'Kategoria',
 			'PRJ_APP_ID' => 'App',
@@ -233,6 +249,8 @@ class Project extends CActiveRecord
 		$criteria->compare('PRJ_SHORT_DESCRIPTION',$this->PRJ_SHORT_DESCRIPTION,true);
 		$criteria->compare('PRJ_AMOUNT_DONATION',$this->PRJ_AMOUNT_DONATION);
 		$criteria->compare('PRJ_AMOUNT_PUBLIC',$this->PRJ_AMOUNT_PUBLIC);
+		$criteria->compare('PRJ_DONATION_CURRENCY',$this->PRJ_DONATION_CURRENCY);
+		$criteria->compare('PRJ_PUBLIC_CURRENCY',$this->PRJ_PUBLIC_CURRENCY);
 		$criteria->compare('PRJ_SOURCES',$this->PRJ_SOURCES,true);
 		$criteria->compare('PRJ_CAT',$this->PRJ_CAT);
 		$criteria->compare('PRJ_APP_ID',Yii::app()->request->subdomainAppId);
