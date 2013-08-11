@@ -28,7 +28,8 @@ class CurrencyType
 	
 	public static function GetDescription($ordinal) 
 	{
-		return self::GetCurrencyTypeArray()[$ordinal];
+		$descriptions = self::GetCurrencyTypeArray();
+		return $descriptions[$ordinal];
 	}
 	
 	public static function GetCurrencyTypeArray()
