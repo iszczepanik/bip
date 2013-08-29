@@ -6,18 +6,20 @@
 		<? $year = $finance->FIN_YEAR; $projects = false; ?>
 		<h3 class="year"><? echo $finance->FIN_YEAR; ?></h3>
 	<? endif; ?>
-	<? if ($finance->FIN_SOURCE == FinanceSource::Project) : ?>
-		<? if (!$projects): ?>
-			<? $projects = true; ?>
-			<h3><? echo $finance->sourceDescription; ?>:</h3>
-		<? endif; ?>
-		<h3><? echo $finance->Project->PRJ_NAME; ?></h3>
-		<? if ($finance->FIN_FROM != "") echo $finance->FIN_FROM."<br />"; ?>
-		<? echo number_format($finance->FIN_AMOUNT, 2, ',', ' ')." ".$finance->currencySymbol; ?><br />
-	<? else: ?>
+	<!--
+	<? //if ($finance->FIN_SOURCE == FinanceSource::Project) : ?>
+		<? //if (!$projects): ?>
+			<? //$projects = true; ?>
+			<h3><? //echo $finance->sourceDescription; ?>:</h3>
+		<? //endif; ?>
+		<h3><? //echo $finance->Project->PRJ_NAME; ?></h3>
+		<? //if ($finance->FIN_FROM != "") echo $finance->FIN_FROM."<br />"; ?>
+		<? //echo number_format($finance->FIN_AMOUNT, 2, ',', ' ')." ".$finance->currencySymbol; ?><br />
+	<? //else: ?>
+	-->
 		<p><strong><? echo $finance->sourceDescription; ?></strong>: 
 		<? echo number_format($finance->FIN_AMOUNT, 2, ',', ' ')." ".$finance->currencySymbol;  ?></p>
-	<? endif; ?>
+	<? //endif; ?>
 	
 	<? 
 	$this->renderPartial('//finance/_history_link', array('data'=>$finance));

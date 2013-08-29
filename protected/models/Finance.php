@@ -87,18 +87,18 @@ class Finance extends CActiveRecord
 			// Please remove those attributes that should not be searched.
 			array('FIN_ID, FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_CURRENCY, FIN_FROM, FIN_PRJ_ID, FIN_APP_ID, FIN_CREATE_DATE, FIN_CREATE_BY, FIN_MODIFY_DATE, FIN_MODIFY_BY, FIN_INFO_CREATED_BY, FIN_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
 			
-			array('FIN_PRJ_ID', 'ProjectRequired'),
+			//array('FIN_PRJ_ID', 'ProjectRequired'),
 		);
 	}
 	
-	public function ProjectRequired($attribute, $params)
-	{
-		if ($this->FIN_SOURCE == FinanceSource::Project)
-		{
-			$validator = CValidator::createValidator('required', $this, $attribute, $params);
-			$validator->validate($this);
-		}
-	}
+	// public function ProjectRequired($attribute, $params)
+	// {
+		// if ($this->FIN_SOURCE == FinanceSource::Project)
+		// {
+			// $validator = CValidator::createValidator('required', $this, $attribute, $params);
+			// $validator->validate($this);
+		// }
+	// }
 	
 	public function NumericalGlobalizationInsensitive($attribute, $params)
 	{

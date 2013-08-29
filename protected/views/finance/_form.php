@@ -52,9 +52,9 @@
 		</div>
 	</div>
 
-	<? if ($model->FIN_SOURCE == FinanceSource::Project) : ?>
+	<? //if ($model->FIN_SOURCE == FinanceSource::Project) ?>
 	
-	<div class='control-group<?php echo (CHtml::error($model,'FIN_FROM') == '' ? '' : ' error'); ?>'>
+	<!--<div class='control-group<?php echo (CHtml::error($model,'FIN_FROM') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'FIN_FROM',array('class'=>'control-label')); ?>
 		<div class="controls">
 		<?php echo $form->textField($model,'FIN_FROM',array('size'=>60,'maxlength'=>256)); ?>
@@ -71,13 +71,9 @@
 			);?>
 		<?php echo $form->error($model,'FIN_PRJ_ID',array('class'=>'help-inline')); ?>
 		</div>
-	</div>
+	</div>-->
 	
-
-	
-	<? else: ?>
-		<?php //echo $form->hiddenField($model,'FIN_FROM',array('size'=>60,'maxlength'=>256)); ?>
-	<? endif; ?>
+	<? //endif; ?>
 	
 	<div class='control-group<?php echo (CHtml::error($model,'FIN_INFO_CREATE_DATE') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'FIN_INFO_CREATE_DATE',array('class'=>'control-label')); ?>

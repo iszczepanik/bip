@@ -139,7 +139,7 @@ return array(
 		'debug'=>false,
 		'organization'=>'Bona Fides',
 		'homepage'=>'http://bonafides.pl',
-		'version'=>'1.0.13',
+		'version'=>'1.0.14',
 		'noindex'=>false,
 		
 		'subdomains'=>array
