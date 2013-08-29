@@ -240,7 +240,7 @@ class Information extends CActiveRecord
 			'INF_CONTENT' => 'Treść',
 			'INF_OBLIGATORY' => 'Inf Obligatory',
 			'INF_DISPLAY_ORDER' => 'Inf Display Order',
-			'INF_SHOW' => 'Pokazuj tą informację',
+			'INF_SHOW' => 'Pokazuj tę informację',
 			'INF_BIP' => 'Pokazuj Bip',
 			'INF_SIT_ID' => 'Inf Sit',
 			'INF_TYPE' => 'Inf Type',
