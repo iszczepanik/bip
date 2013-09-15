@@ -60,6 +60,7 @@ class FileAdminController extends Controller
 		if(isset($_POST['File']))
 		{
 			$model->attributes=$_POST['File'];
+			$model->UploadedFile = CUploadedFile::getInstance($model,'uploadedFile');
 			$date = new DateTime(); 
 			$model->FIL_CREATE_DATE = $date->format('Y-m-d H:i:s');
 			$model->FIL_CREATE_BY = Yii::app()->user->id;
@@ -89,6 +90,7 @@ class FileAdminController extends Controller
 		if(isset($_POST['File']))
 		{
 			$model->attributes=$_POST['File'];
+			$model->UploadedFile = CUploadedFile::getInstance($model,'uploadedFile');
 			$date = new DateTime(); 
 			$model->FIL_MODIFY_DATE = $date->format('Y-m-d H:i:s');
 			$model->FIL_MODIFY_BY = Yii::app()->user->id;

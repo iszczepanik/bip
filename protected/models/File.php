@@ -38,6 +38,8 @@ class File extends CActiveRecord
 		return 'fil';
 	}
 
+	public $UploadedFile;
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -50,6 +52,7 @@ class File extends CActiveRecord
 			array('FIL_CAT, FIL_APP_ID, FIL_CREATE_BY, FIL_MODIFY_BY', 'numerical', 'integerOnly'=>true),
 			array('FIL_NAME, FIL_INFO_CREATED_BY', 'length', 'max'=>256),
 			array('FIL_CONTENT, FIL_MODIFY_DATE, FIL_INFO_CREATE_DATE', 'safe'),
+			array('UploadedFile', 'file', 'maxSize'=>1024*1024*5,'tooLarge'=>'Przekroczono maksymalny rozmiar pliku'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('FIL_ID, FIL_NAME, FIL_CAT, FIL_CONTENT, FIL_APP_ID, FIL_CREATE_DATE, FIL_CREATE_BY, FIL_MODIFY_DATE, FIL_MODIFY_BY, FIL_INFO_CREATED_BY, FIL_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
@@ -85,13 +88,14 @@ class File extends CActiveRecord
 	public function beforeSave()
 	{
 		$this->_old = File::model()->findByPk($this->FIL_ID);
-	
+		
 		if($file=CUploadedFile::getInstance($this,'uploadedFile'))
 		{
 			$this->FIL_NAME = $file->name;
 			$this->FIL_CONTENT = file_get_contents($file->tempName);
 		}
 
+		
 		return parent::beforeSave();
 	}
 	
