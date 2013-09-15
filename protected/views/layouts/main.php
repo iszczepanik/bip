@@ -52,7 +52,7 @@ Używamy plików cookies, aby ułatwić Ci korzystanie z naszego serwisu oraz do
 		
 		<div class="side_menu">
 			<?php $this->renderPartial('//layouts/_menu', array('data'=>Site::model()->findAll(array("order"=>"SIT_DISPALY_ORDER")), 'contrast'=>$contrast))?>
-			<? if (Yii::app()->user->checkAccess('admin')): ?>
+			<? if (Yii::app()->user->checkAccess('admin') || Yii::app()->user->checkAccess('superadmin')): ?>
 				<?php $this->renderPartial('//layouts/_adminmenu'); ?>
 			<? endif; ?>
 			<br />
