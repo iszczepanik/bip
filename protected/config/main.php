@@ -49,19 +49,20 @@ return array(
 		'bootstrap'=>array(
 		        'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
 		),
-		
+
         'request' => array(
 			'class'=>'CHttpRequestSubDomain',
             //'baseUrl' => 'http://localhost/bip',
-			//'baseUrl' => 'http://bonafides.pl/bip/',
+			//'baseUrl' => 'http://83.238.168.145/bip',
+			//'baseUrl' => 'http://isabel.drl.pl/bip/',
         ),
-		
+
 		/*'file'=>array(
 			'class'=>'application.extensions.file.CFile',
 		),*/
 
 		// uncomment the following to enable URLs in path-format
-		
+
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
@@ -70,14 +71,32 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		
+
+
+		/*'db'=>array(
+			//'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+			'connectionString' => 'Server=localhost;Database=system_reputacyjny;Uid=root;Pwd=root;',
+		),*/
+		// uncomment the following to use a MySQL database
+		/* localhost */
+
 		'db'=>array(
-					'connectionString' => 'mysql:host=localhost;dbname=bonafide_bip',
-					'emulatePrepare' => true,
-					'username' => 'bonafide_bip',
-					'password' => 'tr@mw@j',
-					'charset' => 'utf8',
+			//'connectionString' => 'mysql:host=localhost;dbname=bip',
+			'connectionString' => 'mysql:host=localhost;dbname=bonafide_bip',
+			'emulatePrepare' => true,
+			'username' => 'root',
+			//'password' => 'Katowice1',
+			'password' => '',
+			'charset' => 'utf8',
 		),
+		/*
+		'db'=>array(
+					'connectionString' => 'mysql:host=localhost;dbname=isabel_bip',
+					'emulatePrepare' => true,
+					'username' => 'isabel_bip',
+					'password' => 'k@lafio4',
+					'charset' => 'utf8',
+		),*/
 		'authManager'=>array(
 			'class'=>'CDbAuthManager',
 			'connectionID'=>'db',
@@ -90,7 +109,7 @@ return array(
 			// 'password' => 'Ecl|p$e',
 			// 'charset' => 'utf8',
 		// ),
-		
+
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
@@ -118,13 +137,36 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
 		'debug'=>false,
-		'organization'=>'Stowarzyszenie Bona Fides',
-		'version'=>'1.0.16',
-		'noindex'=>true,
-		
+		'organization'=>'Bona Fides',
+		'homepage'=>'http://bonafides.pl',
+		'version'=>'1.0.17',
+		'noindex'=>false,
+
 		'subdomains'=>array
 		(
-			1 => "bonafides", 
+			1 => "example", 
+			2 => "example2", 
+			3 => "spddar",
+			4 => "kontra",
+			5 => "pomozmysobie",
+			6 => "stowdob",
+			7 => "asperger",
+			8 => "pozytywnezmiany",
+			9 => "mrowisko",
+			10 => "naszeslaskie",
+			11 => "zabrzanskiekobiety",
+			12 => "piaskowysmok",
+			13 => "dignam",
+			14 => "naprawsobiemiasto",
+			15 => "babiniec",
+			16 => "ceiwr",
+			17 => "dlaszopienic",
+			18 => "federacjaslask",
+			19 => "pkegliwice",
+			20 => "nereusz",
+			21 => "gniazdo",
+			22 => "rtpd",
 		)
+
 	),
 );

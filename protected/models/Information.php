@@ -145,6 +145,7 @@ class Information extends CActiveRecord
 		{
 			$criteria = new CDbCriteria;
 			$criteria->condition='PRJ_CAT='.$this->INF_SHOW_PRJ_CAT.' and PRJ_APP_ID='.Yii::app()->request->subdomainAppId;
+			$criteria->order='PRJ_ID desc';
 			return Project::model()->findAll($criteria);
 		}
 		
