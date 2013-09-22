@@ -30,8 +30,13 @@
 		$this->renderPartial('//information/_visibility_link', array('id'=>$viewed->INF_ID)); 
 	}
 
-	if (count($viewed->Projects) > 0)
-		$this->renderPartial('//project/index', array('data'=>$viewed->Projects));
+	if ($viewed->IsProjectsInfo())
+		{
+			if (count($viewed->Projects) > 0)
+				$this->renderPartial('//project/index', array('data'=>$viewed->Projects));
+			if (Yii::app()->user->checkAccess('admin'))	
+				$this->renderPartial('//project/_admin_links');
+		}
 		
 	if ($viewed->INF_SHOW_FIN_TYPE != NULL)
 		$this->renderPartial('//finance/index', array('data'=>$viewed->Finances,'type'=>$viewed->INF_SHOW_FIN_TYPE));

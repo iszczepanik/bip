@@ -139,6 +139,11 @@ class Information extends CActiveRecord
 		return array();
 	}
 	
+	public function IsProjectsInfo()
+	{
+		return $this->INF_SHOW_PRJ_CAT != '';
+	}
+	
 	public function GetProjects()
 	{
 		if ($this->INF_SHOW_PRJ_CAT != '')

@@ -83,6 +83,12 @@ class File extends CActiveRecord
 		return strip_tags(Information::FindByName('Pełna nazwa organizacji'));
 	}
 	
+	public static function GetOtherFilesCount()
+	{
+		$command = 'SELECT count(*) FROM `fil` where FIL_CAT = '.FileCategory::Other.' and FIL_APP_ID='.Yii::app()->request->subdomainAppId;
+		return Yii::app()->db->createCommand($command)->queryScalar();
+	}
+	
 	private $_old;
 	
 	public function beforeSave()

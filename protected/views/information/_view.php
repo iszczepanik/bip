@@ -31,8 +31,13 @@
 			$this->renderPartial('//information/_visibility_link', array('id'=>$information->INF_ID)); 
 		}
 		
-		if (count($information->Projects) > 0)
-			$this->renderPartial('//project/index', array('data'=>$information->Projects));
+		if ($information->IsProjectsInfo())
+		{
+			if (count($information->Projects) > 0)
+				$this->renderPartial('//project/index', array('data'=>$information->Projects));
+			if (Yii::app()->user->checkAccess('admin'))	
+				$this->renderPartial('//project/_admin_links');
+		}
 		
 		if (count($information->Finances) > 0)
 			$this->renderPartial('//finance/index', array('data'=>$information->Finances));

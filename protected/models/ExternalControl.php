@@ -121,6 +121,12 @@ class ExternalControl extends CActiveRecord
 			
 		return $dataProvider;
 	}
+	
+	public static function GetExternalControlsCount()
+	{
+		$command = 'SELECT count(*) FROM `ctrl` where CTRL_APP_ID='.Yii::app()->request->subdomainAppId;
+		return Yii::app()->db->createCommand($command)->queryScalar();
+	}
 
 	public function UserFind($phrase)
 	{
