@@ -22,7 +22,7 @@ return array(
 		// uncomment the following to enable the Gii tool
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'tr@mwaj',
+			'password'=>'///',
 			'generatorPaths'=>array(
 			'bootstrap.gii', // since 0.9.1
 			),
