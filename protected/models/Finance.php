@@ -43,6 +43,32 @@ class Finance extends CActiveRecord
 	{
 		return 'fin';
 	}
+	
+	private $_old;
+	
+	public function beforeSave()
+	{
+		$this->_old = Finance::model()->findByPk($this->FIN_ID);
+		return parent::beforeSave();
+	}
+	
+	public function afterSave()
+	{
+		if ($this->_old != null && ($this->_old->FIN_AMOUNT != $this->FIN_AMOUNT || $this->_old->FIN_CURRENCY != $this->FIN_CURRENCY))
+		{
+			$historyEntry = new FinanceHistory;
+			
+			$historyEntry->FIN_HIST_FIN_ID = $this->_old->FIN_ID;
+			$historyEntry->FIN_AMOUNT = $this->_old->FIN_AMOUNT;
+			$historyEntry->FIN_CURRENCY = $this->_old->FIN_CURRENCY;
+			$historyEntry->FIN_MODIFY_DATE = $this->FIN_MODIFY_DATE;
+			$historyEntry->FIN_MODIFY_BY = $this->FIN_MODIFY_BY;
+			
+			$historyEntry->save();
+		}
+		
+		parent::afterSave();
+	}
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -52,17 +78,40 @@ class Finance extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_CREATE_DATE, FIN_CREATE_BY', 'required'),
-			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_PRJ_ID, FIN_CREATE_BY, FIN_MODIFY_BY', 'numerical', 'integerOnly'=>true),
-			array('FIN_AMOUNT', 'numerical'),
+			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_CURRENCY, FIN_APP_ID, FIN_CREATE_DATE, FIN_CREATE_BY', 'required'),
+			array('FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_CURRENCY, FIN_PRJ_ID, FIN_APP_ID, FIN_CREATE_BY, FIN_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('FIN_AMOUNT', 'NumericalGlobalizationInsensitive'),
 			array('FIN_FROM, FIN_INFO_CREATED_BY', 'length', 'max'=>256),
 			array('FIN_MODIFY_DATE, FIN_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('FIN_ID, FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_FROM, FIN_PRJ_ID, FIN_CREATE_DATE, FIN_CREATE_BY, FIN_MODIFY_DATE, FIN_MODIFY_BY, FIN_INFO_CREATED_BY, FIN_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
+			array('FIN_ID, FIN_TYPE, FIN_SOURCE, FIN_YEAR, FIN_AMOUNT, FIN_CURRENCY, FIN_FROM, FIN_PRJ_ID, FIN_APP_ID, FIN_CREATE_DATE, FIN_CREATE_BY, FIN_MODIFY_DATE, FIN_MODIFY_BY, FIN_INFO_CREATED_BY, FIN_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
+			
+			//array('FIN_PRJ_ID', 'ProjectRequired'),
 		);
 	}
+	
+	// public function ProjectRequired($attribute, $params)
+	// {
+		// if ($this->FIN_SOURCE == FinanceSource::Project)
+		// {
+			// $validator = CValidator::createValidator('required', $this, $attribute, $params);
+			// $validator->validate($this);
+		// }
+	// }
+	
+	public function NumericalGlobalizationInsensitive($attribute, $params)
+	{
+		$this->FIN_AMOUNT = str_replace(",", ".", $this->FIN_AMOUNT);
+		$validator = CValidator::createValidator('numerical', $this, $attribute, $params);
+		$validator->validate($this);
+	}
 
+	public function getAmountFormated()
+	{
+		return number_format($this->FIN_AMOUNT, 2, ',', '');
+	}
+	
 	/**
 	 * @return array relational rules.
 	 */
@@ -91,6 +140,16 @@ class Finance extends CActiveRecord
 	public function GetSourceDescription()
 	{
 		return FinanceSource::GetDescription($this->FIN_SOURCE);
+	}
+	
+	public function GetCurrencyDescription()
+	{
+		return CurrencyType::GetDescription($this->FIN_CURRENCY);
+	}
+	
+	public function GetCurrencySymbol()
+	{
+		return CurrencyType::GetSymbol($this->FIN_CURRENCY);
 	}
 	
 	public function GetHistoryProvider()
@@ -127,8 +186,10 @@ class Finance extends CActiveRecord
 			'FIN_SOURCE' => 'Typ',
 			'FIN_YEAR' => 'Rok',
 			'FIN_AMOUNT' => 'Kwota',
+			'FIN_CURRENCY' => 'Waluta',
 			'FIN_FROM' => 'Źródło',
 			'FIN_PRJ_ID' => 'Projekt',
+			'FIN_APP_ID' => 'App',
 			'FIN_CREATE_DATE' => 'Data udostępnienia informacji w BIP',
 			'FIN_CREATE_BY' => 'Informację wprowadził do BIP',
 			'FIN_MODIFY_DATE' => 'Fin Modify Date',
@@ -155,8 +216,10 @@ class Finance extends CActiveRecord
 		$criteria->compare('FIN_SOURCE',$this->FIN_SOURCE);
 		$criteria->compare('FIN_YEAR',$this->FIN_YEAR);
 		$criteria->compare('FIN_AMOUNT',$this->FIN_AMOUNT);
+		$criteria->compare('FIN_CURRENCY',$this->FIN_CURRENCY);
 		$criteria->compare('FIN_FROM',$this->FIN_FROM,true);
 		$criteria->compare('FIN_PRJ_ID',$this->FIN_PRJ_ID);
+		$criteria->compare('FIN_APP_ID',Yii::app()->request->subdomainAppId);
 		$criteria->compare('FIN_CREATE_DATE',$this->FIN_CREATE_DATE,true);
 		$criteria->compare('FIN_CREATE_BY',$this->FIN_CREATE_BY);
 		$criteria->compare('FIN_MODIFY_DATE',$this->FIN_MODIFY_DATE,true);

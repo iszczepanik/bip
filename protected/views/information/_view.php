@@ -17,14 +17,27 @@
 		echo "<a name='inf_".$information['INF_ID']."'></a>"; 
 		echo "<h".$headerLevel.">".$information['INF_NAME']."</h".$headerLevel.">"; 
 		
-		echo $information['INF_CONTENT'];
-		//var_dump($information->History);
-		$this->renderPartial('//information/_history_link', array('data'=>$information));
-		if (Yii::app()->user->checkAccess('admin'))
-			$this->renderPartial('//information/_edit_link', array('id'=>$information->INF_ID)); 
+		//Brak treści i linków edycji i historii, jeżeli treść jest nullem, nie pusta.
+		if ($information['INF_CONTENT'] != null)
+		{
+			echo $information['INF_CONTENT'];
+			$this->renderPartial('//information/_history_link', array('data'=>$information));
+			if (Yii::app()->user->checkAccess('admin'))
+				$this->renderPartial('//information/_edit_link', array('id'=>$information->INF_ID)); 
+		}
+		else if (Yii::app()->user->checkAccess('admin') && $information['INF_OBLIGATORY'] == 0)
+		{
+			//echo "brak";
+			$this->renderPartial('//information/_visibility_link', array('id'=>$information->INF_ID)); 
+		}
 		
-		if (count($information->Projects) > 0)
-			$this->renderPartial('//project/index', array('data'=>$information->Projects));
+		if ($information->IsProjectsInfo())
+		{
+			if (count($information->Projects) > 0)
+				$this->renderPartial('//project/index', array('data'=>$information->Projects));
+			if (Yii::app()->user->checkAccess('admin'))	
+				$this->renderPartial('//project/_admin_links');
+		}
 		
 		if (count($information->Finances) > 0)
 			$this->renderPartial('//finance/index', array('data'=>$information->Finances));

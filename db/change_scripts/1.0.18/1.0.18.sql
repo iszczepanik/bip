@@ -1,0 +1,1 @@
+UPDATE `sit` SET `SIT_NAME`='Informacje nieudostępnione w BIP' WHERE `SIT_ID` = 11;

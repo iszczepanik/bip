@@ -27,21 +27,10 @@ class NewsAdminController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','create','update','admin','delete'),
+				'actions'=>array('create','update','admin','delete'),
 				'roles'=>array('admin'),
 			),
 		);
-	}
-
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
 	}
 
 	/**
@@ -61,6 +50,7 @@ class NewsAdminController extends Controller
 			
 			$date = new DateTime(); 
 			$model->NWS_DATE = $date->format('Y-m-d H:i:s');
+			$model->NWS_APP_ID = Yii::app()->request->subdomainAppId;
 			
 			if($model->save())
 				$this->redirect($model->Link);
@@ -89,6 +79,7 @@ class NewsAdminController extends Controller
 			
 			$date = new DateTime(); 
 			$model->NWS_DATE = $date->format('Y-m-d H:i:s');
+			$model->NWS_APP_ID = Yii::app()->request->subdomainAppId;
 			
 			if($model->save())
 				$this->redirect($model->Link);
@@ -120,17 +111,6 @@ class NewsAdminController extends Controller
 	}
 
 	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('News');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
@@ -152,7 +132,9 @@ class NewsAdminController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=News::model()->findByPk($id);
+		$model=News::model()->find('NWS_ID=:NWS_ID and NWS_APP_ID=:NWS_APP_ID', 
+		array(':NWS_ID'=>$id,':NWS_APP_ID'=>Yii::app()->request->subdomainAppId));
+		
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

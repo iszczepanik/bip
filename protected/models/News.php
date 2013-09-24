@@ -38,12 +38,12 @@ class News extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NWS_DATE, NWS_TITLE, NWS_CONTENT', 'required'),
-			array('NWS_BIP', 'numerical', 'integerOnly'=>true),
+			array('NWS_DATE, NWS_TITLE, NWS_CONTENT, NWS_APP_ID', 'required'),
+			array('NWS_BIP, NWS_APP_ID', 'numerical', 'integerOnly'=>true),
 			array('NWS_TITLE', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('NWS_ID, NWS_DATE, NWS_TITLE, NWS_CONTENT, NWS_BIP', 'safe', 'on'=>'search'),
+			array('NWS_ID, NWS_DATE, NWS_TITLE, NWS_CONTENT, NWS_BIP, NWS_APP_ID', 'safe', 'on'=>'search'),
 		);
 	}
 	
@@ -54,12 +54,14 @@ class News extends CActiveRecord
 	
 	public static function GetNewsCount()
 	{
-		return Yii::app()->db->createCommand('SELECT count(*) FROM `nws` where `NWS_BIP` = 0')->queryScalar();
+		$command = 'SELECT count(*) FROM `nws` where `NWS_BIP`=0 and NWS_APP_ID='.Yii::app()->request->subdomainAppId;
+		return Yii::app()->db->createCommand($command)->queryScalar();
 	}
 	
 	public static function GetAnnouncementCount()
 	{
-		return Yii::app()->db->createCommand('SELECT count(*) FROM `nws` where `NWS_BIP` = 1')->queryScalar();
+		$command = 'SELECT count(*) FROM `nws` where `NWS_BIP`=1 and NWS_APP_ID='.Yii::app()->request->subdomainAppId;
+		return Yii::app()->db->createCommand($command)->queryScalar();
 	}
 	
 	public function GetBrief()
@@ -71,7 +73,7 @@ class News extends CActiveRecord
 
 	public function UserFind($phrase)
 	{
-		$condition = "LOWER(NWS_TITLE) like :PHRASE or LOWER(fnStripTags(NWS_CONTENT)) LIKE :PHRASE";
+		$condition = "NWS_APP_ID=".Yii::app()->request->subdomainAppId." AND (LOWER(NWS_TITLE) like :PHRASE or LOWER(fnStripTags(NWS_CONTENT)) LIKE :PHRASE)";
 		$params[':PHRASE'] = '%'.$phrase.'%';
 
 		$criteria = new CDbCriteria(array(
@@ -98,6 +100,11 @@ class News extends CActiveRecord
 		);
 	}
 
+	public function GetType()
+	{
+		return $this->NWS_BIP ? "Ogłoszenie" : "Aktualność";
+	}
+	
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -108,7 +115,8 @@ class News extends CActiveRecord
 			'NWS_DATE' => 'Data',
 			'NWS_TITLE' => 'Tytuł',
 			'NWS_CONTENT' => 'Treść',
-			'NWS_BIP' => 'Pokazuj znaczek "Bip"',
+			'NWS_BIP' => 'Ogłoszenie (Bip)',
+			'NWS_APP_ID' => 'App',
 		);
 	}
 
@@ -128,6 +136,7 @@ class News extends CActiveRecord
 		$criteria->compare('NWS_TITLE',$this->NWS_TITLE,true);
 		$criteria->compare('NWS_CONTENT',$this->NWS_CONTENT,true);
 		$criteria->compare('NWS_BIP',$this->NWS_BIP);
+		$criteria->compare('NWS_APP_ID',Yii::app()->request->subdomainAppId);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

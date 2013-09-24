@@ -27,7 +27,7 @@ class FileAdminController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','download','create','update','admin','delete'),
+				'actions'=>array('view','download','create','update','admin','delete'),
 				'roles'=>array('admin'),
 			),
 		);
@@ -60,9 +60,12 @@ class FileAdminController extends Controller
 		if(isset($_POST['File']))
 		{
 			$model->attributes=$_POST['File'];
+			$model->UploadedFile = CUploadedFile::getInstance($model,'uploadedFile');
 			$date = new DateTime(); 
 			$model->FIL_CREATE_DATE = $date->format('Y-m-d H:i:s');
 			$model->FIL_CREATE_BY = Yii::app()->user->id;
+			$model->FIL_APP_ID = Yii::app()->request->subdomainAppId;
+			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->FIL_ID));
 		}
@@ -71,26 +74,6 @@ class FileAdminController extends Controller
 			'model'=>$model,
 		));
 	}
-
-	
-	/*
-	public function actionCreate()
-    {
-        $model=new Item;
-        if(isset($_POST['Item']))
-        {
-            $model->attributes=$_POST['Item'];
-            $model->image=CUploadedFile::getInstance($model,'image');
-            if($model->save())
-            {
-                $model->image->saveAs('path/to/localFile');
-                // redirect to success page
-            }
-        }
-        $this->render('create', array('model'=>$model));
-    }
-
-	*/
 
 	/**
 	 * Updates a particular model.
@@ -107,9 +90,12 @@ class FileAdminController extends Controller
 		if(isset($_POST['File']))
 		{
 			$model->attributes=$_POST['File'];
+			$model->UploadedFile = CUploadedFile::getInstance($model,'uploadedFile');
 			$date = new DateTime(); 
 			$model->FIL_MODIFY_DATE = $date->format('Y-m-d H:i:s');
 			$model->FIL_MODIFY_BY = Yii::app()->user->id;
+			$model->FIL_APP_ID = Yii::app()->request->subdomainAppId;
+			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->FIL_ID));
 		}
@@ -140,17 +126,6 @@ class FileAdminController extends Controller
 	}
 
 	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('File');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
@@ -172,7 +147,9 @@ class FileAdminController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=File::model()->findByPk($id);
+		$model=File::model()->find('FIL_ID=:FIL_ID and FIL_APP_ID=:FIL_APP_ID', 
+		array(':FIL_ID'=>$id,':FIL_APP_ID'=>Yii::app()->request->subdomainAppId));
+		
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

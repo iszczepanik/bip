@@ -29,7 +29,12 @@ class Site extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sit';
+		return 'sit_inf_visible_count';
+	}
+	
+	public function primaryKey()
+	{
+		return 'SIT_ID';
 	}
 
 	/**
@@ -66,8 +71,8 @@ class Site extends CActiveRecord
 		if(count($this->Informations) > 0)
 		{
 			$criteria = new CDbCriteria;
-			$criteria->condition='INF_SIT_ID='.$this->SIT_ID.' and INF_INF_ID is null';
-			$criteria->order='INF_CREATE_DATE';
+			$criteria->condition='INF_SIT_ID='.$this->SIT_ID.' and INF_APP_ID = '.Yii::app()->request->subdomainAppId.' and INF_INF_ID is null';
+			$criteria->order='INF_DISPLAY_ORDER';
 			//$criteria->params=array(':INF_SIT_ID'=>$this->SIT_ID);
 			return Information::model()->findAll($criteria);
 		}
@@ -80,14 +85,24 @@ class Site extends CActiveRecord
 		if(count($this->Informations) > 0)
 		{
 			$criteria = new CDbCriteria;
-			$criteria->condition='INF_SIT_ID='.$this->SIT_ID.' and INF_TYPE = '.InformationType::External;
+			$criteria->condition='INF_SIT_ID='.$this->SIT_ID.' and INF_APP_ID = '.Yii::app()->request->subdomainAppId.' and INF_TYPE = '.InformationType::External;
 			//$criteria->params=array(':INF_SIT_ID'=>$this->SIT_ID);
 			return Information::model()->findAll($criteria);
 		}
 		
 		return array();
 	}
-
+	/*
+	public function GetShow()
+	{
+		$res = Yii::app()->db->createCommand('SELECT count(*) 
+			FROM `inf` 
+			WHERE `inf_show` = 1
+			AND `inf_sit_id` = '.$this->SIT_ID)->queryScalar();
+			
+		return $res > 0;
+	}
+*/
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

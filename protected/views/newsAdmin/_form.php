@@ -4,7 +4,8 @@
 )); ?>
 
 	<div class="alert alert-warning">Pola oznaczone <span class="required">*</span> są wymagane</div>
-
+	<div class="alert alert-info">Z zaznaczoną opcją "Ogłoszenie (Bip)" artykuł pojawi się w sekcji "Ogłoszenia", w przeciwnym wypadku w sekcji "Aktualności".
+	</div>
 	<?php echo $form->errorSummary($model,null,null,array('class'=>'alert alert-error')); ?>
 
 	<div class='control-group'>

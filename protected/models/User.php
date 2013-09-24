@@ -30,7 +30,32 @@ class User extends CActiveRecord
 	{
 		return 'usr';
 	}
+	
+	public function afterSave()
+	{
+		if ($this->isNewRecord) 
+		{
+			$auth=Yii::app()->authManager;
+			$auth->assign('admin', $this->USR_ID);
+			
+        }
+		
+		parent::afterSave();
+	}
 
+	public function GetRole()
+	{
+		$auth=Yii::app()->authManager;
+		$ar = $auth->getAuthItems(NULL, $this->USR_ID);
+		$result = "";
+		foreach ($ar as $role)
+		{
+			$result .= $role->Name . " ";
+		}
+		
+		return $result;
+	}
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -40,11 +65,12 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('USR_NAME, USR_PASS', 'length', 'max'=>16),
+			array('USR_APP_ID', 'numerical', 'integerOnly'=>true),
 			array('USR_FIRSTNAME, USR_LASTNAME, USR_EMAIL', 'length', 'max'=>100),
-			array('USR_NAME, USR_PASS, USR_FIRSTNAME, USR_LASTNAME, USR_EMAIL', 'required'),
+			array('USR_APP_ID, USR_NAME, USR_PASS, USR_FIRSTNAME, USR_LASTNAME, USR_EMAIL', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('USR_ID, USR_NAME, USR_PASS, USR_FIRSTNAME, USR_LASTNAME, USR_EMAIL', 'safe', 'on'=>'search'),
+			array('USR_APP_ID, USR_ID, USR_NAME, USR_PASS, USR_FIRSTNAME, USR_LASTNAME, USR_EMAIL', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,7 +102,9 @@ class User extends CActiveRecord
 			'USR_FIRSTNAME' => 'Imię',
 			'USR_LASTNAME' => 'Nazwisko',
 			'USR_EMAIL' => 'Email',
-			'USR_WHOLENAME' => 'Imię i nazwisko'
+			'USR_WHOLENAME' => 'Imię i nazwisko',
+			'USR_APP_ID' => 'App',
+			'Role' => 'Rola'
 		);
 	}
 
@@ -97,6 +125,7 @@ class User extends CActiveRecord
 		$criteria->compare('USR_FIRSTNAME',$this->USR_FIRSTNAME,true);
 		$criteria->compare('USR_LASTNAME',$this->USR_LASTNAME,true);
 		$criteria->compare('USR_EMAIL',$this->USR_EMAIL,true);
+		$criteria->compare('USR_APP_ID',Yii::app()->request->subdomainAppId);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

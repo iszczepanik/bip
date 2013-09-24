@@ -43,6 +43,48 @@ class Project extends CActiveRecord
 		return 'prj';
 	}
 
+	private $_old;
+	
+	public function beforeSave()
+	{
+		$this->_old = Project::model()->findByPk($this->PRJ_ID);
+		return parent::beforeSave();
+	}
+	
+	public function afterSave()
+	{
+		if ($this->_old != null && 
+			($this->_old->PRJ_NAME != $this->PRJ_NAME || 
+			$this->_old->PRJ_DESCRIPTION != $this->PRJ_DESCRIPTION || 
+			$this->_old->PRJ_SHORT_DESCRIPTION != $this->PRJ_SHORT_DESCRIPTION ||
+			$this->_old->PRJ_AMOUNT_DONATION != $this->PRJ_AMOUNT_DONATION || 
+			$this->_old->PRJ_AMOUNT_PUBLIC != $this->PRJ_AMOUNT_PUBLIC || 
+			$this->_old->PRJ_DONATION_CURRENCY != $this->PRJ_DONATION_CURRENCY || 
+			$this->_old->PRJ_PUBLIC_CURRENCY != $this->PRJ_PUBLIC_CURRENCY || 
+			$this->_old->PRJ_SOURCES != $this->PRJ_SOURCES ||
+			$this->_old->PRJ_CAT != $this->PRJ_CAT))
+		{
+			$historyEntry = new ProjectHistory;
+			
+			$historyEntry->PRJ_HIST_PRJ_ID = $this->_old->PRJ_ID;
+			$historyEntry->PRJ_NAME = $this->_old->PRJ_NAME;
+			$historyEntry->PRJ_DESCRIPTION = $this->_old->PRJ_DESCRIPTION;
+			$historyEntry->PRJ_SHORT_DESCRIPTION = $this->_old->PRJ_SHORT_DESCRIPTION;
+			$historyEntry->PRJ_AMOUNT_DONATION = $this->_old->PRJ_AMOUNT_DONATION;
+			$historyEntry->PRJ_AMOUNT_PUBLIC = $this->_old->PRJ_AMOUNT_PUBLIC;
+			$historyEntry->PRJ_DONATION_CURRENCY = $this->_old->PRJ_DONATION_CURRENCY;
+			$historyEntry->PRJ_PUBLIC_CURRENCY = $this->_old->PRJ_PUBLIC_CURRENCY;
+			$historyEntry->PRJ_SOURCES = $this->_old->PRJ_SOURCES;
+			$historyEntry->PRJ_CAT = $this->_old->PRJ_CAT;
+			$historyEntry->PRJ_MODIFY_DATE = $this->PRJ_MODIFY_DATE;
+			$historyEntry->PRJ_MODIFY_BY = $this->PRJ_MODIFY_BY;
+			
+			$historyEntry->save();
+		}
+		
+		parent::afterSave();
+	}
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -51,16 +93,44 @@ class Project extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT, PRJ_CREATE_DATE, PRJ_CREATE_BY', 'required'),
-			array('PRJ_CAT, PRJ_CREATE_BY, PRJ_MODIFY_BY', 'numerical', 'integerOnly'=>true),
-			array('PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC', 'numerical'),
+			array('PRJ_DESCRIPTION, PRJ_SOURCES, PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_DATE, PRJ_CREATE_BY', 'required'),
+			array('PRJ_DONATION_CURRENCY, PRJ_PUBLIC_CURRENCY, PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_BY, PRJ_MODIFY_BY', 'numerical', 'integerOnly'=>true),
+			array('PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC', 'NumericalGlobalizationInsensitive'),
 			array('PRJ_NAME, PRJ_SHORT_DESCRIPTION, PRJ_INFO_CREATED_BY', 'length', 'max'=>256),
 			array('PRJ_DESCRIPTION, PRJ_SOURCES', 'length', 'max'=>512),
 			array('PRJ_MODIFY_DATE, PRJ_INFO_CREATE_DATE', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_CREATE_DATE, PRJ_CREATE_BY, PRJ_MODIFY_DATE, PRJ_MODIFY_BY, PRJ_INFO_CREATED_BY, PRJ_INFO_CREATE_DATE', 'safe', 'on'=>'search'),
+			array('PRJ_ID, PRJ_NAME, PRJ_DESCRIPTION, PRJ_SHORT_DESCRIPTION, PRJ_AMOUNT_DONATION, PRJ_AMOUNT_PUBLIC, PRJ_SOURCES, PRJ_CAT, PRJ_APP_ID, PRJ_CREATE_DATE, PRJ_CREATE_BY, PRJ_MODIFY_DATE, PRJ_MODIFY_BY, PRJ_INFO_CREATED_BY, PRJ_INFO_CREATE_DATE, PRJ_DONATION_CURRENCY, PRJ_PUBLIC_CURRENCY', 'safe', 'on'=>'search'),
 		);
+	}
+	
+	public function NumericalGlobalizationInsensitive($attribute, $params)
+	{
+		$this->PRJ_AMOUNT_DONATION = str_replace(",", ".", $this->PRJ_AMOUNT_DONATION);
+		$this->PRJ_AMOUNT_PUBLIC = str_replace(",", ".", $this->PRJ_AMOUNT_PUBLIC);
+		$validator = CValidator::createValidator('numerical', $this, $attribute, $params);
+		$validator->validate($this);
+	}
+	
+	public function getAmountDonationFormated()
+	{
+		return number_format($this->PRJ_AMOUNT_DONATION, 2, ',', '');
+	}
+	
+	public function getAmountPublicFormated()
+	{
+		return number_format($this->PRJ_AMOUNT_PUBLIC, 2, ',', '');
+	}
+	
+	public function GetPublicCurrencySymbol()
+	{
+		return CurrencyType::GetSymbol($this->PRJ_PUBLIC_CURRENCY);
+	}
+	
+	public function GetDonationCurrencySymbol()
+	{
+		return CurrencyType::GetSymbol($this->PRJ_DONATION_CURRENCY);
 	}
 
 	/**
@@ -97,7 +167,7 @@ class Project extends CActiveRecord
 	
 	public function UserFind($phrase)
 	{
-		$condition = "LOWER(PRJ_NAME) like :PHRASE or LOWER(PRJ_SOURCES) like :PHRASE or LOWER(fnStripTags(PRJ_DESCRIPTION)) LIKE :PHRASE";
+		$condition = "PRJ_APP_ID=".Yii::app()->request->subdomainAppId." AND (LOWER(PRJ_NAME) like :PHRASE or LOWER(PRJ_SOURCES) like :PHRASE or LOWER(fnStripTags(PRJ_DESCRIPTION)) LIKE :PHRASE)";
 		$params[':PHRASE'] = '%'.$phrase.'%';
 
 		$criteria = new CDbCriteria(array(
@@ -126,8 +196,11 @@ class Project extends CActiveRecord
 			'PRJ_SHORT_DESCRIPTION' => 'Krótki opis',
 			'PRJ_AMOUNT_DONATION' => 'Kwota darowizny',
 			'PRJ_AMOUNT_PUBLIC' => 'Kwota środków publicznych',
+			'PRJ_DONATION_CURRENCY' => 'Waluta darowizny',
+			'PRJ_PUBLIC_CURRENCY' => 'Waluta środków publicznych',
 			'PRJ_SOURCES' => 'Źródła',
 			'PRJ_CAT' => 'Kategoria',
+			'PRJ_APP_ID' => 'App',
 			'PRJ_CREATE_DATE' => 'Data udostępnienia informacji w BIP',
 			'PRJ_CREATE_BY' => 'Informację wprowadził do BIP',
 			'PRJ_MODIFY_DATE' => 'Prj Modify Date',
@@ -154,6 +227,11 @@ class Project extends CActiveRecord
 		return strip_tags(Information::FindByName('Pełna nazwa organizacji'));
 	}
 	
+	public function GetFiles()
+	{
+		return FileAttachment::GetFilesByEntity($this->PRJ_ID, 1);
+	}
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -171,8 +249,11 @@ class Project extends CActiveRecord
 		$criteria->compare('PRJ_SHORT_DESCRIPTION',$this->PRJ_SHORT_DESCRIPTION,true);
 		$criteria->compare('PRJ_AMOUNT_DONATION',$this->PRJ_AMOUNT_DONATION);
 		$criteria->compare('PRJ_AMOUNT_PUBLIC',$this->PRJ_AMOUNT_PUBLIC);
+		$criteria->compare('PRJ_DONATION_CURRENCY',$this->PRJ_DONATION_CURRENCY);
+		$criteria->compare('PRJ_PUBLIC_CURRENCY',$this->PRJ_PUBLIC_CURRENCY);
 		$criteria->compare('PRJ_SOURCES',$this->PRJ_SOURCES,true);
 		$criteria->compare('PRJ_CAT',$this->PRJ_CAT);
+		$criteria->compare('PRJ_APP_ID',Yii::app()->request->subdomainAppId);
 		$criteria->compare('PRJ_CREATE_DATE',$this->PRJ_CREATE_DATE,true);
 		$criteria->compare('PRJ_CREATE_BY',$this->PRJ_CREATE_BY);
 		$criteria->compare('PRJ_MODIFY_DATE',$this->PRJ_MODIFY_DATE,true);

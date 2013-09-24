@@ -20,6 +20,19 @@ class SiteController extends Controller
 			),
 		);
 	}
+	
+	public function actionGetCookies()
+	{
+		$cookieName = "getCookies".Yii::app()->request->subdomain;
+		$value = isset(Yii::app()->request->cookies[$cookieName]) ? Yii::app()->request->cookies[$cookieName]->value : '0';
+		if ($value != '1')
+		{
+			$cookie = new CHttpCookie($cookieName, '1');
+			$cookie->expire = time()+60*60*24*365*5; 
+			Yii::app()->request->cookies[$cookieName] = $cookie;
+		}
+		$this->redirect(array('/Site/index'));
+	}
 
 	/**
 	 * This is the default 'index' action that is invoked
@@ -56,7 +69,7 @@ class SiteController extends Controller
 	public function actionContrast()
 	{
 		//$this->render('index',array());
-		$value = isset(Yii::app()->request->cookies['contrast']) ? Yii::app()->request->cookies['contrast']->value : '';
+		$value = isset(Yii::app()->request->cookies['contrast']) ? Yii::app()->request->cookies['contrast']->value : 'normal';
 		if ($value == 'high')
 			unset(Yii::app()->request->cookies['contrast']);
 		else

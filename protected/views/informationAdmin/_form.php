@@ -22,6 +22,7 @@
 		<?php echo $form->error($model,'INF_SHOW',array('class'=>'help-inline')); ?>
 	</div>
 	<? endif; ?>
+	<? if ($model->INF_CONTENT != null) : ?>
 	<div class='control-group<?php echo (CHtml::error($model,'INF_CONTENT') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'INF_CONTENT'); ?>
 		<?php //echo $form->textArea($model,'INF_CONTENT',array('rows'=>6, 'cols'=>50)); ?>
@@ -32,7 +33,10 @@
 	<div class='control-group<?php echo (CHtml::error($model,'INF_INFO_CREATE_DATE') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'INF_INFO_CREATE_DATE',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<div class="input-append date" id="dp_od" data-date="<? echo date('Y-m-d'); ?>" data-date-format="yyyy-mm-dd">
 		<?php echo $form->textField($model,'INF_INFO_CREATE_DATE'); ?>
+		<span class="add-on"><i class="icon-calendar"></i></span>
+		</div>
 		<?php echo $form->error($model,'INF_INFO_CREATE_DATE',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
@@ -40,11 +44,17 @@
 	<div class='control-group<?php echo (CHtml::error($model,'INF_INFO_CREATED_BY') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'INF_INFO_CREATED_BY',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<div class="input-append" >
 		<?php echo $form->textField($model,'INF_INFO_CREATED_BY'); ?>
+		<span class="add-on set-user-name" title="Wstaw moje nazwisko"
+			onclick='$("#Information_INF_INFO_CREATED_BY").val("<? echo Yii::app()->user->UserWholeName;?>");' >
+		<i class="icon-user"></i></span>
+		</div>
 		<?php echo $form->error($model,'INF_INFO_CREATED_BY',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
-
+	<? endif; ?>
+	
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.BootButton', array(
 			'buttonType'=>'submit',

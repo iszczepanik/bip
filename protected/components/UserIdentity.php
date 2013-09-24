@@ -11,7 +11,7 @@ class UserIdentity extends CUserIdentity
 	
 	public function authenticate()
 	{
-		$record=User::model()->findByAttributes(array('USR_NAME'=>$this->username));
+		$record=User::model()->findByAttributes(array('USR_NAME'=>$this->username,'USR_APP_ID'=>Yii::app()->request->subdomainAppId));
 		if($record===null)
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
 		else if($record->USR_PASS!==$this->password)

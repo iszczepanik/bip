@@ -4,6 +4,7 @@
 		array(
 			'name'=>'Podmiot',
 			'value'=>$data->Podmiot,
+			'type'=>'html'
 		),
 		'FIL_INFO_CREATED_BY',
 		'FIL_INFO_CREATE_DATE',

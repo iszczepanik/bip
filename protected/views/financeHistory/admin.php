@@ -13,7 +13,15 @@
 			'name'=>'FIN_MODIFY_BY',
 			'value'=>'$data->ModifyBy->WholeName()',
 		),
-		'FIN_AMOUNT',
+		array(
+			'name'=>'FIN_AMOUNT',
+			'value'=>'$data->AmountFormated',
+			'htmlOptions'=>array('style' => 'text-align: right;')
+		),
+		array(
+			'name'=>'FIN_CURRENCY',
+			'value'=>'$data->currencyDescription',
+		),
 	),
 )); ?>
 

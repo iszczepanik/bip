@@ -8,12 +8,12 @@ class Image //extends CActiveRecord
 	
 	public static function GetLogo()
 	{
-		if (isset($_SESSION[Image::$LOGO_FILE]))
+		if (isset($_SESSION[Image::$LOGO_FILE]) && $_SESSION[Image::$LOGO_FILE] != "none")
 			return ($_SESSION[Image::$LOGO_FILE]);
-		
-		if (file_exists('img/'."organizacja.png")) { $_SESSION[Image::$LOGO_FILE] = 'img/'."organizacja.png"; }
-		if (file_exists('img/'."organizacja.jpg")) { $_SESSION[Image::$LOGO_FILE] = 'img/'."organizacja.jpg"; }
-		if (file_exists('img/'."organizacja.gif")) { $_SESSION[Image::$LOGO_FILE] = 'img/'."organizacja.gif"; }
+
+		if (file_exists('img/'.Yii::app()->request->subdomain.".png")) { $_SESSION[Image::$LOGO_FILE] = 'img/'.Yii::app()->request->subdomain.".png"; }
+		if (file_exists('img/'.Yii::app()->request->subdomain.".jpg")) { $_SESSION[Image::$LOGO_FILE] = 'img/'.Yii::app()->request->subdomain.".jpg"; }
+		if (file_exists('img/'.Yii::app()->request->subdomain.".gif")) { $_SESSION[Image::$LOGO_FILE] = 'img/'.Yii::app()->request->subdomain.".gif"; }
 		
 		if (isset($_SESSION[Image::$LOGO_FILE]))
 			return $_SESSION[Image::$LOGO_FILE];
@@ -26,7 +26,7 @@ class Image //extends CActiveRecord
 	{
 		$file_parts = explode('.', $this->image->name);
 		$extension = end($file_parts);
-		return "organizacja.".$extension;
+		return Yii::app()->request->subdomain.".".$extension;
 	}
 	
 	private function resize( $plik, $szerokosc = 220 )
@@ -83,15 +83,15 @@ class Image //extends CActiveRecord
  
 	public function save()
 	{ 
-		if (file_exists('img/'."organizacja.png")) { unlink('img/'."organizacja.png"); }
-		if (file_exists('img/'."organizacja.jpg")) { unlink('img/'."organizacja.jpg"); }
-		if (file_exists('img/'."organizacja.gif")) { unlink('img/'."organizacja.gif"); }
+		if (file_exists('img/'.Yii::app()->request->subdomain.".png")) { unlink('img/'.Yii::app()->request->subdomain.".png"); }
+		if (file_exists('img/'.Yii::app()->request->subdomain.".jpg")) { unlink('img/'.Yii::app()->request->subdomain.".jpg"); }
+		if (file_exists('img/'.Yii::app()->request->subdomain.".gif")) { unlink('img/'.Yii::app()->request->subdomain.".gif"); }
 		
 		$newName = $this->rename();
 		if ($this->image->saveAs('img/'.$newName))
 		{
 			$this->resize('img/'.$newName);
-			$_SESSION[$LOGO_FILE] = null;
+			$_SESSION[Image::$LOGO_FILE] = null;
 			return true; 
 		}
 		

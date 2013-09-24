@@ -37,7 +37,10 @@
 	<div class='control-group<?php echo (CHtml::error($model,'CTRL_DATE_START') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'CTRL_DATE_START',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<div class="input-append date" id="start_date" data-date="<? echo date('Y-m-d'); ?>" data-date-format="yyyy-mm-dd">
 		<?php echo $form->textField($model,'CTRL_DATE_START'); ?>
+		<span class="add-on"><i class="icon-calendar"></i></span>
+		</div>
 		<?php echo $form->error($model,'CTRL_DATE_START',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
@@ -45,7 +48,10 @@
 	<div class='control-group<?php echo (CHtml::error($model,'CTRL_DATE_END') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'CTRL_DATE_END',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<div class="input-append date" id="end_date" data-date="<? echo date('Y-m-d'); ?>" data-date-format="yyyy-mm-dd">
 		<?php echo $form->textField($model,'CTRL_DATE_END'); ?>
+		<span class="add-on"><i class="icon-calendar"></i></span>
+		</div>
 		<?php echo $form->error($model,'CTRL_DATE_END',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
@@ -62,10 +68,10 @@
 		<?php echo $form->labelEx($model,'CTRL_FILE_ID',array('class'=>'control-label')); ?>
 		<div class="controls">
 		<div class="alert alert-info">Wrzuć plik na serwer w 
-		<strong><a href="<?echo $this->createUrl('/Files/admin');?>" >panelu zarządzania dokumentami</a></strong> z kategorią "Wyniki pokontrolne". Wówczas plik znajdzie się na poniższej liście i będzie można go powiązać z kontrolą zewnętrzną.
+		<strong><a href="<?echo $this->createUrl('/FileAdmin/admin');?>" >panelu zarządzania dokumentami</a></strong> z kategorią "Wyniki pokontrolne". Wówczas plik znajdzie się na poniższej liście i będzie można go powiązać z kontrolą zewnętrzną.
 		</div>
 		<?php echo $form->dropDownList($model, 'CTRL_FILE_ID', CHtml::listData(
-			File::model()->findAllByAttributes(array('FIL_CAT'=>FileCategory::ControlResult)), 'FIL_ID', 'FIL_NAME')
+			File::model()->findAllByAttributes(array('FIL_CAT'=>FileCategory::ControlResult,'FIL_APP_ID'=>Yii::app()->request->subdomainAppId)), 'FIL_ID', 'FIL_NAME')
 			, array('prompt' => '')
 			);?>
 		<?php //echo $form->textField($model,'CTRL_FILE_ID'); ?>
@@ -76,7 +82,10 @@
 	<div class='control-group<?php echo (CHtml::error($model,'CTRL_INFO_CREATE_DATE') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'CTRL_INFO_CREATE_DATE',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<div class="input-append date" id="dp_od" data-date="<? echo date('Y-m-d'); ?>" data-date-format="yyyy-mm-dd">
 		<?php echo $form->textField($model,'CTRL_INFO_CREATE_DATE'); ?>
+		<span class="add-on"><i class="icon-calendar"></i></span>
+		</div>
 		<?php echo $form->error($model,'CTRL_INFO_CREATE_DATE',array('class'=>'help-inline')); ?>
 		</div>
 	</div>
@@ -84,7 +93,12 @@
 	<div class='control-group<?php echo (CHtml::error($model,'CTRL_INFO_CREATED_BY') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'CTRL_INFO_CREATED_BY',array('class'=>'control-label')); ?>
 		<div class="controls">
+		<div class="input-append" >
 		<?php echo $form->textField($model,'CTRL_INFO_CREATED_BY'); ?>
+		<span class="add-on set-user-name" title="Wstaw moje nazwisko"
+			onclick='$("#ExternalControl_CTRL_INFO_CREATED_BY").val("<? echo Yii::app()->user->UserWholeName;?>");' >
+		<i class="icon-user"></i></span>
+		</div>
 		<?php echo $form->error($model,'CTRL_INFO_CREATED_BY',array('class'=>'help-inline')); ?>
 		</div>
 	</div>

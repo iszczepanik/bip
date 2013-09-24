@@ -38,23 +38,31 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+			'class' => 'WebUser',
+			//'identityCookie' => array('domain' => 'localhost.com')
+		),
+		'session' => array(
+			'autoStart'=>true,
+			//'cookieParams' => array('domain' => 'localhost.com'),
+			'sessionName' => 'DomainSession',
 		),
 		'bootstrap'=>array(
 		        'class'=>'ext.bootstrap.components.Bootstrap', // assuming you extracted bootstrap under extensions
 		),
-		
+
         'request' => array(
-            'baseUrl' => 'http://localhost/bip',
+			'class'=>'CHttpRequestSubDomain',
+            //'baseUrl' => 'http://localhost/bip',
 			//'baseUrl' => 'http://83.238.168.145/bip',
 			//'baseUrl' => 'http://isabel.drl.pl/bip/',
         ),
-		
+
 		/*'file'=>array(
 			'class'=>'application.extensions.file.CFile',
 		),*/
 
 		// uncomment the following to enable URLs in path-format
-		
+
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
@@ -63,15 +71,15 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		
-		
+
+
 		/*'db'=>array(
 			//'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 			'connectionString' => 'Server=localhost;Database=system_reputacyjny;Uid=root;Pwd=root;',
 		),*/
 		// uncomment the following to use a MySQL database
 		/* localhost */
-		
+
 		'db'=>array(
 			//'connectionString' => 'mysql:host=localhost;dbname=bip',
 			'connectionString' => 'mysql:host=localhost;dbname=bonafide_bip',
@@ -101,7 +109,7 @@ return array(
 			// 'password' => 'Ecl|p$e',
 			// 'charset' => 'utf8',
 		// ),
-		
+
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
@@ -131,6 +139,34 @@ return array(
 		'debug'=>false,
 		'organization'=>'Bona Fides',
 		'homepage'=>'http://bonafides.pl',
-		'version'=>'0.9.10',
+		'version'=>'1.0.18',
+		'noindex'=>false,
+
+		'subdomains'=>array
+		(
+			1 => "example", 
+			2 => "example2", 
+			3 => "spddar",
+			4 => "kontra",
+			5 => "pomozmysobie",
+			6 => "stowdob",
+			7 => "asperger",
+			8 => "pozytywnezmiany",
+			9 => "mrowisko",
+			10 => "naszeslaskie",
+			11 => "zabrzanskiekobiety",
+			12 => "piaskowysmok",
+			13 => "dignam",
+			14 => "naprawsobiemiasto",
+			15 => "babiniec",
+			16 => "ceiwr",
+			17 => "dlaszopienic",
+			18 => "federacjaslask",
+			19 => "pkegliwice",
+			20 => "nereusz",
+			21 => "gniazdo",
+			22 => "rtpd",
+		)
+
 	),
 );

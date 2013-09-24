@@ -16,16 +16,30 @@
 	<a name="inf_<? echo $viewed->INF_ID; ?>"></a> 
 	<h2><? echo $viewed->INF_NAME; ?></h2>
 	<? 
-	echo $viewed->INF_CONTENT;
-	$this->renderPartial('//information/_history_link', array('data'=>$viewed));
-	if (Yii::app()->user->checkAccess('admin'))
-		$this->renderPartial('//information/_edit_link', array('id'=>$viewed->INF_ID)); 
+	//Brak treści i linków edycji i historii, jeżeli treść jest nullem, nie pusta.
+	if ($viewed->INF_CONTENT != null)
+	{
+		echo "niebrak";
+		echo $viewed->INF_CONTENT;
+		$this->renderPartial('//information/_history_link', array('data'=>$viewed));
+		if (Yii::app()->user->checkAccess('admin'))
+			$this->renderPartial('//information/_edit_link', array('id'=>$viewed->INF_ID)); 
+	}
+	else if (Yii::app()->user->checkAccess('admin') && $viewed->INF_OBLIGATORY == 0)
+	{
+		$this->renderPartial('//information/_visibility_link', array('id'=>$viewed->INF_ID)); 
+	}
 
-	if (count($viewed->Projects) > 0)
-		$this->renderPartial('//project/index', array('data'=>$viewed->Projects));
+	if ($viewed->IsProjectsInfo())
+		{
+			if (count($viewed->Projects) > 0)
+				$this->renderPartial('//project/index', array('data'=>$viewed->Projects));
+			if (Yii::app()->user->checkAccess('admin'))	
+				$this->renderPartial('//project/_admin_links');
+		}
 		
-	if (count($viewed->Finances) > 0)
-		$this->renderPartial('//finance/index', array('data'=>$viewed->Finances));
+	if ($viewed->INF_SHOW_FIN_TYPE != NULL)
+		$this->renderPartial('//finance/index', array('data'=>$viewed->Finances,'type'=>$viewed->INF_SHOW_FIN_TYPE));
 	
 	if (count($viewed->Files) > 0)
 		$this->renderPartial('//file/_view_link', array('data'=>$viewed->Files));

@@ -30,13 +30,9 @@ class FinanceController extends Controller
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('admin','delete','create','update'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -76,6 +72,7 @@ class FinanceController extends Controller
 			$model->attributes=$_POST['Finance'];
 			$model->FIN_CREATE_DATE = $date->format('Y-m-d H:i:s');
 			$model->FIN_CREATE_BY = Yii::app()->user->id;
+			$model->FIN_APP_ID = Yii::app()->request->subdomainAppId;
 			
 			if($model->save())
 				$this->redirect($model->Link);
@@ -105,6 +102,7 @@ class FinanceController extends Controller
 			$date = new DateTime(); 
 			$model->FIN_MODIFY_DATE = $date->format('Y-m-d H:i:s');
 			$model->FIN_MODIFY_BY = Yii::app()->user->id;
+			$model->FIN_APP_ID = Yii::app()->request->subdomainAppId;
 			
 			if($model->save())
 				$this->redirect($model->Link);
@@ -168,7 +166,9 @@ class FinanceController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Finance::model()->findByPk($id);
+		$model=Finance::model()->find('FIN_ID=:FIN_ID and FIN_APP_ID=:FIN_APP_ID', 
+		array(':FIN_ID'=>$id,':FIN_APP_ID'=>Yii::app()->request->subdomainAppId));
+		
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
