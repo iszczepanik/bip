@@ -9,8 +9,6 @@ return array(
 	'name'=>'Biuletyn Informacji Publicznej',
 	'sourceLanguage'=>'pl',
 	'language'=>'pl',
-	//'debug'=>true,
-	// preloading 'log' component
 	'preload'=>array('log','bootstrap'),
 
 	// autoloading model and component classes
@@ -26,10 +24,8 @@ return array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'tr@mwaj',
 			'generatorPaths'=>array(
-			            'bootstrap.gii', // since 0.9.1
+			'bootstrap.gii', // since 0.9.1
 			),
-		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			//'ipFilters'=>array('127.0.0.1','::1'),
 		),
 	),
 
@@ -39,11 +35,9 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 			'class' => 'WebUser',
-			//'identityCookie' => array('domain' => 'localhost.com')
 		),
 		'session' => array(
 			'autoStart'=>true,
-			//'cookieParams' => array('domain' => 'localhost.com'),
 			'sessionName' => 'DomainSession',
 		),
 		'bootstrap'=>array(
@@ -52,17 +46,9 @@ return array(
 
         'request' => array(
 			'class'=>'CHttpRequestSubDomain',
-            //'baseUrl' => 'http://localhost/bip',
-			//'baseUrl' => 'http://83.238.168.145/bip',
-			//'baseUrl' => 'http://isabel.drl.pl/bip/',
         ),
 
-		/*'file'=>array(
-			'class'=>'application.extensions.file.CFile',
-		),*/
-
 		// uncomment the following to enable URLs in path-format
-
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
@@ -72,43 +58,18 @@ return array(
 			),
 		),
 
-
-		/*'db'=>array(
-			//'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-			'connectionString' => 'Server=localhost;Database=system_reputacyjny;Uid=root;Pwd=root;',
-		),*/
-		// uncomment the following to use a MySQL database
-		/* localhost */
-
 		'db'=>array(
-			//'connectionString' => 'mysql:host=localhost;dbname=bip',
-			'connectionString' => 'mysql:host=localhost;dbname=bonafide_bip',
+			'connectionString' => 'mysql:host=localhost;dbname=bipnij',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			//'password' => 'Katowice1',
-			'password' => '',
+			'username' => 'your_username',
+			'password' => 'your_password',
 			'charset' => 'utf8',
 		),
-		/*
-		'db'=>array(
-					'connectionString' => 'mysql:host=localhost;dbname=isabel_bip',
-					'emulatePrepare' => true,
-					'username' => 'isabel_bip',
-					'password' => 'k@lafio4',
-					'charset' => 'utf8',
-		),*/
+
 		'authManager'=>array(
 			'class'=>'CDbAuthManager',
 			'connectionID'=>'db',
 		),
-		/* server wehost */
-		// 'db'=>array(
-			// 'connectionString' => 'mysql:host=sql5.projekty.pl;dbname=isabel_sysrep-tw', 
-			// 'emulatePrepare' => true,
-			// 'username' => 'isabel_sysreptw',
-			// 'password' => 'Ecl|p$e',
-			// 'charset' => 'utf8',
-		// ),
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -121,12 +82,6 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
 			),
 		),
 	),
@@ -141,31 +96,9 @@ return array(
 		'homepage'=>'http://bonafides.pl',
 		'version'=>'1.0.18',
 		'noindex'=>false,
-
 		'subdomains'=>array
 		(
 			1 => "example", 
-			2 => "example2", 
-			3 => "spddar",
-			4 => "kontra",
-			5 => "pomozmysobie",
-			6 => "stowdob",
-			7 => "asperger",
-			8 => "pozytywnezmiany",
-			9 => "mrowisko",
-			10 => "naszeslaskie",
-			11 => "zabrzanskiekobiety",
-			12 => "piaskowysmok",
-			13 => "dignam",
-			14 => "naprawsobiemiasto",
-			15 => "babiniec",
-			16 => "ceiwr",
-			17 => "dlaszopienic",
-			18 => "federacjaslask",
-			19 => "pkegliwice",
-			20 => "nereusz",
-			21 => "gniazdo",
-			22 => "rtpd",
 		)
 
 	),
