@@ -91,14 +91,16 @@ Używamy plików cookies, aby ułatwić Ci korzystanie z naszego serwisu oraz do
 
 <footer class="footer" id="footer">	
 	<div>
-			<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/kapital_ludzki.jpg" alt="Kapitał Ludzki" />
+			<img src="/img/kapital_ludzki.jpg" alt="Kapitał Ludzki" />
 			<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/most.jpg" alt="Stowarzyszenie Most" />
 			<img src="<?php echo Yii::app()->request->baseUrl; ?>/img/bonafides.png" alt="Stowarzyszenie Bona Fides" />
 			<img class="last" src="<?php echo Yii::app()->request->baseUrl; ?>/img/fundusz_spoleczny.jpg" alt="Europejski Fundusz Spłeczny" />
 		<p style="margin-top: 25px;">Projekt współfinansowany ze środków Unii Europejskiej w ramach Europejskiego Funduszu Społecznego</p>
 		<small class="muted" >
 			<?php echo CHtml::encode(Yii::app()->name); ?> - Wersja <? echo Yii::app()->params['version']; ?>
+			
 		</small>
+		<div><a href="<?php echo Yii::app()->request->baseUrl; ?>/materialy/Instrukcja_instalacji.pdf" target="blank" >Instrukcja instalacji</a></div>
 	</div>
 </footer><!-- footer -->
 
