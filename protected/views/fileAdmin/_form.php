@@ -29,7 +29,7 @@
 	<div class='control-group<?php echo (CHtml::error($model,'uploadedFile') == '' ? '' : ' error'); ?>'>
 		<?php echo $form->labelEx($model,'uploadedFile',array('class'=>'control-label')); ?>
 		<div class="controls">
-		<div class="alert alert-info">Maksymalny rozmiar pliku to 5MB.
+		<div class="alert alert-info">Maksymalny rozmiar pliku to 15MB.
 		</div>
 		<?php echo $form->fileField($model,'uploadedFile'); ?>
 		<?php echo $form->error($model,'uploadedFile',array('class'=>'help-inline')); ?>
