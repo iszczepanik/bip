@@ -53,6 +53,10 @@ class Information extends CActiveRecord
 	public function beforeSave()
 	{
 		$this->_old = Information::model()->findByPk($this->INF_ID);
+		if ($this->INF_CONTENT == "" || $this->INF_CONTENT == null)
+		{
+			$this->INF_CONTENT = "<span></span>";
+		}
 		return parent::beforeSave();
 	}
 	
