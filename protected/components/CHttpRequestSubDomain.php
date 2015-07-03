@@ -1,4 +1,4 @@
-<?
+<?php
 class CHttpRequestSubDomain extends CHttpRequest
 {
 	function getSubdomain()
